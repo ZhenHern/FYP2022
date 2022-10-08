@@ -1,23 +1,25 @@
 <template>
-  <MyCarousel />
+  <section>
+    <NavigationBar/>
+      <div class="content">
+        <div class="info">
+          <p>One of the most famous online bakery shop</p>
+        </div>
+      </div>
+  </section>
 </template>
 
 <script>
-import MyCarousel from "./components/carousel/Carousel.vue";
+import NavigationBar from "./components/NavigationBar.vue";
 
 export default {
   name: "App",
-  components: {MyCarousel},
+  components: {
+    NavigationBar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

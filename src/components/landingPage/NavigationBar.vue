@@ -81,7 +81,7 @@ label {
   #check:checked ~ header .navigation {
     z-index: 2;
     position: fixed;
-    background: rgb(243, 200, 215);
+    background: rgba(160, 97, 84, 0.986);
     top: 0;
     bottom: 0;
     left: 0;

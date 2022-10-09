@@ -54,7 +54,7 @@ label {
     transition-property: width;
 }
 input:checked + label {
-    background: rgb(243, 200, 215);
+    background: rgba(160, 97, 84, 0.986);
     color: white;
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="info">
-          <p>One of the most famous online bakery shop</p>
+          <p>Home Page</p>
         </div>
       </div>
 </template>
@@ -14,12 +14,12 @@ export default {
 
 <style scoped>
 .content {
-    max-width: 2000px;
-    margin: 150px 100px;
-    margin-left: 300px;
+  width: 100%;
 }
 
 .content .info p {
+  position: relative;
+  margin-left: 30%;
   color: black;
   font-size: 55px;
   text-transform: uppercase;

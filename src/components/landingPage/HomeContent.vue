@@ -4,14 +4,30 @@
           Home Page
         </div>
         <div class="picture">
-          hiasdasdasd
+          <Carousel v-slot={currentSlide}>
+            <Slide v-for="(slide, index) in carouselSlides" :key="index">
+              <div v-show="currentSlide === index" class="slide-info">
+                <img :src="require(`../../assets/${slide}.jpg`)">
+              </div>
+            </Slide>
+          </Carousel>
         </div>
       </div>
 </template>
 
 <script>
+import Carousel from "../carousel/Carousel.vue";
+import Slide from "../carousel/Slide.vue";
+
+
 export default {
-    name: "HomeContent"
+  name: "HomeContent",
+  components: {Carousel, Slide},
+  data() {
+    return {
+      carouselSlides: ["slide1","slide2","slide3"]
+    }
+  }
 }
 </script>
 
@@ -56,5 +72,17 @@ export default {
   background-image: var(--bg-image);
   background-size: cover;
   background-position: center;
+}
+
+.slide-info {
+  max-width: 50%;
+  margin-left: 25%;
+}
+
+img {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 </style>

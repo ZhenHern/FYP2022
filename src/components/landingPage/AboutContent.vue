@@ -49,7 +49,7 @@ export default {
     width: 100%;
     height: 40%;
     display: flex;
-    --bg-image: url(../../assets/landingpage.jpg);
+    --bg-image: url(../../assets/landingpage2.jpg);
     --bg-image-opacity: 65%;
     flex-direction: row;
     justify-content: flex-start;

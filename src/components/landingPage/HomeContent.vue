@@ -1,7 +1,10 @@
 <template>
     <div class="content">
-        <div class="info">
-          <p>Home Page</p>
+        <div class="title">
+          Home Page
+        </div>
+        <div class="picture">
+          hiasdasdasd
         </div>
       </div>
 </template>
@@ -15,17 +18,43 @@ export default {
 <style scoped>
 .content {
   width: 100%;
+  height: 1500px;
+  min-height: 600px;
+  display: flex;
 }
 
-.content .info p {
+.content .title  {
   position: relative;
-  margin-left: 30%;
-  color: black;
-  font-size: 55px;
+  top: 70px;
+  width: 100%;
+  height: fit-content;
+  margin-left: 43%;
+  font-size: 40px;
+  font-weight: 50%;
   text-transform: uppercase;
-  font-weight: 50;
-  letter-spacing: 2px;
-  line-height: 60px;
-  margin-bottom: 30px;
+}
+
+.picture {
+  position: absolute;
+  margin-top: 1%;
+  top: 22%;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  --bg-image: url(../../assets/landingpage1.jpg);
+  --bg-image-opacity: 80%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.picture::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: var(--bg-image-opacity);
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
 }
 </style>

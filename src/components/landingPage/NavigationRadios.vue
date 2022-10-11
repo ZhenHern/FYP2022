@@ -59,9 +59,14 @@ input:checked + label {
 }
 
 input:hover + label {
-    background: white;
-    color: black;
+    color: rgba(160, 97, 84, 0.986);
 }
+
+input:checked:hover + label{
+    background: rgba(160, 97, 84, 0.986);
+    color: white;
+}
+
 
 @media (max-width: 960px) {
     li {
@@ -70,6 +75,10 @@ input:hover + label {
         letter-spacing: 2px;
         display: block;
         margin-bottom: 40px;
+    }
+
+    input:hover + label {
+    color: white;
     }
 }
 

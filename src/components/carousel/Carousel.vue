@@ -28,6 +28,8 @@ export default {
   setup() {
     const currentSlide = ref(0);
     const getSlideCount = ref(null);
+    const autoPlayEnabled = ref(false);
+    const timeoutDuration = ref(3000);
 
     const nextSlide = () => {
       if (currentSlide.value + 1 === getSlideCount.value) {
@@ -49,7 +51,15 @@ export default {
       currentSlide.value = index;
     }
 
+    const autoPlay = () => {
+      setInterval(() => {
+        nextSlide();
+      }, timeoutDuration.value);
+    }
 
+    if (autoPlayEnabled.value) {
+      autoPlay();
+    }
 
     onMounted(() => {
       getSlideCount.value = document.querySelectorAll('.slide').length;
@@ -91,6 +101,15 @@ export default {
 i {
   color: azure;
   cursor: pointer;
+  transition: all .15s ease-in-out;
+}
+
+i:hover {
+  transform: scale(1.5);
+}
+
+i:active {
+  color: rgba(160, 97, 84, 0.986);
 }
 
 .pagination {

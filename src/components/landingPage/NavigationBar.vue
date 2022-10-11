@@ -51,7 +51,7 @@ header .logo {
 }
 
 label {
-    display: none;
+  display: none;
 }
 
 #check {
@@ -70,7 +70,11 @@ label {
     transition: 0.3s;
   }
 
-  label:hover {
+  .menu-btn:hover {
+    color: rgba(160, 97, 84, 0.986);
+  }
+  
+  .close-btn:hover {
     color: #fff;
   }
 

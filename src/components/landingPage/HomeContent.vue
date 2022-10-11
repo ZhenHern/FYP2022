@@ -48,7 +48,7 @@ export default {
   height: 50%;
   display: flex;
   --bg-image: url(../../assets/landingpage1.jpg);
-  --bg-image-opacity: 80%;
+  --bg-image-opacity: 65%;
   flex-direction: row;
   justify-content: center;
   align-items: center;

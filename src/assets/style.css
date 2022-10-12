@@ -8,8 +8,7 @@
 }
 
 section {
-    /* --bg-image: url(./landingpage.jpg); */
-    --bg-image-opacity: 65%;
+    background-color: rgb(247,247,247);
     position: relative;
     width: 100%;
     max-width: 100%;

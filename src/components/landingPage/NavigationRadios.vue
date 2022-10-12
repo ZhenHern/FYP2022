@@ -39,6 +39,11 @@ li {
     display: inline-block;
     margin-right: 40px;
 }
+
+li:last-child {
+    margin-right: 0px;
+}
+
 input {
     visibility:hidden;
 }

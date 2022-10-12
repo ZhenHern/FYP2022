@@ -4,9 +4,11 @@
           Home Page
         </div>
         <div class="picture">
-          <Carousel>
-          </Carousel>
         </div>
+        <div class="carousel-slide">
+            <Carousel>
+          </Carousel>
+          </div>
       </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
 </script>
 
 <style scoped>
+
 .content {
   width: 100%;
   height: 1500px;
@@ -40,29 +43,26 @@ export default {
   text-transform: uppercase;
 }
 
-.picture {
+.carousel-slide {
   position: absolute;
   margin-top: 1%;
   top: 22%;
   width: 100%;
   height: 50%;
   display: flex;
-  --bg-image: url(../../assets/landingpage1.jpg);
-  --bg-image-opacity: 65%;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.picture::after {
-  content: "";
+.picture {
+  background-image: url(../../assets/landingpage1.jpg);
+  opacity: 65%;
   position: absolute;
-  z-index: -1;
-  inset: 0;
-  opacity: var(--bg-image-opacity);
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
+  margin-top: 1%;
+  top: 22%;
+  width: 100%;
+  height: 50%;
 }
 
 .slide-info {

@@ -43,27 +43,15 @@ export default {
 }
 
 .picture {
+    background-image: url(../../assets/landingpage2.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 65%;
     position: absolute;
     margin-top: 1%;
     top: 22%;
     width: 100%;
     height: 40%;
-    display: flex;
-    --bg-image: url(../../assets/landingpage2.jpg);
-    --bg-image-opacity: 65%;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-.picture::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    opacity: var(--bg-image-opacity);
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
 }
 
 .info {

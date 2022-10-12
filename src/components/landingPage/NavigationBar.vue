@@ -5,6 +5,9 @@
         <div class="navigation">
           <NavigationRadios @changeComponent="activeComponent=$event"/>
         </div>
+        <div class="buttons">
+          <a href="#" class="log-in">Log in</a>
+        </div>
         <label for="check">
             <i class="fas fa-bars menu-btn"></i>
             <i class="fas fa-times close-btn"></i>
@@ -35,9 +38,10 @@ header {
   position: relative;
   top: 0%;
   width: 100%;
-  padding: 30px 100px;
+  padding: 30px 75px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 header .logo {
@@ -58,7 +62,37 @@ label {
   display: none;
 }
 
+.buttons {
+  position: relative;
+  left: 2%;
+  width: 17%;
+  display: inline-block;
+  font-size: 120%;
+  white-space: nowrap;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.log-in {
+  background-color: white;
+  color: black;
+  line-height: 1.5;
+  padding: 8px 30px;
+  border: 1px solid;
+}
+
+.log-in:hover {
+  background-color: rgb(235,236,237);
+}
+
 @media (max-width: 960px) {
+  .log-in {
+    display: none;
+  }
   header .navigation {
     display: none;
   }
@@ -95,7 +129,18 @@ label {
     justify-content: center;
     align-items: center;
   }
-  
+
+  #check:checked ~ header .buttons .log-in {
+    position: fixed;
+    left: 10%;
+    display: block;
+    z-index: 2;
+    background-color: rgba(160, 97, 84, 0.986);
+  }
+
+  #check:checked ~ header .buttons .log-in:hover {
+    color: white;
+  }
   #check:checked ~ header label .menu-btn {
     display: none;
   }
@@ -111,4 +156,5 @@ label {
     top: 40px;
   }
 }
+
 </style>

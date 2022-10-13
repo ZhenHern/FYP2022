@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import NavigationBar from "./components/landingPage/NavigationBar.vue";
-import Home from "./components/landingPage/HomeContent.vue";
-import About from "./components/landingPage/AboutContent.vue";
+import NavigationBar from "../../components/landingPage/NavigationBar.vue";
+import Home from "../../components/landingPage/HomeContent.vue";
+import About from "../../components/landingPage/AboutContent.vue";
 
 
 export default {

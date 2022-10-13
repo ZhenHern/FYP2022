@@ -6,7 +6,7 @@
           <NavigationRadios @changeComponent="activeComponent=$event"/>
         </div>
         <div class="buttons">
-          <a href="#" class="log-in">Log in</a>
+          <router-link to="/login" class="log-in">Log in</router-link>
         </div>
         <label for="check">
             <i class="fas fa-bars menu-btn"></i>
@@ -14,6 +14,7 @@
         </label>
     </header>
 </template>
+
 
 <script>
 import NavigationRadios from "./NavigationRadios.vue"

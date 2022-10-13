@@ -6,7 +6,7 @@
           <NavigationRadios @changeComponent="activeComponent=$event"/>
         </div>
         <div class="buttons">
-          <router-link to="/login" class="log-in">Log in</router-link>
+          <a href="login" class="log-in">Log in</a>
         </div>
         <label for="check">
             <i class="fas fa-bars menu-btn"></i>

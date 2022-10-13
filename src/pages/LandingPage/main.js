@@ -1,8 +1,8 @@
 import * as Vue from 'vue';
 import "../../assets/style.css";
-import App from './App.vue';
+import LandingPage from './LandingPage.vue';
 
-Vue.createApp(App).mount('#app');
+Vue.createApp(LandingPage).mount('#app');
   
 
 

@@ -1,10 +1,12 @@
 <template>
-  Hi
+  <LoginComponent/>
 </template>
 
 <script>
-export default {
+import LoginComponent from '../../components/loginPage/LoginComponent.vue';
 
+export default {
+  components: {LoginComponent},
 }
 </script>
 

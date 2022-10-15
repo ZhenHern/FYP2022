@@ -1,14 +1,59 @@
 <template>
-    <div class="viewport">
-        <LoginForm/>
-    </div>
+  <div class="container">
+            <h1>Log in</h1>
+            <form action="" class="login-form">
+                <div class="email">
+                    <div class="email-label">
+                        <label for="email">Email</label>
+                        <span>
+                            Need an account?
+                            <span>Sign up</span>
+                        </span>
+                    </div>
+                    <div class="email-input">
+                        <input type="text" class="email-placeholder">
+                    </div>
+                </div>
+                <div class="password">
+                    <div class="password-label">
+                        <label for="password">Password</label>
+                        <span @click="show">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            Show
+                        </span>
+                    </div>
+                    <div class="password-input">
+                        <input :type="input" class="password-placeholder">
+                    </div>
+                </div>
+            </form>
+            <div class="bottom-box">
+                <div class="button">
+                    <button>Log in</button>
+                </div>
+                <div class="forgot-password">
+                    <router-link>Forgot password?</router-link>
+                </div>
+            </div>
+        </div>
 </template>
 
-
 <script>
-import LoginForm from "./LoginForm.vue"
 export default {
-    components: {LoginForm}
+    data() {
+        return {
+            input: "password"
+        }
+    },
+    methods: {
+        show() {
+            if (this.input === "password") {
+                this.input = "text";
+                return
+            }
+            this.input = "password";
+        }
+    }
 }
 </script>
 

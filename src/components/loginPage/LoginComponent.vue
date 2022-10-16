@@ -1,14 +1,24 @@
 <template>
     <div class="viewport">
-        <LoginForm/>
+        <component @changeComponent="activeComponent=$event" :is="activeComponent"></component>
     </div>
 </template>
 
 
 <script>
 import LoginForm from "./LoginForm.vue"
+import SignupForm from "./SignupForm.vue"
+
 export default {
-    components: {LoginForm}
+    components: {
+        LoginForm,
+        SignupForm
+    },
+    data() {
+        return {
+            activeComponent: "LoginForm"
+        }
+    }
 }
 </script>
 
@@ -21,114 +31,4 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.container {
-    position: relative;
-    height: 600px;
-    width: 480px;
-    background-color: white;
-    border: 1px solid #e3e3e3;    
-    border-radius: 16px;
-    padding: 48px;
-    box-sizing: border-box;
-    text-align: left;
-}
-
-form {
-    display: block;
-    height: 60%;
-}
-
-.email-label, .password-label{
-    align-items: flex-end;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-label {
-    display: inline-block;
-    margin-top: 45px;
-    font-weight: 600;
-}
-
-span {
-    font-size: 14px;
-}
-
-span span {
-    margin-left: 6px;
-    color: rgba(198, 124, 54, 0.921);
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.email-input, .password-input {
-    position: relative;
-}
-
-.email-placeholder {
-    height: 50px;
-    width: 100%;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 12px;
-    padding: 14px;
-}
-
-.password-placeholder {
-    height: 50px;
-    width: 100%;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 12px;
-    padding: 14px;
-}
-
-.password-label span {
-    color: rgba(198, 124, 54, 0.921);
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.bottom-box {
-    position: relative;
-    box-sizing: border-box;
-    height: 90px;
-    margin-top: 30px;
-}
-
-button {
-    cursor: pointer;
-    width: 100%;
-    height: 50px;
-    border-radius: 25px;
-    font-size: 18px;
-    color: white;
-    background-color: rgba(198, 124, 54, 0.921);
-    border-color: rgba(198, 124, 54, 0.921);
-    border-style: none;
-}
-
-button:hover {
-    background-color: rgba(173, 108, 47, 0.921);
-}
-
-.forgot-password {
-    margin-top: 20px;
-    text-align: center;
-}
-
-router-link {
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-router-link:hover {
-    color: rgba(198, 124, 54, 0.921);
-}
-
-
 </style>

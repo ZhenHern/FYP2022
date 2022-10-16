@@ -212,6 +212,10 @@ button:hover {
     background-color: rgba(173, 108, 47, 0.921);
 }
 
+button:active {
+    background-color: rgba(116, 72, 32, 0.921);
+}
+
 .forgot-password {
     margin-top: 20px;
     text-align: center;

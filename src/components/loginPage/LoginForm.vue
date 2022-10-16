@@ -7,7 +7,7 @@
                         <label for="email">Email</label>
                         <span>
                             Need an account?
-                            <span @click="changeComponent">Sign up</span>
+                            <span @click="changeComponent('SignupForm')">Sign up</span>
                         </span>
                     </div>
                     <div class="email-input">
@@ -42,10 +42,12 @@
                     <button @click="checkValidity">Log in</button>
                 </div>
                 <div class="forgot-password">
-                    <router-link>Forgot password?</router-link>
+                    <div class="link" @click="changeComponent('ResetPasswordForm')">
+                        Forgot password?
+                    </div>
                 </div>
             </div>
-        </div>
+    </div>
 </template>
 
 <script>
@@ -70,11 +72,11 @@ export default {
             }
             this.input = "password";
         },
-        changeComponent() {
-            this.$emit("changeComponent","SignupForm")
+        changeComponent(component) {
+            this.$emit("changeComponent",component)
         },
         checkEmail(email) {
-            if (/\S+@\S+\.\S+/.test(email)) {
+            if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
                 this.emailValidity = "-valid"
                 return
             } 
@@ -221,14 +223,13 @@ button:active {
     text-align: center;
 }
 
-router-link {
-    font-size: 14px;
-    font-weight: 600;
+link {
     cursor: pointer;
 }
 
-router-link:hover {
+.link:hover {
     color: rgba(198, 124, 54, 0.921);
+    cursor: pointer;
 }
 
 

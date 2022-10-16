@@ -7,7 +7,7 @@
                 <label for="email">Email</label>
                 <span>
                     Already have an account?
-                    <span @click="changeComponent">Log in</span>
+                    <span @click="changeComponent('LoginForm')">Log in</span>
                 </span>
             </div>
             <div class="email-input">
@@ -92,8 +92,8 @@ export default {
             }
             this.input = "password"
         },
-        changeComponent() {
-            this.$emit("changeComponent","LoginForm")
+        changeComponent(component) {
+            this.$emit("changeComponent",component)
         },
         checkLowercase(password) {
             if (password !== password.toUpperCase()) {
@@ -123,7 +123,7 @@ export default {
             this.hasMinLength = false
         },
         checkEmail(email) {
-            if (/\S+@\S+\.\S+/.test(email)) {
+            if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
                 this.emailValidity = "-valid"
                 return
             } 

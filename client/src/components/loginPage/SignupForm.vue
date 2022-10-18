@@ -34,7 +34,7 @@
             </div>
             <div class="password-input">
                 <input :type="input" :class="`password-placeholder${passwordValidity}`" v-model="password">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="passwordValidity"></i>
+                <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="passwordValidity === '-invalid'"></i>
             </div>
         </div>
     </form>
@@ -47,26 +47,34 @@
     </div>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity">Sign up</button>
-        </div>       
+            <button @click="checkValidity() + signUp()">Sign up</button>
+        </div>
+        <Transition>
+            <div class="error" v-show="error">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"/>
+                {{error}}
+            </div>      
+        </Transition> 
     </div>
   </div>
 </template>
 
 <script>
+import AuthenticationService from '@/services/AuthenticationService'
 export default {
     data() {
         return {
             input: "password",
-            password: "",
             email: "",
+            password: "",
             hasLowercase: false,
             hasUppercase: false,
             hasNumber: false,
             hasSymbols: false,
             hasMinLength: false,
             emailValidity: "",
-            passwordValidity: ""
+            passwordValidity: "",
+            error: null
         }
     },
     watch: {
@@ -140,11 +148,24 @@ export default {
             }
 
             if (this.hasLowercase && this.hasUppercase && this.hasNumber && this.hasSymbols && this.hasMinLength) {
-                this.passwordValidity = ""
+                this.passwordValidity = "-valid"
                 return
             }
             this.passwordValidity = "-invalid"
+        },
+        async signUp() {
+            if (this.emailValidity === "-valid" && this.passwordValidity === "-valid") {
+                try {
+                    await AuthenticationService.register({
+                        email: this.email,
+                        password: this.password,
+                    })
+                } catch (error) {
+                    this.error = error.response.data.error
+                }
+            }
         }
+
     }
 }
 </script>
@@ -195,7 +216,7 @@ label {
     position: relative;
 }
 
-.email-placeholder, .email-placeholder-valid, .password-placeholder {
+.email-placeholder, .email-placeholder-valid, .password-placeholder, .password-placeholder-valid {
     height: 50px;
     width: 100%;
     border: 1px solid #ced4da;
@@ -296,5 +317,29 @@ button:hover {
 
 button:active {
     background-color: rgba(116, 72, 32, 0.921);
+}
+
+.error {
+    background-color: #f2b5b5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #282a35;
+    display: block;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+.fa.fa-exclamation-circle {
+    color: #f8212f;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

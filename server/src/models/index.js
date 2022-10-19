@@ -1,28 +1,35 @@
-const fs = require('fs')
-const path = require('path')
-const Sequelize = require('sequelize')
-const config = require('../config/config')
-const db = {}
+const dbConfig = require("../../dbConfig")
+
+const {Sequelize, DataTypes} = require("sequelize")
 
 const sequelize = new Sequelize(
-    config.db.database,
-    config.db.user,
-    config.db.password,
-    config.db.options,
-
+    dbConfig.DB,
+    dbConfig.USER,
+    dbConfig.PASSWORD, {
+        host: dbConfig.HOST,
+        dialect: dbConfig.dialect,
+        operatorsAliases: false
+    }
 )
 
-fs
-  .readdirSync(__dirname)
-  .filter((file) =>
-    file !== 'index.js'
-  )
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-    db[model.name] = model
-  })
+sequelize.authenticate()
+.then(() => {
+    console.log("Connected..")
+})
+.catch(err => {
+    console.log("Error"+error)
+})
 
-db.sequelize = sequelize
+const db = {}
+
 db.Sequelize = Sequelize
+db.sequelize = sequelize
+
+db.users = require("./UserModel.js")(sequelize, DataTypes)
+
+db.sequelize.sync({ force: false })
+.then(() => {
+    console.log("Re-sync done");
+})
 
 module.exports = db

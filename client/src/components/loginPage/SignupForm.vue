@@ -15,8 +15,8 @@
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="emailValidity === '-invalid' || emailValidity === '-empty'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-else-if="emailValidity === '-valid'"></i>
             </div>
-            <div class="error-message" v-if="emailValidity === '-empty'">Please enter an email</div>
-            <div class="error-message" v-else-if="emailValidity === '-invalid'">Enter again with a valid email</div>
+            <div class="error-message" v-if="emailValidity === '-empty'">Please enter an email.</div>
+            <div class="error-message" v-else-if="emailValidity === '-invalid'">Enter again with a valid email.</div>
         </div>
         <div class="password">
             <div class="password-label">
@@ -35,7 +35,29 @@
             <div class="password-input">
                 <input :type="input" :class="`password-placeholder${passwordValidity}`" v-model="password">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="passwordValidity === '-invalid'"></i>
+                <i class="fa fa-check " aria-hidden="true" v-show="passwordValidity === '-valid'"></i>
             </div>
+        </div>
+        <div class="confirm-password">
+            <div class="confirm-password-label">
+                <label for="confirm-password">Confirm Password</label>
+                <span @click="show" >
+                    <span v-if="input === 'password'">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Show
+                    </span>
+                    <span v-else-if="input === 'text'">
+                        <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                        Hide
+                    </span>
+                </span>
+            </div>
+            <div class="confirm-password-input">
+                <input :type="input" :class="`confirm-password-placeholder${confirmPasswordValidity}`" v-model="confirmPassword">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="confirmPasswordValidity === '-invalid'"></i>
+                <i class="fa fa-check " aria-hidden="true" v-show="confirmPasswordValidity === '-valid'"></i>
+            </div>
+            <div class="error-message" v-show="confirmPasswordValidity === '-invalid'">Your passwords do not match.</div>
         </div>
     </form>
     <div class="validation-checklist">
@@ -47,7 +69,7 @@
     </div>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity() + signUp()">Sign up</button>
+            <button @click="checkValidity() + signUp() + nextPage()">Sign up</button>
         </div>
         <Transition>
             <div class="error" v-show="error">
@@ -60,13 +82,14 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
+import UserService from '@/services/UserService'
 export default {
     data() {
         return {
             input: "password",
             email: "",
             password: "",
+            confirmPassword: "",
             hasLowercase: false,
             hasUppercase: false,
             hasNumber: false,
@@ -74,22 +97,29 @@ export default {
             hasMinLength: false,
             emailValidity: "",
             passwordValidity: "",
-            error: null
+            confirmPasswordValidity: "",
+            error: null,
         }
     },
     watch: {
+        email(newEmail) {
+            this.checkEmail(newEmail);
+            this.error = null
+        },
         password(newPassword) {
             this.checkLowercase(newPassword);
             this.checkUppercase(newPassword);
             this.checkNumber(newPassword);
             this.checkSymbols(newPassword);
             this.checkLength(newPassword);
+            this.checkPassword(newPassword);
+            this.passwordValidity = "";
             if (this.hasLowercase && this.hasUppercase && this.hasNumber && this.hasSymbols && this.hasMinLength) {
-                this.passwordValidity = "";
+                this.passwordValidity = "-valid";
             }
         },
-        email(newEmail) {
-            this.checkEmail(newEmail);
+        confirmPassword(newConfirmPassword) {
+            this.checkConfirmPassword(newConfirmPassword);
         }
     },
     methods: {
@@ -130,12 +160,26 @@ export default {
             }
             this.hasMinLength = false
         },
+        checkPassword(password) {
+            if (password === this.confirmPasswordr && this.confirmPassword !== "") {
+                this.confirmPasswordValidity = "-valid"
+                return
+            }
+            this.confirmPasswordValidity = ""
+        },
         checkEmail(email) {
             if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
                 this.emailValidity = "-valid"
                 return
             } 
             this.emailValidity = ""
+        },
+        checkConfirmPassword(confirmPassword) {
+            if (confirmPassword === this.password && this.confirmPassword !== "") {
+                this.confirmPasswordValidity = "-valid"
+                return
+            }
+            this.confirmPasswordValidity = ""
         },
         checkValidity() {
             if (this.email === "") {
@@ -147,22 +191,37 @@ export default {
                 return
             }
 
-            if (this.hasLowercase && this.hasUppercase && this.hasNumber && this.hasSymbols && this.hasMinLength) {
-                this.passwordValidity = "-valid"
+            if (!(this.hasLowercase && this.hasUppercase && this.hasNumber && this.hasSymbols && this.hasMinLength)) {
+                this.passwordValidity = "-invalid"
                 return
             }
-            this.passwordValidity = "-invalid"
+            this.passwordValidity = "-valid"  
+
+            if (this.confirmPasswordValidity !== "-valid") {
+                this.confirmPasswordValidity = "-invalid"
+                return
+            }
+
         },
         async signUp() {
             if (this.emailValidity === "-valid" && this.passwordValidity === "-valid") {
                 try {
-                    await AuthenticationService.register({
-                        email: this.email,
-                        password: this.password,
+                    await UserService.checkEmail({
+                        email: this.email
                     })
                 } catch (error) {
-                    this.error = error.response.data.error
+                    this.error = error.response.data
                 }
+            }
+        },
+        nextPage() {
+            if (this.emailValidity === "-valid" && this.passwordValidity === "-valid" && this.confirmPasswordValidity === "-valid") {
+                setTimeout(() => {
+                    console.log(this.error)
+                    if (this.error === null) {
+                        this.changeComponent("DetailsForm")
+                    }
+                }, 100)
             }
         }
 
@@ -185,10 +244,10 @@ export default {
 
 form {
     display: block;
-    height: 300px;
+    height: 420px;
 }
 
-.email-label, .password-label{
+.email-label, .password-label, .confirm-password-label{
     align-items: flex-end;
     display: flex;
     flex-direction: row;
@@ -212,11 +271,11 @@ label {
     font-weight: 600;
 }
 
-.email-input, .password-input {
+.email-input, .password-input, .confirm-password-input {
     position: relative;
 }
 
-.email-placeholder, .email-placeholder-valid, .password-placeholder, .password-placeholder-valid {
+.email-placeholder, .email-placeholder-valid, .password-placeholder, .password-placeholder-valid, .confirm-password-placeholder, .confirm-password-placeholder-valid {
     height: 50px;
     width: 100%;
     border: 1px solid #ced4da;
@@ -240,7 +299,7 @@ label {
     color: rgb(40,167,69);
 }
 
-.email-placeholder-invalid, .email-placeholder-empty, .password-placeholder-invalid {
+.email-placeholder-invalid, .email-placeholder-empty, .password-placeholder-invalid, .confirm-password-placeholder-invalid {
     height: 50px;
     width: 100%;
     border: 1px solid #d9212c;
@@ -252,7 +311,7 @@ label {
 }
 
 
-.password-label span {
+.password-label span, .confirm-password-label span {
     color: rgba(198, 124, 54, 0.921);
     font-weight: 600;
     cursor: pointer;

@@ -12,12 +12,14 @@
 import LoginForm from "./LoginForm.vue"
 import SignupForm from "./SignupForm.vue"
 import ResetPasswordForm from "./ResetPasswordForm.vue"
+import DetailsForm from "./DetailsForm.vue"
 
 export default {
     components: {
         LoginForm,
         SignupForm,
-        ResetPasswordForm
+        ResetPasswordForm,
+        DetailsForm
     },
     data() {
         return {

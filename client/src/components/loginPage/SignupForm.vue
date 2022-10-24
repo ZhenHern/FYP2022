@@ -117,6 +117,9 @@ export default {
             if (this.hasLowercase && this.hasUppercase && this.hasNumber && this.hasSymbols && this.hasMinLength) {
                 this.passwordValidity = "-valid";
             }
+            if (this.password === this.confirmPassword) {
+                this.confirmPasswordValidity = "-valid"
+            }
         },
         confirmPassword(newConfirmPassword) {
             this.checkConfirmPassword(newConfirmPassword);
@@ -130,8 +133,8 @@ export default {
             }
             this.input = "password"
         },
-        changeComponent(component) {
-            this.$emit("changeComponent",component)
+        changeComponent(component, email, password) {
+            this.$emit("changeComponent", {component: component, email: email, password: password})
         },
         checkLowercase(password) {
             if (password !== password.toUpperCase()) {
@@ -217,9 +220,8 @@ export default {
         nextPage() {
             if (this.emailValidity === "-valid" && this.passwordValidity === "-valid" && this.confirmPasswordValidity === "-valid") {
                 setTimeout(() => {
-                    console.log(this.error)
                     if (this.error === null) {
-                        this.changeComponent("DetailsForm")
+                        this.changeComponent("DetailsForm",this.email,this.password)
                     }
                 }, 100)
             }

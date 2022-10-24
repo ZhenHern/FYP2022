@@ -33,14 +33,19 @@
     </form>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity()">Confirm</button>
+            <button @click="checkValidity() + createAccount()">Confirm</button>
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import UserService from '@/services/UserService'
 export default {
+    props: {
+        email: String,
+        password: String
+    },
     data() {
         return {
             firstName: null,
@@ -93,6 +98,12 @@ export default {
                 this.birthdayValidity = "-invalid"
             }
             
+        },
+        createAccount() {
+            UserService.createAccount({
+                email: this.email,
+                password: this.password
+            })
         }
     }
 }

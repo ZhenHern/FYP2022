@@ -2,10 +2,10 @@ const userController = require("../controllers/UserController")
 
 const router = require("express").Router()
 
-// router.post("/createAccount", userController.createAccount)
+router.post("/createAccount", userController.createAccount)
 
 router.post("/checkEmail", userController.checkEmail)
 
-router.post("/sendVerificationLink", userController.sendVerificationLink)
+router.get("/verify/:token", userController.verifyEmail)
 
 module.exports = router

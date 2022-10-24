@@ -1,7 +1,7 @@
 <template>
     <div class="viewport">
         <Transition name="slide-fade" mode="out-in">
-            <component @changeComponent="activeComponent=$event" :is="activeComponent"></component>           
+            <component @changeComponent="changeComponent" :is="activeComponent" :email="email" :password="password"></component>           
         </Transition>
         <a href="landingpage"><i class="fa fa-times fa-2xl" aria-hidden="true"></i></a>
     </div>
@@ -23,7 +23,20 @@ export default {
     },
     data() {
         return {
-            activeComponent: "LoginForm"
+            activeComponent: "LoginForm",
+            email: null,
+            password: null
+        }
+    },
+    methods: {
+        changeComponent({component, email, password}) {
+            if (component === "DetailsForm") {
+                this.activeComponent = component
+                this.email = email
+                this.password = password
+                return
+            } 
+            this.activeComponent = component
         }
     }
 }

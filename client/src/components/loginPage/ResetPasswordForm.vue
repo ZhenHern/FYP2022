@@ -46,7 +46,7 @@ export default {
             this.emailValidity = false         
         },
         changeComponent(component) {
-            this.$emit("changeComponent",component)
+            this.$emit("changeComponent", {component: component, email: null, password: null})
         }
     }
 }

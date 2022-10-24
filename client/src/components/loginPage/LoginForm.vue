@@ -73,7 +73,7 @@ export default {
             this.input = "password";
         },
         changeComponent(component) {
-            this.$emit("changeComponent",component)
+            this.$emit("changeComponent", {component: component, email: null, password: null})
         },
         checkEmail(email) {
             if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {

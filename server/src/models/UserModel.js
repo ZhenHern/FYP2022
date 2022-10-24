@@ -13,6 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         password: {
             type: DataTypes.STRING
+        },
+        verified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        token: {
+            type: DataTypes.STRING
         }
     })
 

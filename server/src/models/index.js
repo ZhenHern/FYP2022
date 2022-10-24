@@ -17,7 +17,7 @@ sequelize.authenticate()
     console.log("Connected..")
 })
 .catch(err => {
-    console.log("Error"+error)
+    console.log("Error"+err)
 })
 
 const db = {}

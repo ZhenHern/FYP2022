@@ -6,6 +6,8 @@ router.post("/createAccount", userController.createAccount)
 
 router.post("/checkEmail", userController.checkEmail)
 
+router.post("/resendVerificationEmail", userController.resendVerificationLink)
+
 router.get("/verify/:token", userController.verifyEmail)
 
 module.exports = router

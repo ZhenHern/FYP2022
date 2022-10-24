@@ -33,7 +33,7 @@
     </form>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity() + createAccount()">Confirm</button>
+            <button @click="checkValidity() + createAccount() + changeComponent('VerificationComponent')">Confirm</button>
         </div>
     </div>
   </div>
@@ -96,8 +96,10 @@ export default {
             }
             if (this.birthday === "") {
                 this.birthdayValidity = "-invalid"
-            }
-            
+            } 
+        },
+        changeComponent(component) {
+            this.$emit("changeComponent", {component: component, email: null, password: null})
         },
         createAccount() {
             UserService.createAccount({

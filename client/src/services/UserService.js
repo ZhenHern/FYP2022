@@ -6,5 +6,8 @@ export default {
     },
     createAccount(credentials) {
         return Api().post('api/users/createAccount', credentials)
+    },
+    resendVerification(information) {
+        return Api().post('api/users/resendVerificationEmail', information)
     }
 }

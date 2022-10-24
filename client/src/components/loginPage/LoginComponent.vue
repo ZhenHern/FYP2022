@@ -13,13 +13,15 @@ import LoginForm from "./LoginForm.vue"
 import SignupForm from "./SignupForm.vue"
 import ResetPasswordForm from "./ResetPasswordForm.vue"
 import DetailsForm from "./DetailsForm.vue"
+import VerificationComponent from "./VerificationComponent.vue"
 
 export default {
     components: {
         LoginForm,
         SignupForm,
         ResetPasswordForm,
-        DetailsForm
+        DetailsForm,
+        VerificationComponent
     },
     data() {
         return {
@@ -70,6 +72,7 @@ i {
     position: absolute;
     top: 10%;
     right: 10%;
+    color: rgb(77, 77, 77)
 }
 
 i:hover {

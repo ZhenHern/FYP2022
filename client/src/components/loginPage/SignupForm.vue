@@ -60,23 +60,21 @@
             <div class="error-message" v-show="confirmPasswordValidity === '-invalid'">Your passwords do not match.</div>
         </div>
     </form>
-    <div class="validation-checklist">
-        <li :class="[hasLowercase ? 'active' : '']"><span>One lowercase character</span></li>
-        <li :class="[hasUppercase ? 'active' : '']"><span>One uppercase character</span></li>
-        <li :class="[hasNumber ? 'active' : '']"><span>One number</span></li>
-        <li :class="[hasSymbols ? 'active' : '']"><span>One special character</span></li>
-        <li :class="[hasMinLength ? 'active' : '']"><span>8 characters minimum</span></li>
-    </div>
+        <div class="validation-checklist" v-if="!error">
+            <li :class="[hasLowercase ? 'active' : '']"><span>One lowercase character</span></li>
+            <li :class="[hasUppercase ? 'active' : '']"><span>One uppercase character</span></li>
+            <li :class="[hasNumber ? 'active' : '']"><span>One number</span></li>
+            <li :class="[hasSymbols ? 'active' : '']"><span>One special character</span></li>
+            <li :class="[hasMinLength ? 'active' : '']"><span>8 characters minimum</span></li>
+        </div>
+        <div class="error" v-else-if="error">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"/>
+            {{error}}
+        </div>      
     <div class="bottom-box">
         <div class="button">
             <button @click="checkValidity() + signUp() + nextPage()">Sign up</button>
-        </div>
-        <Transition>
-            <div class="error" v-show="error">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"/>
-                {{error}}
-            </div>      
-        </Transition> 
+        </div> 
     </div>
   </div>
 </template>
@@ -381,26 +379,31 @@ button:active {
 }
 
 .error {
+    position: relative;
     background-color: #f2b5b5;
     border-radius: 4px;
     box-sizing: border-box;
     color: #282a35;
     display: block;
     padding: 15px;
-    margin-top: 40px;
 }
 
 .fa.fa-exclamation-circle {
     color: #f8212f;
 }
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 5s ease-out;
 }
 
-.v-enter-from,
-.v-leave-to {
+.slide-up-enter-from {
   opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

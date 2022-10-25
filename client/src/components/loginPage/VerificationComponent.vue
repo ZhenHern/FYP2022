@@ -4,16 +4,22 @@
     <div class="image">
         <img src="../../assets/verify-email.jpg" alt="">
     </div>
-    <div class="alert">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-        We've sent an verification email to you with instructions.
-    </div>
+    <Transition name="fade" mode="out-in">
+        <div class="alert" v-if="!resend">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                We've sent an verification email to {{email}} with instructions.          
+        </div>
+        <div class="alert" v-else-if="resend">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                Verification email has been resent to {{email}}.          
+        </div>
+    </Transition>
     <div class="bottom-box">
         <div class="button">
             <button class="submit" @click="changeComponent('LoginForm')">I have clicked the link</button>
         </div>
         <div class="resend-email">
-            <div class="resend-button" @click="resendVerification">Resend verification email</div>
+            <button class="resend-button" @click="resendVerification" :disabled="resend">Resend verification email</button>
         </div>
     </div>
   </div>
@@ -25,6 +31,11 @@ export default {
     props: {
         email: String,
     },
+    data() {
+        return {
+            resend: false,
+        }
+    },
     methods: {
         changeComponent(component) {
             this.$emit("changeComponent", {component: component, email: null, password: null})
@@ -33,6 +44,8 @@ export default {
             UserService.resendVerification({
                 email: this.email
             })
+            this.resend = true
+            this.message = `Verification email has been resent to ${this.email}`
         }
     }
 }
@@ -72,6 +85,7 @@ img {
 
 .fa {
     color: rgb(4, 170, 109);
+    margin-right: 8px;
 }
 
 .bottom-box {
@@ -81,7 +95,6 @@ img {
 }
 
 .submit {
-
     cursor: pointer;
     width: 100%;
     height: 50px;
@@ -108,6 +121,7 @@ img {
 }
 
 .resend-button {
+    all: unset;
     width: fit-content;
 }
 
@@ -115,4 +129,27 @@ img {
     color: rgba(173, 108, 47, 0.921);   
     cursor: pointer;
 }
+
+.resend-button:disabled {
+    color:#cccccc;
+    cursor: not-allowed;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease-out;
+}
+
+.fade-enter-from {
+    transform: translateX(-100px);
+    opacity: 0;
+}
+
+
+.fade-leave-to {
+    transition: 1s;
+    transform: translateX(100px);
+    opacity: 0;
+}
+
 </style>

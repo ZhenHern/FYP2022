@@ -9,5 +9,8 @@ export default {
     },
     resendVerification(information) {
         return Api().post('api/users/resendVerificationEmail', information)
+    },
+    login(credentials) {
+        return Api().post('api/users/login', credentials)
     }
 }

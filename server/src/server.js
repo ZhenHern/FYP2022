@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json())
 
 //routers
-const router = require("./routes/UserRoute")
+const router = require("./routes/AccountRoute")
 app.use("/api/users", router)
 
 app.listen(PORT, () => console.log(`Running express server on Port ${PORT}!`))

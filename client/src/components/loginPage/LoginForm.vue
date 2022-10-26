@@ -11,7 +11,7 @@
                         </span>
                     </div>
                     <div class="email-input">
-                        <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email">
+                        <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email" @keyup.enter="checkValidity">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="emailValidity === '-invalid' || emailValidity === '-empty'"></i>
                         <i class="fa fa-check " aria-hidden="true" v-else-if="emailValidity === '-valid'"></i>
                     </div>
@@ -33,10 +33,16 @@
                         </span>
                     </div>
                     <div class="password-input">
-                        <input :type="input" class="password-placeholder">
+                        <input :type="input" class="password-placeholder" v-model="password" @keyup.enter="checkValidity">
                     </div>
                 </div>
             </form>
+            <Transition>
+                <div class="error" v-show="error !== null">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"/>
+                    {{error}}
+                </div>   
+            </Transition>
             <div class="bottom-box">
                 <div class="button">
                     <button @click="checkValidity">Log in</button>
@@ -51,17 +57,24 @@
 </template>
 
 <script>
+import AccountService from "../../services/AccountService"
 export default {
     data() {
         return {
             input: "password",
             email: "",
+            password: "",
             emailValidity : "",
+            error: null
         }
     },
     watch: {
         email(newEmail) {
             this.checkEmail(newEmail);
+            this.error = null
+        },
+        password() {
+            this.error = null
         }
     },
     methods: {
@@ -82,7 +95,7 @@ export default {
             } 
             this.emailValidity = ""
         },
-        checkValidity() {
+        async checkValidity() {
             if (this.email === "") {
                 this.emailValidity = "-empty"
                 return
@@ -91,7 +104,17 @@ export default {
                 this.emailValidity = "-invalid"
                 return
             }
-        }
+            try {
+                await AccountService.login({
+                    email: this.email,
+                    password: this.password
+                })
+            }
+            catch (error) {
+                this.error = error.response.data
+            }
+            
+        },
     }
 }
 </script>
@@ -195,7 +218,7 @@ span span {
     position: relative;
     box-sizing: border-box;
     height: 90px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 button {
@@ -232,5 +255,30 @@ link {
     cursor: pointer;
 }
 
+.error {
+    position: relative;
+    background-color: #f2b5b5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #282a35;
+    display: block;
+    padding: 15px;
+}
 
+.fa.fa-exclamation-circle {
+    color: #f8212f;
+}
+
+.v-enter-active {
+    transition: opacity 2s ease;
+}
+
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
 </style>

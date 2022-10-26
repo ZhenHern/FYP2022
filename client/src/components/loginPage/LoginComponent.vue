@@ -25,7 +25,7 @@ export default {
     },
     data() {
         return {
-            activeComponent: "VerificationComponent",
+            activeComponent: "LoginForm",
             email: null,
             password: null
         }

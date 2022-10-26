@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import UserService from '@/services/UserService'
+import AccountService from "../../services/AccountService"
 export default {
     props: {
         email: String,
@@ -102,9 +102,11 @@ export default {
             this.$emit("changeComponent", {component: component, email: null, password: null})
         },
         createAccount() {
-            UserService.createAccount({
+            AccountService.createAccount({
                 email: this.email,
-                password: this.password
+                password: this.password,
+                firstName: this.firstName,
+                lastName: this.lastName
             })
         }
     }

@@ -25,7 +25,11 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
+db.accounts = require("./AccountModel.js")(sequelize, DataTypes)
 db.users = require("./UserModel.js")(sequelize, DataTypes)
+db.users.belongsTo(db.accounts, {
+    foreignKey: "login_id",
+})
 
 db.sequelize.sync({ force: false })
 .then(() => {

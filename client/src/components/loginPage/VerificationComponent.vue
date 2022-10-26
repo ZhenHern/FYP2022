@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import UserService from '@/services/UserService'
+import AccountService from '@/services/AccountService'
 export default {
     props: {
         email: String,
@@ -41,7 +41,7 @@ export default {
             this.$emit("changeComponent", {component: component, email: null, password: null})
         },
         resendVerification() {
-            UserService.resendVerification({
+            AccountService.resendVerification({
                 email: this.email
             })
             this.resend = true

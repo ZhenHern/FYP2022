@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import UserService from '@/services/UserService'
+import AccountService from "../../services/AccountService"
 export default {
     data() {
         return {
@@ -207,7 +207,7 @@ export default {
         async signUp() {
             if (this.emailValidity === "-valid" && this.passwordValidity === "-valid") {
                 try {
-                    await UserService.checkEmail({
+                    await AccountService.checkEmail({
                         email: this.email
                     })
                 } catch (error) {

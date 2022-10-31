@@ -1,13 +1,13 @@
 <template>
   <div class="main-navigation-bar">
       <div class="logo">
-        <a href="#" class="logo">Bakery Shop</a>
+        <a href="index" class="logo">Bakery Shop</a>
       </div>
       <div class="navigation-bar">
         <ul>
-          <li>Cakes</li>
-          <li>Cookies</li>
-          <li>Breads</li>
+          <li @click="changeComponent('CakeComponent')" :class="{ active: activeComponent === 'CakeComponent'}">Cakes</li>
+          <li @click="changeComponent('CookieComponent')" :class="{ active: activeComponent === 'CookieComponent'}">Cookies</li>
+          <li @click="changeComponent('BreadComponent')" :class="{ active: activeComponent === 'BreadComponent'}">Breads</li>
         </ul>
       </div>
       <div class="buttons">
@@ -18,7 +18,14 @@
 
 <script>
 export default {
-
+  props: {
+    activeComponent: String,
+  },
+  methods: {
+    changeComponent(newComponent) {
+      this.$emit("changeComponent",newComponent);
+    }
+  }
 }
 </script>
 
@@ -65,6 +72,8 @@ export default {
   padding: 30px;
   text-decoration: none;
   font-size: 25px;
+  color: black;
+  transition: color 0.3s ease-in-out;
 }
 
 a {
@@ -75,6 +84,10 @@ a {
 .navigation-bar ul li:hover {
   color: rgba(160, 97, 84, 0.986);
   cursor: pointer;
+}
+
+.navigation-bar ul .active {
+  color: rgba(160, 97, 84, 0.986);
 }
 
 .buttons {

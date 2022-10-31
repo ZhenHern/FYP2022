@@ -2,7 +2,7 @@
   <div class="background-image">
       <div class="content">
         <div class="text">
-          Cakes
+          Breads
           <hr>
         </div>
       </div>

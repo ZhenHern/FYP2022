@@ -6,13 +6,19 @@ module.exports = defineConfig({
       entry: 'src/pages/LandingPage/main.js',
       template: 'public/index.html',
       title: 'Landing Page',
-      chunks: ['chunk-vendors', 'chunk-common', 'index', 'landingpage']
+      chunks: ['index', 'landingpage']
     },
     login: {
       entry: 'src/pages/LoginPage/main.js',
       template: 'public/index.html',
       title: 'Login Page',
       chunks: [ 'login' ]
+    },
+    products: {
+      entry: 'src/pages/ProductPage/main.js',
+      template: 'public/index.html',
+      title: 'Product Page',
+      chunks: [ 'products' ]
     }
   }
 })

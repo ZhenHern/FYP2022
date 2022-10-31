@@ -48,7 +48,7 @@ export default {
 .viewport {
     background-color: rgb(247,247,247);
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;

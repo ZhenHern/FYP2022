@@ -83,7 +83,7 @@ a {
   color: black;
   line-height: 1.5;
   padding: 8px 30px;
-  border: 1px solid;
+  border: 1px solid rgb(187, 186, 186);
 }
 
 .log-in:hover {

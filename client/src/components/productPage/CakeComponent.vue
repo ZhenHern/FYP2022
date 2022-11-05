@@ -1,5 +1,6 @@
 <template>
-  <div class="background-image">
+  <div>
+    <div class="background-image">
       <div class="content">
         <div class="text">
           Cakes
@@ -113,6 +114,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -174,7 +176,7 @@ hr {
   width: 100%;
   display: grid;
   grid-template-columns: 240px 240px 240px 240px;
-  grid-template-rows: 400px 400px 400px 400px;
+  grid-auto-rows: 400px;
   column-gap: 30px;
   row-gap: 80px;
   padding-top: 150px;
@@ -286,7 +288,37 @@ img {
     width: 100%;
     display: grid;
     grid-template-columns: 190px 190px 190px 190px;
-    grid-template-rows: 360px 360px 360px 360px;
+    grid-auto-rows: 360px;
+    column-gap: 30px;
+    row-gap: 60px;
+    padding-top: 150px;
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .grid-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgb(104, 79, 64);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    text-transform: uppercase; 
+    text-align: center;
+    color: #684f40;
+    line-height: 30px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 90%;
+    grid-auto-rows: 900px;
     column-gap: 30px;
     row-gap: 60px;
     padding-top: 150px;

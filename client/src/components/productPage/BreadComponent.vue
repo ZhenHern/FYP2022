@@ -1,5 +1,6 @@
 <template>
-  <div class="background-image">
+  <div>
+    <div class="background-image">
       <div class="content">
         <div class="text">
           Breads
@@ -61,6 +62,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>

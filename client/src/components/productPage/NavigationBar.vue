@@ -3,6 +3,7 @@
       <div class="logo">
         <a href="index" class="logo">Bakery Shop</a>
       </div>
+      <input type="checkbox" id="check">
       <div class="navigation-bar">
         <ul>
           <li @click="changeComponent('CakeComponent')" :class="{ active: activeComponent === 'CakeComponent'}">Cakes</li>
@@ -12,6 +13,12 @@
       </div>
       <div class="buttons">
           <a href="login" class="log-in">Log in</a>
+      </div>
+      <div class="responsive-nav">
+        <label for="check">
+          <i class="fas fa-bars menu-btn"></i>
+          <i class="fas fa-times close-btn"></i>
+        </label>
       </div>
     </div>
 </template>
@@ -105,10 +112,92 @@ a {
   color: black;
   line-height: 1.5;
   padding: 8px 30px;
-  border: 1px solid;
+  border: 1px solid rgb(187, 186, 186);
 }
 
 .log-in:hover {
   background-color: rgb(235,236,237);
+}
+
+.responsive-nav {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .navigation-bar {
+    display: none;
+  }
+
+  .log-in {
+    display: none;
+  }
+
+  label {
+    display: block;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .menu-btn {
+    color: black;
+    transition: color 0.3s ease-in;
+  }
+
+  .menu-btn:hover {
+    color: rgba(160, 97, 84, 0.986);
+  }
+  
+  .close-btn:hover {
+    color: #fff;
+  }
+
+  label .close-btn {
+    display: none;
+  }
+
+  #check:checked ~ .navigation-bar {
+    width: 100%;
+    z-index: 2;
+    position: fixed;
+    background: #e9c26f;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #check:checked ~ .navigation-bar ul li {
+    float: left;
+    clear: left;
+    display: block;
+    text-align: center;
+    padding: 30px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    transition: color 0.3s ease-in-out;
+  }
+
+  #check:checked ~ .responsive-nav label .close-btn {
+    z-index: 2;
+    display: block;
+    position: fixed;
+  }
+
 }
 </style>

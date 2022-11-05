@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .viewport {
   background-color: rgb(247,247,247);
-  height: 300vh;
+  height: fit-content;
   width: 100%;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <div class="background-image">
+  <div>
+    <div class="background-image">
       <div class="content">
         <div class="text">
           Cookies
@@ -7,60 +8,61 @@
         </div>
       </div>
     </div>
-    <div class="product-grid">
-      <div class="grid-item">
-        <img src="../../assets/cake1.jpg">
-        Capp. Cheesecake <br> <span>RM 79.99</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
+      <div class="product-grid">
+        <div class="grid-item">
+          <img src="../../assets/cake1.jpg">
+          Capp. Cheesecake <br> <span>RM 79.99</span>
+          <div class="product-hover">
+            <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+            <br>
+            <span>Quantity: 0</span>
+            <div class="edit-quantity">
+              <i class="fa-solid fa-circle-minus"></i>
+              <i class="fa-solid fa-circle-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/cake2.jpg">
+          Croissant <br> <span>RM 6.80</span>
+          <div class="product-hover">
+            <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+            <br>
+            <span>Quantity: 0</span>
+            <div class="edit-quantity">
+              <i class="fa-solid fa-circle-minus"></i>
+              <i class="fa-solid fa-circle-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/cake3.jpg">
+          Black Forest <br> <span>RM 73.90</span>
+          <div class="product-hover">
+            <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+            <br>
+            <span>Quantity: 0</span>
+            <div class="edit-quantity">
+              <i class="fa-solid fa-circle-minus"></i>
+              <i class="fa-solid fa-circle-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/cake4.jpg">
+          Maple Oat Muffin <br> <span>RM 4.20</span>
+          <div class="product-hover">
+            <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+            <br>
+            <span>Quantity: 0</span>
+            <div class="edit-quantity">
+              <i class="fa-solid fa-circle-minus"></i>
+              <i class="fa-solid fa-circle-plus"></i>
+            </div>
           </div>
         </div>
       </div>
-      <div class="grid-item">
-        <img src="../../assets/cake2.jpg">
-        Croissant <br> <span>RM 6.80</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake3.jpg">
-        Black Forest <br> <span>RM 73.90</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
 </template>
 
 <script>

@@ -60,6 +60,58 @@
           </div>
         </div>
       </div>
+      <div class="grid-item">
+        <img src="../../assets/cake4.jpg">
+        Maple Oat Muffin <br> <span>RM 4.20</span>
+        <div class="product-hover">
+          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+          <br>
+          <span>Quantity: 0</span>
+          <div class="edit-quantity">
+            <i class="fa-solid fa-circle-minus"></i>
+            <i class="fa-solid fa-circle-plus"></i>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <img src="../../assets/cake4.jpg">
+        Maple Oat Muffin <br> <span>RM 4.20</span>
+        <div class="product-hover">
+          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+          <br>
+          <span>Quantity: 0</span>
+          <div class="edit-quantity">
+            <i class="fa-solid fa-circle-minus"></i>
+            <i class="fa-solid fa-circle-plus"></i>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <img src="../../assets/cake4.jpg">
+        Maple Oat Muffin <br> <span>RM 4.20</span>
+        <div class="product-hover">
+          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+          <br>
+          <span>Quantity: 0</span>
+          <div class="edit-quantity">
+            <i class="fa-solid fa-circle-minus"></i>
+            <i class="fa-solid fa-circle-plus"></i>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <img src="../../assets/cake4.jpg">
+        Maple Oat Muffin <br> <span>RM 4.20</span>
+        <div class="product-hover">
+          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+          <br>
+          <span>Quantity: 0</span>
+          <div class="edit-quantity">
+            <i class="fa-solid fa-circle-minus"></i>
+            <i class="fa-solid fa-circle-plus"></i>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -121,9 +173,10 @@ hr {
   height: 1400px;
   width: 100%;
   display: grid;
-  grid-template-columns: 18% 18% 18% 18%;
+  grid-template-columns: 240px 240px 240px 240px;
   grid-template-rows: 400px 400px 400px 400px;
   column-gap: 30px;
+  row-gap: 80px;
   padding-top: 150px;
   justify-items: center;
   justify-content: center;
@@ -134,7 +187,7 @@ hr {
   background-color: rgba(255, 255, 255, 0.8);
   border: 2px solid rgb(104, 79, 64);
   width: 100%;
-  height: 360px;
+  height: 100%;
   padding: 5px;
   text-transform: uppercase; 
   text-align: center;
@@ -226,4 +279,33 @@ img {
   background-color: white;
 }
 
+@media (max-width: 1200px) {
+  .product-grid {
+    position: relative;
+    height: 1400px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 190px 190px 190px 190px;
+    grid-template-rows: 360px 360px 360px 360px;
+    column-gap: 30px;
+    row-gap: 60px;
+    padding-top: 150px;
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .grid-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgb(104, 79, 64);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    text-transform: uppercase; 
+    text-align: center;
+    color: #684f40;
+    line-height: 30px;
+    font-weight: 700;
+  }
+}
 </style>

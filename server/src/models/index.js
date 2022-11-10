@@ -27,9 +27,16 @@ db.sequelize = sequelize
 
 db.accounts = require("./AccountModel.js")(sequelize, DataTypes)
 db.users = require("./UserModel.js")(sequelize, DataTypes)
+db.products = require("./ProductModel")(sequelize, DataTypes)
+db.productsCategory = require("./ProductCategoryModel")(sequelize, DataTypes)
+
 db.users.belongsTo(db.accounts, {
-    foreignKey: "login_id",
+    foreignKey: "login_id"
 })
+db.products.belongsTo(db.productsCategory, {
+    foreignKey: "category_id"
+})
+
 
 db.sequelize.sync({ force: false })
 .then(() => {

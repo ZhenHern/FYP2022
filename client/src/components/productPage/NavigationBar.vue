@@ -120,6 +120,7 @@ a {
 }
 
 .responsive-nav {
+  position: absolute;
   width: 20%;
   display: flex;
   justify-content: center;
@@ -135,6 +136,10 @@ label {
 }
 
 @media (max-width: 1200px) {
+  .responsive-nav {
+    position: relative;
+  }
+
   .navigation-bar {
     display: none;
   }

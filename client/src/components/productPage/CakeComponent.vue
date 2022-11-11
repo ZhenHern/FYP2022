@@ -9,100 +9,9 @@
       </div>
     </div>
     <div class="product-grid">
-      <div class="grid-item">
-        <img src="../../assets/cake1.jpg">
-        Capp. Cheesecake <br> <span>RM 79.99</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake2.jpg">
-        Croissant <br> <span>RM 6.80</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake3.jpg">
-        Black Forest <br> <span>RM 73.90</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
-        <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
-          <br>
-          <span>Quantity: 0</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <img src="../../assets/cake4.jpg">
-        Maple Oat Muffin <br> <span>RM 4.20</span>
+      <div class="grid-item" v-for="(product, index) in products" :key="index">
+        <img :src="getImgUrl(product.image_name)"  >
+        {{product.product_name}} <br> <span>RM 79.99</span>
         <div class="product-hover">
           <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
           <br>
@@ -118,12 +27,25 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { ref,onMounted } from '@vue/runtime-core'
+import ProductService from "../../services/ProductService"
 export default {
   setup() {
-    onMounted(() => {
-      console.log("Haisss")
+    var products = ref(null)
+
+    onMounted(async () => {
+      products.value = await ProductService.showProducts()
+      console.log(products.value[0])
     })
+
+    return {
+      products
+    }
+  },
+  methods: {
+    getImgUrl(picture) {
+      return require("../../assets/" + picture)
+    }
   }
 }
 </script>

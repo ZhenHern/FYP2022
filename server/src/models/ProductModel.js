@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         product_description: {
             type: DataTypes.STRING
         },
+        image_name: {
+            type:DataTypes.STRING
+        },
         image: {
             type: DataTypes.BLOB("long")
         },
-        product_category: {
-            type: DataTypes.INTEGER
-        }
     })
 
     return Product

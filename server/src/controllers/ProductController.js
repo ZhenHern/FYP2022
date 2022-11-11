@@ -23,7 +23,8 @@ const createProducts = async(req, res) => {
         await Product.create({
             product_name: req.body.productName,
             product_description: req.body.productDesc,
-            product_category: req.body.productCategory,
+            category_id: req.body.productCategory,
+            image_name: req.file.filename,
             image: fs.readFileSync(
                 path.resolve(__dirname, "../../../client/src/assets/" + req.file.filename)
             ),
@@ -35,7 +36,17 @@ const createProducts = async(req, res) => {
     }
 }
 
+const showAllCakes = async(req, res) => {
+    const cakes = await Product.findAll({
+        where: {
+            category_id: 1
+        }
+    })
+    res.send(cakes)
+}
+
 module.exports = {
     createCategory,
     createProducts,
+    showAllCakes
 }

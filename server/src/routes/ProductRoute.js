@@ -10,4 +10,6 @@ router.post("/createCategory", productController.createCategory)
 
 router.post("/createProduct", upload.single("image"), productController.createProducts)
 
+router.get("/showProduct", productController.showAllCakes)
+
 module.exports = router

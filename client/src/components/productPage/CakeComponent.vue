@@ -15,10 +15,10 @@
         <div class="product-hover">
           <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
           <br>
-          <span>Quantity: 0</span>
+          <span>Quantity: {{quantity[index]}}</span>
           <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus"></i>
-            <i class="fa-solid fa-circle-plus"></i>
+            <i class="fa-solid fa-circle-minus" @click="minusQuantity(index)"></i>
+            <i class="fa-solid fa-circle-plus" @click="addQuantity(index)"></i>
           </div>
         </div>
       </div>
@@ -31,20 +31,38 @@ import { ref,onMounted } from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
 export default {
   setup() {
+    var quantityArray = []
+    var length = 0
     var products = ref(null)
 
     onMounted(async () => {
       products.value = await ProductService.showProducts()
-      console.log(products.value[0])
+      length = Object.keys(products.value).length
+      for(var i = 0; i < length; i++) {
+        quantityArray.push(0)
+      }
     })
 
     return {
-      products
+      products, quantityArray
+    }
+  },
+  data () {
+    return {
+      quantity: this.quantityArray
     }
   },
   methods: {
     getImgUrl(picture) {
       return require("../../assets/" + picture)
+    },
+    minusQuantity(index) {
+      if (this.quantity[index] !== 0) {
+        this.quantity[index] -= 1
+      }
+    },
+    addQuantity(index) {
+      this.quantity[index] += 1
     }
   }
 }

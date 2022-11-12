@@ -16,12 +16,23 @@ const createCategory = async(req, res) => {
     }
 }
 
+const showAllCategories = async(req, res) => {
+    try {
+        category = await Category.findAll()
+        res.send(category)
+    }
+    catch(err) {
+        res.status(400).send("Error fetching data from database.")
+    }
+}
+
 const createProducts = async(req, res) => {
     try {
         console.log(req.file)
         
         await Product.create({
             product_name: req.body.productName,
+            product_price: req.body.productPrice,
             product_description: req.body.productDesc,
             category_id: req.body.productCategory,
             image_name: req.file.filename,
@@ -36,10 +47,11 @@ const createProducts = async(req, res) => {
     }
 }
 
-const showAllCakes = async(req, res) => {
+const showProducts = async(req, res) => {
+    let category_id = req.params.category_id
     const cakes = await Product.findAll({
         where: {
-            category_id: 1
+            category_id: category_id
         }
     })
     res.send(cakes)
@@ -48,5 +60,6 @@ const showAllCakes = async(req, res) => {
 module.exports = {
     createCategory,
     createProducts,
-    showAllCakes
+    showProducts,
+    showAllCategories
 }

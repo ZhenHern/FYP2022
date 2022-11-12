@@ -6,9 +6,7 @@
       <input type="checkbox" id="check">
       <div class="navigation-bar">
         <ul>
-          <li @click="changeComponent('CakeComponent')" :class="{ active: activeComponent === 'CakeComponent'}">Cakes</li>
-          <li @click="changeComponent('CookieComponent')" :class="{ active: activeComponent === 'CookieComponent'}">Cookies</li>
-          <li @click="changeComponent('BreadComponent')" :class="{ active: activeComponent === 'BreadComponent'}">Breads</li>
+          <li @click="changeCategory(category.category_id)" v-for="(category, index) in categories" :key="index" :class="{ active: index + 1 === categoryID}">{{category.category_name}}</li>
         </ul>
       </div>
       <div class="buttons">
@@ -24,13 +22,30 @@
 </template>
 
 <script>
+import { ref,onMounted } from '@vue/runtime-core'
+import ProductService from '../../services/ProductService'
 export default {
   props: {
     activeComponent: String,
   },
+  setup() {
+    var categories = ref(null)
+    onMounted(async() => {
+      categories.value = await ProductService.showAllCategories()
+    })
+    return {
+      categories
+    }
+  },
+  data() {
+    return {
+      categoryID: 1
+    }
+  },
   methods: {
-    changeComponent(newComponent) {
-      this.$emit("changeComponent",newComponent);
+    changeCategory(categoryID) {
+      this.categoryID = categoryID
+      this.$emit("changeCategory", categoryID);
     }
   }
 }

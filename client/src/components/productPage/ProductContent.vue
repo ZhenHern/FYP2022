@@ -10,8 +10,10 @@
     </div>
     <div class="product-grid">
       <div class="grid-item" v-for="(product, index) in products" :key="index">
-        <img :src="getImgUrl(product.image_name)"  >
-        {{product.product_name}} <br> <span>RM 79.99</span>
+        <img :src="getImgUrl(product.image_name)">
+        <div class="product-content">
+          {{product.product_name}} <br> <span>RM {{product.product_price}}</span>
+        </div>
         <div class="product-hover">
           <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
           <br>
@@ -30,13 +32,16 @@
 import { ref,onMounted } from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
 export default {
-  setup() {
+  props: {
+    category: Number
+  },
+  setup(props) {
     var quantityArray = []
     var length = 0
     var products = ref(null)
 
     onMounted(async () => {
-      products.value = await ProductService.showProducts()
+      products.value = await ProductService.showProducts(props.category)
       length = Object.keys(products.value).length
       for(var i = 0; i < length; i++) {
         quantityArray.push(0)

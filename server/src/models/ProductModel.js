@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         product_name: {
             type: DataTypes.STRING,
         },
+        product_price: {
+            type: DataTypes.DECIMAL(10,2)
+        },
         product_description: {
             type: DataTypes.STRING
         },

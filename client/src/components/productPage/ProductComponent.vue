@@ -1,27 +1,30 @@
 <template>
   <div class="viewport">
-    <NavigationBar @changeComponent="activeComponent=$event" :activeComponent="activeComponent"/>
-    <component :is="activeComponent"></component>  
+    <NavigationBar @changeCategory="changeCategory($event)"/>
+    <ProductContent :category="activeCategory" :key="componentKey"/>  
   </div>
 
 </template>
 
 <script>
 import NavigationBar from "./NavigationBar.vue"
-import CakeComponent from "./CakeComponent.vue"
-import CookieComponent from "./CookieComponent.vue"
-import BreadComponent from "./BreadComponent"
+import ProductContent from "./ProductContent.vue"
 
 export default {
   components: {
     NavigationBar,
-    CakeComponent,
-    CookieComponent,
-    BreadComponent
+    ProductContent
   },
   data() {
     return {
-      activeComponent: "CakeComponent"
+      activeCategory: 1,
+      tcomponentKey: 0
+    }
+  },
+  methods: {
+    changeCategory(activeCategory) {
+      this.activeCategory = activeCategory
+      this.componentKey += 1
     }
   }
 }

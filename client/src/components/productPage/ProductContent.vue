@@ -2,9 +2,11 @@
   <div>
     <div class="background-image">
       <div class="content">
-        <div class="text">
-          Cakes
-          <hr>
+        <div class="text" v-for="(cat, index) in categories" :key="index">
+          <div v-show="index === category - 1">
+            {{cat.category_name}}
+            <hr>
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +41,7 @@ export default {
     var quantityArray = []
     var length = 0
     var products = ref(null)
+    var categories = ref(null)
 
     onMounted(async () => {
       products.value = await ProductService.showProducts(props.category)
@@ -46,10 +49,12 @@ export default {
       for(var i = 0; i < length; i++) {
         quantityArray.push(0)
       }
+
+      categories.value = await ProductService.showAllCategories()
     })
 
     return {
-      products, quantityArray
+      products, quantityArray, categories
     }
   },
   data () {

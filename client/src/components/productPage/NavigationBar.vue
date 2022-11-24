@@ -213,6 +213,17 @@ label {
     transition: color 0.3s ease-in-out;
   }
 
+  #check:checked ~ .navigation-bar ul li:hover {
+    color: white;
+  }
+
+  #check:checked ~ .navigation-bar ul .active {
+    text-decoration: underline;
+    text-underline-offset: 7px;
+  }
+
+
+
   #check:checked ~ .responsive-nav label .close-btn {
     z-index: 2;
     display: block;

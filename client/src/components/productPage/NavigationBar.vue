@@ -52,6 +52,11 @@ export default {
 </script>
 
 <style scoped>
+::selection {
+  background: #fdb822;
+  color: white;
+}
+
 .main-navigation-bar {
   height: 120px;
   display: flex;

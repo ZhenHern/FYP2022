@@ -79,6 +79,11 @@ export default {
 </script>
 
 <style scoped>
+::selection {
+  background: #fdb822;
+  color: white;
+}
+
 .background-image {
   width: 100%;
   border-top: 3px solid rgb(104,79,64);

@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       activeCategory: 1,
-      tcomponentKey: 0
+      componentKey: 0
     }
   },
   methods: {

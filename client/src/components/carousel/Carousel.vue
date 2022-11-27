@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="pagination">
-      <span @click="goToSlide(index)" v-for="(slide, index) in getSlideCount" :key="index" :class="{active : index  === currentSlide }">
+      <span @click="goToSlide(index)" v-for="(slide, index) in getSlideCount" :key="index" :class="{active : index  === currentSlide}">
         
       </span>  
     </div>

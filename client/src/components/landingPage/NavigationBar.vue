@@ -3,7 +3,7 @@
     <header>
         <h2><a href="#" class="logo">Bakery Shop</a></h2>
         <div class="navigation">
-          <NavigationRadios @changeComponent="activeComponent=$event"/>
+          <NavigationRadios @changeComponent="activeComponent = $event"/>
         </div>
         <div class="buttons">
           <a href="login" class="log-in">Log in</a>

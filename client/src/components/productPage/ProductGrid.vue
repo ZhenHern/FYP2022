@@ -2,12 +2,12 @@
   <div>
     <div class="product-grid">
       <div class="grid-item" v-for="(product, index) in products" :key="index">
-        <img :src="getImgUrl(product.image_name)">
+        <img :src="getImgUrl(product.image_name1)">
         <div class="product-content">
           {{product.product_name}} <br> <span>RM {{product.product_price}}</span>
         </div>
         <div class="product-hover">
-          <a href=""><i class="fa fa-search" aria-hidden="true"></i></a>
+          <i class="fa fa-search" aria-hidden="true" @click="$emit('checkDetails', {productID: index + 1, showDetails: true, slideDirection: 'slide-right'})"></i>
           <br>
           <span>Quantity: {{quantity[index]}}</span>
           <div class="edit-quantity">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { ref,onMounted } from '@vue/runtime-core'
+import { ref, onMounted } from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
 export default {
   props: {
@@ -131,7 +131,7 @@ img {
   background: rgba(253,184,34,0.9);
 }
 
-.product-hover a {
+.product-hover .fa {
   transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
   font-size: 18px;
   position: relative;
@@ -146,7 +146,8 @@ img {
   line-height: 52px;
 }
 
-.product-hover a:hover {
+.product-hover .fa:hover {
+  cursor: pointer;
   background-color: #684f40;
   border-color: #684f40;
   color: white;

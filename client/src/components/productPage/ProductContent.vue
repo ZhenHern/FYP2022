@@ -10,13 +10,15 @@
         </div>
       </div>
     </div>
-    <ProductGrid :category="category" v-if="!showDetails"/>
-    <ProductDetail v-else/>
+    <Transition :name="slideDirection">
+      <ProductGrid :category="category" v-if="!showDetails" @checkDetails="checkDetails"/>
+      <ProductDetail v-else @checkDetails="checkDetails" :productID="productID"/>
+    </Transition>
   </div>
 </template>
 
 <script>
-import { ref,onMounted } from '@vue/runtime-core'
+import {ref, onMounted} from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
 import ProductGrid from "./ProductGrid.vue"
 import ProductDetail from "./ProductDetail.vue"
@@ -42,9 +44,18 @@ export default {
   },
   data () {
     return {
-      showDetails: true
+      slideDirection: "slide-right",
+      showDetails: false,
+      productID: null
     }
   },
+  methods: {
+    checkDetails({productID, showDetails, slideDirection}) {
+      this.productID = productID
+      this.showDetails = showDetails
+      this.slideDirection = slideDirection
+    }
+  }
 }
 </script>
 
@@ -99,4 +110,5 @@ hr {
   height: 5px;
   background-color: white;
 }
+
 </style>

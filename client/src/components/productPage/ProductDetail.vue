@@ -1,13 +1,16 @@
 <template>
   <div class="container">
     <div class="details">
+        <div class="back-button">
+            <i class="fa fa-chevron-circle-left" aria-hidden="true" @click="$emit('checkDetails', {showDetails: false, slideDirection: 'slide-left'})"></i>
+        </div>
         <div class="information">
             <div class="top-information">
                 <div class="name">
-                    Sourdough
+                    {{productName}}
                 </div>
                 <div class="price">
-                    RM 5.00
+                    RM {{productPrice}}
                 </div>
             </div>
             <hr>
@@ -56,12 +59,25 @@
 </template>
 
 <script>
+import ProductService from "../../services/ProductService"
 export default {
+    props: {
+        productID: Number
+    },
+    async mounted() {
+        var productDetails = null
+
+        productDetails = await ProductService.showDetails(this.productID)
+        this.productName = productDetails.product_name
+        this.productPrice = productDetails.product_price
+    },
     data() {
         return {
             image: ["cake1", "cake2", "cake3"],
             currentSlide: 0,
-            slideDirection: null
+            slideDirection: null,
+            productName: null,
+            productPrice: null,
         }
     },
     methods: {
@@ -105,6 +121,26 @@ export default {
 .container {
     width: 100%;
     height: 1000px;
+}
+
+.back-button {
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: -75px;
+    margin-left: auto;
+}
+
+.back-button .fa {
+    border-radius: 50%;
+    font-size: 45px;
+    transition: all 0.3s ease;
+}
+
+.back-button .fa:hover {
+    cursor: pointer;
+    color: #fdb822;
 }
 
 .details {
@@ -352,7 +388,7 @@ img {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-right-enter-from {

@@ -28,16 +28,24 @@ const showAllCategories = async(req, res) => {
 
 const createProducts = async(req, res) => {
     try {
-        console.log(req.file)
+        console.log(req.files)
         
         await Product.create({
             product_name: req.body.productName,
             product_price: req.body.productPrice,
             product_description: req.body.productDesc,
             category_id: req.body.productCategory,
-            image_name: req.file.filename,
-            image: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/" + req.file.filename)
+            image_name1: req.files[0].filename,
+            image_name2: req.files[1].filename,
+            image_name3: req.files[2].filename,
+            image1: fs.readFileSync(
+                path.resolve(__dirname, "../../../client/src/assets/" + req.files[0].filename)
+            ),
+            image2: fs.readFileSync(
+                path.resolve(__dirname, "../../../client/src/assets/" + req.files[1].filename)
+            ),
+            image3: fs.readFileSync(
+                path.resolve(__dirname, "../../../client/src/assets/" + req.files[2].filename)
             ),
         })
         res.status(201).send("New Product Added")
@@ -57,9 +65,20 @@ const showProducts = async(req, res) => {
     res.send(cakes)
 }
 
+const showDetails = async(req, res) => {
+    let product_id = req.params.product_id
+    const details = await Product.findOne({
+        where: {
+            product_id: product_id
+        }
+    })
+    res.send(details)
+}
+
 module.exports = {
     createCategory,
     createProducts,
     showProducts,
-    showAllCategories
+    showAllCategories,
+    showDetails
 }

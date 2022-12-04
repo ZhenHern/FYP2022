@@ -3,6 +3,7 @@ const path = require("path")
 const db = require("../models")
 const Category = db.productsCategory
 const Product = db.products
+const Ingredient = db.productsIngredient
 
 const createCategory = async(req, res) => {
     try {
@@ -39,13 +40,13 @@ const createProducts = async(req, res) => {
             image_name2: req.files[1].filename,
             image_name3: req.files[2].filename,
             image1: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/" + req.files[0].filename)
+                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[0].filename)
             ),
             image2: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/" + req.files[1].filename)
+                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[1].filename)
             ),
             image3: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/" + req.files[2].filename)
+                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[2].filename)
             ),
         })
         res.status(201).send("New Product Added")
@@ -75,10 +76,21 @@ const showDetails = async(req, res) => {
     res.send(details)
 }
 
+const showIngredients = async(req, res) => {
+    let product_id = req.params.product_id
+    const ingredients = await Ingredient.findAll({
+        where: {
+            product_id: product_id
+        }
+    })
+    res.send(ingredients)
+}
+
 module.exports = {
     createCategory,
     createProducts,
     showProducts,
     showAllCategories,
-    showDetails
+    showDetails,
+    showIngredients
 }

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10,2)
         },
         product_description: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long')
         },
         image_name1: {
             type: DataTypes.STRING

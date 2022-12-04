@@ -15,20 +15,13 @@
             </div>
             <hr>
             <div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus qui sequi sapiente. Id ut perferendis, eaque sed aliquam magnam fugit assumenda voluptate esse ducimus adipisci, minima numquam perspiciatis, incidunt modi!</p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                <p>{{productDesc}}</p>
             </div>
             <div class="ingredients">
                 Ingredients:
                 <div class="ingredients-list">
                     <ul>
-                        <li>Water</li>
-                        <li>Flour</li>
-                        <li>Salt</li>
-                        <li>Jisoo</li>
-                        <li>Jisoo</li>
-                        <li>Jisoo</li>
-                        <li>Jisoo</li>
+                        <li v-for="(item, index) in productIngredients" :key="index">{{item.ingredient_name}}</li>
                     </ul>
                 </div>
             </div>
@@ -66,23 +59,31 @@ export default {
     },
     async mounted() {
         var productDetails = null
+        var productIngredients = null
 
         productDetails = await ProductService.showDetails(this.productID)
+        productIngredients = await ProductService.showIngredients(this.productID)
+
         this.productName = productDetails.product_name
         this.productPrice = productDetails.product_price
+        this.productDesc = productDetails.product_description
+        this.image = [productDetails.image_name1, productDetails.image_name2, productDetails.image_name3]
+        this.productIngredients = productIngredients
     },
     data() {
         return {
-            image: ["cake1", "cake2", "cake3"],
+            image: [],
             currentSlide: 0,
             slideDirection: null,
             productName: null,
             productPrice: null,
+            productDesc: null,
+            productIngredients: null
         }
     },
     methods: {
         getImgUrl(index) {
-            return require('../../assets/'+ this.image[index] + '.png')
+            return require('../../assets/productImages/'+ this.image[index])
         },
         prevSlide() {
             if (this.currentSlide != 0) {

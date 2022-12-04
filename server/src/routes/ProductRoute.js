@@ -16,4 +16,6 @@ router.get("/showCategory", productController.showAllCategories)
 
 router.get("/showDetails/:product_id", productController.showDetails)
 
+router.get("/showIngredients/:product_id", productController.showIngredients)
+
 module.exports = router

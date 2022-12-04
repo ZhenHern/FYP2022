@@ -1,17 +1,18 @@
 const { Sequelize } = require(".")
 
 module.exports = (sequelize, DataTypes) => {
-    const ProductCategory = sequelize.define("product_categories", {
-        category_id: {
+    const ProductIngredient = sequelize.define("product_ingredients", {
+        product_id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        category_name: {
+        ingredient_name: {
             type: DataTypes.STRING,
-            unique: true
+            unique: true,
+            primaryKey: true
         },
     })
 
-    return ProductCategory
+    return ProductIngredient
 }

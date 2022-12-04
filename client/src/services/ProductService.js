@@ -21,5 +21,12 @@ export default {
             response = res.data
         })
         return response
+    },
+    async showIngredients(productID) {
+        var response
+        await Api().get('api/products/showIngredients/' + productID).then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

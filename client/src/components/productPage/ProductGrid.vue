@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getImgUrl(picture) {
-      return require("../../assets/" + picture)
+      return require("../../assets/productImages/" + picture)
     },
     minusQuantity(index) {
       if (this.quantity[index] !== 0) {

@@ -10,7 +10,14 @@ export default {
     },
     async showAllCategories() {
         var response
-        await Api().get('api/products/showCategory').then(function(res) {
+        await Api().get('api/products/showAllCategories').then(function(res) {
+            response = res.data
+        }) 
+        return response
+    },
+    async showCategory(categoryID) {
+        var response
+        await Api().get('api/products/showCategory/' + categoryID).then(function(res) {
             response = res.data
         }) 
         return response

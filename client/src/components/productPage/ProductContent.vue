@@ -2,12 +2,11 @@
   <div>
     <div class="background-image">
       <div class="content">
-        <div class="text" v-for="(cat, index) in categories" :key="index">
-          <div v-show="index === category - 1">
-            {{cat.category_name}}
-            <hr>
-          </div>
+        <Transition>
+        <div class="text" v-show="productCategoryID === category">
+            {{productCategory}}
         </div>
+        </Transition>
       </div>
     </div>
     <Transition :name="slideDirection">
@@ -18,7 +17,6 @@
 </template>
 
 <script>
-import {ref, onMounted} from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
 import ProductGrid from "./ProductGrid.vue"
 import ProductDetail from "./ProductDetail.vue"
@@ -27,16 +25,12 @@ export default {
   props: {
     category: Number
   },
-  setup() {
-    var categories = ref(null)
+  async mounted() {
+    var productCategory = null
 
-    onMounted(async () => {
-      categories.value = await ProductService.showAllCategories()
-    })
-
-    return {
-      categories
-    }
+    productCategory = await ProductService.showCategory(this.category)
+    this.productCategoryID = productCategory.category_id
+    this.productCategory = productCategory.category_name
   },
   components: {
     ProductGrid,
@@ -46,7 +40,9 @@ export default {
     return {
       slideDirection: "slide-right",
       showDetails: false,
-      productID: null
+      productID: null,
+      productCategoryID: null,
+      productCategory: null
     }
   },
   methods: {
@@ -109,6 +105,16 @@ hr {
   margin: auto;
   height: 5px;
   background-color: white;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.75s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 </style>

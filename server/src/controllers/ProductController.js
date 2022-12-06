@@ -17,6 +17,21 @@ const createCategory = async(req, res) => {
     }
 }
 
+const showCategory = async(req, res) => {
+    let category_id = req.params.category_id
+    try {
+        category = await Category.findOne({
+            where: {
+                category_id: category_id
+            }
+        })
+        res.send(category)
+    }
+    catch(err) {
+        res.status(400).send("Error fetching data from database.")
+    }
+}
+
 const showAllCategories = async(req, res) => {
     try {
         category = await Category.findAll()
@@ -91,6 +106,7 @@ module.exports = {
     createProducts,
     showProducts,
     showAllCategories,
+    showCategory,
     showDetails,
     showIngredients
 }

@@ -121,7 +121,7 @@ export default {
 
 .container {
     width: 100%;
-    height: 1000px;
+    height: 1500px;
 }
 
 .back-button {
@@ -157,7 +157,7 @@ export default {
     float: left;
     padding: 50px;
     width: 600px;
-    height: 100%;
+    height: auto
 }
 
 .top-information {
@@ -292,7 +292,11 @@ img {
     width: 100%;
     height: 100%;
     position: absolute;
-    
+}
+
+img {
+    height: 100%;
+    width: 100%;
 }
 
 .prev-button:hover { 
@@ -377,6 +381,117 @@ img {
     border-radius: 50%;
     background: #fdb822;
     transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1400px) {
+    .slide {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        background: rgb(250, 236, 205);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .carousel {
+        width: 500px;
+    }
+
+    .information {
+        width: 500px;
+    }
+
+    .details {
+        width: 1000px;
+    }
+
+    .prev-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .next-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .fa {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1160px) {
+    .details {
+        width: 80%;
+    }
+    
+    .information {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .carousel {
+        width: 100%;
+        height: auto;
+        padding: 0px;
+    }
+
+    .slide {
+        position: relative;
+        width: 100%;
+        height: auto;
+        background: rgb(250, 236, 205);
+        padding-bottom: 100%;
+    }
+
+    .images {
+        bottom: 0px;
+    }
+
+    .prev-button {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 45%;
+    }
+
+    .next-button {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 45%;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .top-information {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 500px) {
+    .prev-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .next-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .fa {
+        font-size: 15px;
+    }
 }
 
 .slider-button:hover {

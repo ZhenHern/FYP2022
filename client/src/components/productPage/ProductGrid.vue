@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="product-grid">
+      <TransitionGroup name="list">
       <div class="grid-item" v-for="(product, index) in products" :key="index">
         <img :src="getImgUrl(product.image_name1)">
         <div class="product-content">
@@ -16,6 +17,7 @@
           </div>
         </div>
       </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -241,5 +243,14 @@ img {
     line-height: 30px;
     font-weight: 700;
   }
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.75s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
 }
 </style>

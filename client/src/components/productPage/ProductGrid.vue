@@ -222,7 +222,7 @@ img {
     width: 100%;
     display: grid;
     grid-template-columns: 90%;
-    grid-auto-rows: 900px;
+    grid-auto-rows: 20%;
     column-gap: 30px;
     row-gap: 60px;
     padding-top: 150px;
@@ -242,6 +242,10 @@ img {
     color: #684f40;
     line-height: 30px;
     font-weight: 700;
+  }
+
+  .product-content {
+    font-size: 25px;
   }
 }
 

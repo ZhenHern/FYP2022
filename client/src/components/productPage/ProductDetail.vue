@@ -478,6 +478,19 @@ img {
     }
 }
 
+@media (max-width: 900px) {
+
+    .information {
+        margin-top: 50px;
+    }
+
+    .back-button {
+        height: auto;
+        left: 0px;
+        top: -40px;
+    }
+}
+
 @media (max-width: 500px) {
     .prev-button {
         width: 32px;

@@ -236,4 +236,14 @@ label {
   }
 
 }
+
+@media (max-width: 500px) {
+  .logo {
+    width: 220px;
+  }
+
+  .logo a {
+    font-size: 25px;
+  }
+}
 </style>

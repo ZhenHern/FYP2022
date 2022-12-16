@@ -74,6 +74,39 @@
             <i class="fa-brands fa-youtube"></i>
           </div>
         </div>
+        <div class="opening-hours-container">
+          <div class="opening-hours-title">Opening Hours</div>
+          <div class="opening-hours-content">
+            <div class="monday">
+              <div class="day">Monday</div>
+              <div class="time">09:00 - 19:00</div>
+            </div>
+            <div class="tuesday">
+              <div class="day">Tuesday</div>
+              <div class="time">09:00 - 19:00</div>
+            </div>
+            <div class="wednesday">
+              <div class="day">Wednesday</div>
+              <div class="time">Closed</div>
+            </div>
+            <div class="thursday">
+              <div class="day">Thursday</div>
+              <div class="time">09:00 - 19:00</div>
+            </div>
+            <div class="friday">
+              <div class="day">Friday</div>
+              <div class="time">09:00 - 19:00</div>
+            </div>
+            <div class="saturday">
+              <div class="day">Saturday</div>
+              <div class="time">11:00 - 19:00</div>
+            </div>
+            <div class="sunday">
+              <div class="day">Sunday</div>
+              <div class="time">11:00 - 19:00</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -258,7 +291,7 @@ export default {
 .address {
   position: relative;
   height: 50px;
-  margin-top: 15px;
+  margin-top: 28px;
 }
 
 .address i {
@@ -279,7 +312,7 @@ export default {
 }
 
 .email {
-  margin-top: 15px;
+  margin-top: 28px;
 }
 
 .email i {
@@ -292,7 +325,7 @@ export default {
 }
 
 .link {
-  margin-top: 15px;
+  margin-top: 28px;
 }
 
 .link i {
@@ -314,16 +347,17 @@ export default {
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  padding-bottom: 90px;
+  padding-bottom: 40px;
 }
 
 .button {
   border-radius: 50%;
   background-color: #fdb822;
   color: white;
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   display: flex;
+  font-size: 20px;
   justify-content: center;
   align-items: center;
   transition: background-color 0.5s ease;
@@ -334,7 +368,67 @@ export default {
   background-color: #684f40;
 }
 
+.opening-hours-container {
+  float: left;
+  width: 355px;
+  height: 100%;
+  color: white;
+}
 
+.opening-hours-title {
+  height: 30px;
+  font-size: 19px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.opening-hours-content {
+  margin-top: 25px;
+  height: 250px;
+  font-size: 15px;
+}
+
+.monday {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tuesday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wednesday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.thursday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.friday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.saturday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sunday {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
 
 
 

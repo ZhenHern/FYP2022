@@ -18,6 +18,7 @@
         </div>
       </div>
       </TransitionGroup>
+      <WebsiteFooter/>
     </div>
   </div>
 </template>
@@ -25,6 +26,8 @@
 <script>
 import { ref, onMounted } from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
+import WebsiteFooter from "../footer/WebsiteFooter.vue"
+
 export default {
   props: {
     category: Number
@@ -45,6 +48,9 @@ export default {
     return {
       products, quantityArray
     }
+  },
+  components: {
+    WebsiteFooter
   },
   data () {
     return {
@@ -75,7 +81,7 @@ export default {
 
 .product-grid {
   position: relative;
-  height: 1400px;
+  height: 2200px;
   width: 100%;
   display: grid;
   grid-template-columns: 240px 240px 240px 240px;

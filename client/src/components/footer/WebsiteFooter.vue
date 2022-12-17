@@ -506,6 +506,7 @@ export default {
   }
 
   .newsletter-container {
+    height: 160px;
     margin-top: 50px;
     float: none;
     position: relative;
@@ -523,7 +524,35 @@ export default {
   .subscribe-button {
     margin-left: 20px;
   }
+
+  .bot-footer {
+    height: auto;
+  }
+
+  .bot-container {
+    width: 85%;
+  }
+
+  .contact-container {
+    float: none;
+    width: 90%;
+  }
   
+  .social-media-container {
+    float: none;
+    width: 95%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .contact-content {
+    width: 100%;
+  }
+
+  .opening-hours-container {
+    float: none;
+    width: 95%;
+  }
 }
 
 

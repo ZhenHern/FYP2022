@@ -13,7 +13,7 @@
           <div class="newsletter-title">Newsletter</div>
           <div class="newsletter-content">Subscribe to get regular updates for new stuff and events.</div>
           <div class="newsletter-form">
-            <input type="text" placeholder="Enter your email address here">
+            <input type="text" placeholder="Email address *">
             <div class="subscribe-button">
               Subscribe
             </div>
@@ -77,31 +77,31 @@
         <div class="opening-hours-container">
           <div class="opening-hours-title">Opening Hours</div>
           <div class="opening-hours-content">
-            <div class="monday">
+            <div :class="currentDay == 1 ? 'active' : 'normal-day'">
               <div class="day">Monday</div>
               <div class="time">09:00 - 19:00</div>
             </div>
-            <div class="tuesday">
+            <div :class="currentDay == 2 ? 'active' : 'normal-day'">
               <div class="day">Tuesday</div>
               <div class="time">09:00 - 19:00</div>
             </div>
-            <div class="wednesday">
+            <div :class="currentDay == 3 ? 'active' : 'normal-day'">
               <div class="day">Wednesday</div>
               <div class="time">Closed</div>
             </div>
-            <div class="thursday">
+            <div :class="currentDay == 4 ? 'active' : 'normal-day'">
               <div class="day">Thursday</div>
               <div class="time">09:00 - 19:00</div>
             </div>
-            <div class="friday">
+            <div :class="currentDay == 5 ? 'active' : 'normal-day'">
               <div class="day">Friday</div>
               <div class="time">09:00 - 19:00</div>
             </div>
-            <div class="saturday">
+            <div :class="currentDay == 6 ? 'active' : 'normal-day'">
               <div class="day">Saturday</div>
               <div class="time">11:00 - 19:00</div>
             </div>
-            <div class="sunday">
+            <div :class="currentDay == 7 ? 'active' : 'normal-day'">
               <div class="day">Sunday</div>
               <div class="time">11:00 - 19:00</div>
             </div>
@@ -115,16 +115,30 @@
 
 <script>
 export default {
-    
+  mounted() {
+    var currentDay = new Date()
+    this.currentDay = currentDay.getDay()
+  },
+  data() {
+    return {
+      currentDay: 0
+    }
+  }
 }
 </script>
 
 <style scoped>
+::selection {
+  background: #fdb822;
+  color: white;
+}
+
 .main-footer {
-  position: absolute;
+  position: relative;
   bottom: 0px;
   width: 100%;
-  height: 565px;
+  margin-top: 100px;
+  height: auto;
 }
 
 .top-footer {
@@ -389,48 +403,128 @@ export default {
   font-size: 15px;
 }
 
-.monday {
+.normal-day {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-.tuesday {
-  margin-top: 8px;
+.active {
   display: flex;
   justify-content: space-between;
+  font-weight: bold;
+  color: #fdb822;
+  margin-bottom: 8px;
 }
 
-.wednesday {
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
+@media (max-width: 1200px) {
+  .main-footer {
+    height: auto;
+  }
+  
+  .top-footer {
+    height: 280px;
+  }
+
+  .top-container {
+    width: 850px;
+    padding-top: 50px;
+  }
+
+  .about-container {
+    width: 360px;
+  }
+
+  .about-content {
+    font-size: 14px;
+  }
+
+  .newsletter-container {
+    width: 305px;
+  }
+
+  .newsletter-content {
+    font-size: 14px;
+  }
+
+  .newsletter-form {
+    width: 305px;
+  }
+
+  .newsletter-form input {
+    width: 60%;
+  }
+
+  .subscribe-button {
+    width: 30%;
+    font-size: 14px;
+  }
+
+  .bot-container {
+    width: 850px;
+  }
+
+  .social-media-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .opening-hours-container {
+    width: 300px;
+  }
 }
 
-.thursday {
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
+@media (max-width: 900px) {
+  .top-footer {
+    height: auto;
+  }
+
+  .top-container {
+    width: 85%;
+  }
+
+  .about-container {
+    height: auto;
+    width: 100%;
+    float: none;
+  }
+
+  .about-title {
+    font-size: 20px;
+  }
+
+  .about-content {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .logo-image {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+  }
+
+  .newsletter-container {
+    margin-top: 50px;
+    float: none;
+    position: relative;
+    width: 100%;
+  }
+
+  .newsletter-content {
+    font-size: 16px;
+  }
+
+  .newsletter-form {
+    width: 100%;
+  }
+
+  .subscribe-button {
+    margin-left: 20px;
+  }
+  
 }
-
-.friday {
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.saturday {
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.sunday {
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-
 
 
 </style>

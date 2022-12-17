@@ -18,7 +18,6 @@
         </div>
       </div>
       </TransitionGroup>
-      <WebsiteFooter/>
     </div>
   </div>
 </template>
@@ -26,7 +25,6 @@
 <script>
 import { ref, onMounted } from '@vue/runtime-core'
 import ProductService from "../../services/ProductService"
-import WebsiteFooter from "../footer/WebsiteFooter.vue"
 
 export default {
   props: {
@@ -48,9 +46,6 @@ export default {
     return {
       products, quantityArray
     }
-  },
-  components: {
-    WebsiteFooter
   },
   data () {
     return {
@@ -81,7 +76,7 @@ export default {
 
 .product-grid {
   position: relative;
-  height: 2200px;
+  height: auto;
   width: 100%;
   display: grid;
   grid-template-columns: 240px 240px 240px 240px;
@@ -194,11 +189,11 @@ img {
 @media (max-width: 1200px) {
   .product-grid {
     position: relative;
-    height: 1400px;
+    height: auto;
     width: 100%;
     display: grid;
     grid-template-columns: 190px 190px 190px 190px;
-    grid-auto-rows: 360px;
+    grid-auto-rows: 330px;
     column-gap: 30px;
     row-gap: 60px;
     padding-top: 150px;
@@ -222,13 +217,14 @@ img {
 }
 
 @media (max-width: 900px) {
+
   .product-grid {
     position: relative;
     height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: 90%;
-    grid-auto-rows: 20%;
+    grid-auto-rows: var(--width);
     column-gap: 30px;
     row-gap: 60px;
     padding-top: 150px;

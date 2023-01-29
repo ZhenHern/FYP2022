@@ -2,7 +2,7 @@
   <div>
     <div class="product-grid">
       <TransitionGroup name="list">
-      <div class="grid-item" v-for="(product, index) in products" :key="index">
+      <div class="grid-item" v-for="(product, index) in currentProducts" :key="index">
         <img :src="getImgUrl(product.image_name1)">
         <div class="product-content">
           {{product.product_name}} <br> <span>RM {{product.product_price}}</span>
@@ -19,11 +19,16 @@
       </div>
       </TransitionGroup>
     </div>
+    <div class="pagination">
+      <div :class="currentPage == page ? 'page-active' : 'page-button'" v-for="(page, index) in 3" :key="index" @click="changePage(page)">{{page}}</div>
+      <div>...</div>
+      <div class="page-button" @click="changePage(totalPage)">{{totalPage}}</div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from '@vue/runtime-core'
+import {ref, onMounted} from 'vue'
 import ProductService from "../../services/ProductService"
 
 export default {
@@ -34,6 +39,8 @@ export default {
     var quantityArray = []
     var length = 0
     var products = ref(null)
+    var currentProducts = ref(null)
+    var currentPage = 1
 
     onMounted(async () => {
       products.value = await ProductService.showProducts(props.category)
@@ -41,17 +48,25 @@ export default {
       for(var i = 0; i < length; i++) {
         quantityArray.push(0)
       }
+      currentProducts.value = products.value.slice((currentPage - 1) * 8, (currentPage - 1) * 8 + 8)
     })
 
+    function changePage(page) {
+      currentPage = page
+      alert(currentPage)
+    }
+
     return {
-      products, quantityArray
+      currentProducts, quantityArray, currentPage, changePage
     }
   },
   data () {
     return {
-      quantity: this.quantityArray
+      quantity: this.quantityArray,
+      totalPage: 5,
     }
   },
+  
   methods: {
     getImgUrl(picture) {
       return require("../../assets/productImages/" + picture)
@@ -184,6 +199,39 @@ img {
   color: #684f40;
   border-color: #684f40;
   background-color: white;
+}
+
+.pagination {
+  position: relative;
+  top: 50px;
+  width: 30%;
+  margin-left: 35%;
+  margin-right: 35%;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.page-button {
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.page-button:hover {
+  cursor: pointer;
+  color: #fdb822;
+}
+
+.page-active {
+  color: white;
+  border-radius: 50%;
+  background-color: #303133;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1200px) {

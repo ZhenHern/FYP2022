@@ -101,7 +101,7 @@
               <div class="day">Saturday</div>
               <div class="time">11:00 - 19:00</div>
             </div>
-            <div :class="currentDay == 7 ? 'active' : 'normal-day'">
+            <div :class="currentDay == 0 ? 'active' : 'normal-day'">
               <div class="day">Sunday</div>
               <div class="time">11:00 - 19:00</div>
             </div>

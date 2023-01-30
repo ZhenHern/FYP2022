@@ -77,6 +77,7 @@ export default {
     },
     changePage(page) {
       this.currentPage = page
+      window.scrollTo({ top: 0, behavior: 'smooth'})
     }
   }
 }

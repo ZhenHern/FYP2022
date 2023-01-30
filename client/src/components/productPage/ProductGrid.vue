@@ -19,14 +19,17 @@
       </div>
       </TransitionGroup>
     </div>
-    <div class="pagination">
+    <div class="pagination" v-if="totalPage >= 10">
       <div :class="currentPage == 1 ? 'page-active' : 'page-button'" @click="changePage(1)">1</div>
       <div v-if="currentPage - 1 >= 5">...</div>
       <div :class="currentPage == page ? 'page-active' : 'page-button'" v-for="(page, index) in [currentPage - 1, currentPage, currentPage + 1]" :key="index" @click="changePage(page)" v-show="currentPage - 1 >=5 && totalPage - currentPage >= 5">{{page}}</div>
       <div :class="currentPage == page + 1 ? 'page-active' : 'page-button'" v-for="(page, index) in 6" :key="index" @click="changePage(page+1)" v-show="currentPage - 1 < 5">{{page + 1}}</div>
-      <div :class="currentPage == totalPage - page ? 'page-active' : 'page-button'" v-for="(page, index) in [6, 5 , 4, 3, 2, 1]" :key="index" @click="changePage(totalPage - page)" v-show="totalPage - currentPage < 5">{{totalPage - page}}</div>
-      <div v-if="totalPage - currentPage >=5">...</div>
+      <div :class="currentPage == totalPage - page ? 'page-active' : 'page-button'" v-for="(page, index) in [6, 5 , 4, 3, 2, 1]" :key="index" @click="changePage(totalPage - page)" v-show="totalPage - currentPage < 5 ">{{totalPage - page}}</div>
+      <div v-if="totalPage - currentPage >= 5">...</div>
       <div :class="currentPage == totalPage ? 'page-active' : 'page-button'" @click="changePage(totalPage)">{{totalPage}}</div>
+    </div>
+    <div class="pagination" v-else>
+      <div :class="currentPage == page ? 'page-active' : 'page-button'" v-for="(page, index) in totalPage" :key="index" @click="changePage(page)">{{page}}</div>
     </div>
   </div>
 </template>
@@ -44,6 +47,7 @@ export default {
       this.quantity.push(0)
     }
     this.currentProducts = this.products.slice((this.currentPage - 1) * 8, (this.currentPage - 1) * 8 + 8)
+    this.totalPage = Math.ceil(Object.keys(this.products).length / 8)
   },
   data() {
     return {

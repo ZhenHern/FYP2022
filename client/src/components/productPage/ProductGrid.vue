@@ -20,53 +20,45 @@
       </TransitionGroup>
     </div>
     <div class="pagination">
-      <div :class="currentPage == page ? 'page-active' : 'page-button'" v-for="(page, index) in 3" :key="index" @click="changePage(page)">{{page}}</div>
-      <div>...</div>
-      <div class="page-button" @click="changePage(totalPage)">{{totalPage}}</div>
+      <div :class="currentPage == 1 ? 'page-active' : 'page-button'" @click="changePage(1)">1</div>
+      <div v-if="currentPage - 1 >= 5">...</div>
+      <div :class="currentPage == page ? 'page-active' : 'page-button'" v-for="(page, index) in [currentPage - 1, currentPage, currentPage + 1]" :key="index" @click="changePage(page)" v-show="currentPage - 1 >=5 && totalPage - currentPage >= 5">{{page}}</div>
+      <div :class="currentPage == page + 1 ? 'page-active' : 'page-button'" v-for="(page, index) in 6" :key="index" @click="changePage(page+1)" v-show="currentPage - 1 < 5">{{page + 1}}</div>
+      <div :class="currentPage == totalPage - page ? 'page-active' : 'page-button'" v-for="(page, index) in [6, 5 , 4, 3, 2, 1]" :key="index" @click="changePage(totalPage - page)" v-show="totalPage - currentPage < 5">{{totalPage - page}}</div>
+      <div v-if="totalPage - currentPage >=5">...</div>
+      <div :class="currentPage == totalPage ? 'page-active' : 'page-button'" @click="changePage(totalPage)">{{totalPage}}</div>
     </div>
   </div>
 </template>
 
 <script>
-import {ref, onMounted} from 'vue'
 import ProductService from "../../services/ProductService"
 
 export default {
   props: {
     category: Number
   },
-  setup(props) {
-    var quantityArray = []
-    var length = 0
-    var products = ref(null)
-    var currentProducts = ref(null)
-    var currentPage = 1
-
-    onMounted(async () => {
-      products.value = await ProductService.showProducts(props.category)
-      length = Object.keys(products.value).length
-      for(var i = 0; i < length; i++) {
-        quantityArray.push(0)
-      }
-      currentProducts.value = products.value.slice((currentPage - 1) * 8, (currentPage - 1) * 8 + 8)
-    })
-
-    function changePage(page) {
-      currentPage = page
-      alert(currentPage)
+  async mounted() {
+    this.products = await ProductService.showProducts(this.category)
+    for(var i = 0; i < Object.keys(this.products).length; i++) {
+      this.quantity.push(0)
     }
-
+    this.currentProducts = this.products.slice((this.currentPage - 1) * 8, (this.currentPage - 1) * 8 + 8)
+  },
+  data() {
     return {
-      currentProducts, quantityArray, currentPage, changePage
+      quantity: [],
+      totalPage: 10,
+      products: null,
+      currentProducts: null,
+      currentPage: 1
     }
   },
-  data () {
-    return {
-      quantity: this.quantityArray,
-      totalPage: 5,
+  watch: { 
+    currentPage(newPage) {
+      this.currentProducts = this.products.slice((newPage - 1) * 8, (newPage - 1) * 8 + 8)
     }
   },
-  
   methods: {
     getImgUrl(picture) {
       return require("../../assets/productImages/" + picture)
@@ -78,6 +70,9 @@ export default {
     },
     addQuantity(index) {
       this.quantity[index] += 1
+    },
+    changePage(page) {
+      this.currentPage = page
     }
   }
 }
@@ -232,6 +227,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: color 0.6s ease-in-out, background-color 0.6s ease-in-out;
 }
 
 @media (max-width: 1200px) {

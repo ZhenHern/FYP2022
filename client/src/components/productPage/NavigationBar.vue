@@ -10,7 +10,11 @@
         </ul>
       </div>
       <div class="buttons">
+          <i class="fa-sharp fa-solid fa-cart-shopping"></i>
           <a href="login" class="log-in">Log in</a>
+      </div>
+      <div class="responsive-cart">
+        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
       </div>
       <div class="responsive-nav">
         <label for="check">
@@ -18,15 +22,21 @@
           <i class="fas fa-times close-btn"></i>
         </label>
       </div>
+      <ItemCart/>
     </div>
 </template>
 
 <script>
 import { ref,onMounted } from '@vue/runtime-core'
 import ProductService from '../../services/ProductService'
+import ItemCart from "../productPage/ItemCart.vue"
+
 export default {
   props: {
     activeComponent: String,
+  },
+  components: {
+    ItemCart
   },
   setup() {
     var categories = ref(null)
@@ -120,11 +130,20 @@ a {
 .buttons {
   width: 17%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-content: center;
   font-size: 120%;
   white-space: nowrap;
   align-items: center;
+}
+
+.buttons i {
+  cursor: pointer;
+  transition: color 0.3s ease-in;
+}
+
+.buttons i:hover {
+  color: rgba(160, 97, 84, 0.986);
 }
 
 .log-in {
@@ -151,11 +170,34 @@ label {
   display: none;
 }
 
+.responsive-cart {
+  display: none;
+}
+
 #check {
   display: none;
 }
 
+@media (max-width: 1400px) {
+  .responsive-cart {
+    cursor: pointer;
+    margin-left: 45%;
+    transition: color 0.3s ease-in;
+  }
+
+  .responsive-cart:hover {
+    color: rgba(160, 97, 84, 0.986);
+  }
+}
+
 @media (max-width: 1200px) {
+  .responsive-cart {
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .responsive-nav {
     position: relative;
   }
@@ -164,7 +206,7 @@ label {
     display: none;
   }
 
-  .log-in {
+  .buttons {
     display: none;
   }
 
@@ -235,6 +277,18 @@ label {
     position: fixed;
   }
 
+}
+
+@media (max-width: 900px) {
+  .responsive-cart {
+    margin-left: 25%;
+  }
+}
+
+@media (max-width: 600px) {
+  .responsive-cart {
+    margin-left: 10%;
+  }
 }
 
 @media (max-width: 500px) {

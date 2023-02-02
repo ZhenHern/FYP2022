@@ -1,7 +1,7 @@
 <template>
   <div class="viewport">
     <NavigationBar @changeCategory="changeCategory($event)"/>
-    <ProductContent :category="activeCategory" :key="componentKey"/>  
+    <ProductContent :category="activeCategory" :key="componentKey"/> 
     <WebsiteFooter/>
   </div>
 
@@ -16,7 +16,7 @@ export default {
   components: {
     NavigationBar,
     ProductContent,
-    WebsiteFooter
+    WebsiteFooter,
   },
   data() {
     return {

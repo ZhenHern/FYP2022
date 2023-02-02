@@ -10,11 +10,11 @@
         </ul>
       </div>
       <div class="buttons">
-          <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+          <i class="fa-sharp fa-solid fa-cart-shopping" @click="openItemCart()"></i>
           <a href="login" class="log-in">Log in</a>
       </div>
       <div class="responsive-cart">
-        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+        <i class="fa-sharp fa-solid fa-cart-shopping" @click="openItemCart()"></i>
       </div>
       <div class="responsive-nav">
         <label for="check">
@@ -22,7 +22,7 @@
           <i class="fas fa-times close-btn"></i>
         </label>
       </div>
-      <ItemCart/>
+      <ItemCart ref="itemCart"/>
     </div>
 </template>
 
@@ -49,13 +49,16 @@ export default {
   },
   data() {
     return {
-      categoryID: 1
+      categoryID: 1,
     }
   },
   methods: {
     changeCategory(categoryID) {
       this.categoryID = categoryID
       this.$emit("changeCategory", categoryID);
+    },
+    openItemCart() {
+      this.$refs.itemCart.showItemCart = true
     }
   }
 }

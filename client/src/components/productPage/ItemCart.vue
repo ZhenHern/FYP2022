@@ -1,11 +1,11 @@
 <template>
-  <div class="overlay" ref="cart" @click="change">
+  <div class="overlay" ref="cart"
+  >
     <div class="item-cart">
         <div class="header">
             <div class="header-title">
-                Shopping Cart
+                Item Cart
             </div>
-            <i class="fa fa-times" aria-hidden="true"></i>
         </div>
         <div class="product-list">
             <table>
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="checkout-button">Checkout</div>
-            <div class="close-button">Close Cart</div>
+            <div class="close-button" @click="closeCart">Close Cart</div>
         </div>
     </div>
   </div>
@@ -94,18 +94,23 @@
 export default {
     data() {
         return {
-            show: true
+            showItemCart: false
         }
     },
     methods: {
-        change() {
-            this.show = false
+        closeCart() {
+            this.showItemCart = false
         }
     },
     watch: {
-        show(newShow) {
-            if(newShow == false) {
-                this.$refs.cart.style.display = "flex";
+        showItemCart(newShow) {
+            if (newShow == false) {
+                this.$refs.cart.style.opacity = "0%";
+                this.$refs.cart.style.visibility = "hidden";
+            }
+            else if (newShow == true) {
+                this.$refs.cart.style.opacity = "100%";
+                this.$refs.cart.style.visibility = "visible";
             }
         }
     }
@@ -123,7 +128,11 @@ export default {
         align-items: center;
         background: rgb(219,235,239);
         z-index: 1;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        opacity: 0%;
     }
+
     .item-cart {
         width: 1200px;
         height: 850px;
@@ -328,13 +337,18 @@ export default {
         height: 60px;
         width: 150px;
         position: relative;
-        background: #fed9a9ee;
+        background-color: #fed9a9ee;
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: bold;
         letter-spacing: 2px;
         cursor: pointer;
+        transition: background-color 0.15s ease;
+    }
+
+    .checkout-button:hover {
+        background-color: #f8bc6ec7;
     }
 
     .close-button {
@@ -350,5 +364,10 @@ export default {
         font-weight: bold;
         letter-spacing: 2px;
         cursor: pointer;
+        transition: background-color 0.15s ease;
+    }
+
+    .close-button:hover {
+        background-color: rgb(170, 67, 67);
     }
 </style>

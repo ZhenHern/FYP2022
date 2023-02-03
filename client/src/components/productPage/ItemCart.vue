@@ -8,72 +8,112 @@
             </div>
         </div>
         <div class="product-list">
-            <table>
-                <tr class="product-name-title">
-                    <th></th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Qty</th>
-                    <th>Total</th>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-image">
-                            <img src="../../assets/cake1.png" alt="">
-                        </div>
-                    </td>
-                    <td>Black Forest Cake</td>
-                    <td>$ 99.99</td>
-                    <td>
-                        <div class="minus">
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </div>
-                                1
-                        <div class="plus">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </div>
-                    </td>
-                    <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-image">
-                            <img src="../../assets/cake1.png" alt="">
-                        </div>
-                    </td>
-                    <td>Black Forest Cake</td>
-                    <td>$ 99.99</td>
-                    <td>
-                        <div class="minus">
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </div>
-                                1
-                        <div class="plus">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </div>
-                    </td>
-                    <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-image">
-                            <img src="../../assets/cake1.png" alt="">
-                        </div>
-                    </td>
-                    <td>Black Forest Cake</td>
-                    <td>$ 99.99</td>
-                    <td>
-                        <div class="minus">
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </div>
-                                1
-                        <div class="plus">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </div>
-                    </td>
-                    <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                </tr>
-            </table>
+            <div class="responsive-table">
+                <table>
+                    <tr class="product-name-title">
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-image">
+                                <img src="../../assets/cake1.png" alt="">
+                            </div>
+                        </td>
+                        <td>Black Forest Cake</td>
+                        <td>$ 99.99</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                                    1
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-image">
+                                <img src="../../assets/cake1.png" alt="">
+                            </div>
+                        </td>
+                        <td>Black Forest Cake</td>
+                        <td>$ 99.99</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                                    1
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-image">
+                                <img src="../../assets/cake1.png" alt="">
+                            </div>
+                        </td>
+                        <td>Black Forest Cake</td>
+                        <td>$ 99.99</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                                    1
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-image">
+                                <img src="../../assets/cake1.png" alt="">
+                            </div>
+                        </td>
+                        <td>Black Forest Cake</td>
+                        <td>$ 99.99</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                                    1
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-image">
+                                <img src="../../assets/cake1.png" alt="">
+                            </div>
+                        </td>
+                        <td>Black Forest Cake</td>
+                        <td>$ 99.99</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                                    1
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="checkout">
             <div class="left-checkout">
@@ -126,7 +166,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgb(219,235,239);
+        background: linear-gradient(-45deg, #fdb822, #FFE7C9);
         z-index: 1;
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -183,21 +223,32 @@ export default {
         color: rgb(152,156,163);
         font-size: 15px;
     }
+
+    .responsive-table {
+        width: 100%;
+        overflow: auto;
+        height: 550px;
+        margin-top: 48px;
+    }
     
     table {
         color: rgb(58,65,79);
         width: 90%;
         height: 80%;
-        margin-top: 50px;
         border-collapse: collapse;
+        overflow: auto;
     }
 
     table th {
         height: 100px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
 
     table th:nth-child(1) {
         width: 20%;
+        background: #FAFAFA;
     }
 
     table th:nth-child(2) {
@@ -205,22 +256,22 @@ export default {
         padding-left: 5%;
         text-align: left;
         width: 40%;
+        background: linear-gradient(90deg, #FAFAFA 91%, #FFFFFF 9%);
     }
 
     table th:nth-child(3) {
         text-align: left;
+        background: #FFFFFF;
     }
 
     table th:nth-child(4) {
         width: 20%;
+        background: #FFFFFF;
     }
 
     table th:nth-child(5) {
         text-align: left;
-    }
-
-    table th:nth-child(n+3) {
-        border-bottom: 2px solid #F5F5F5;
+        background: #FFFFFF;
     }
 
     table td {
@@ -228,6 +279,10 @@ export default {
         text-align: center;
         height: auto;
         word-wrap: break-word;
+    }
+
+    table td:nth-child(n+3) {
+        border-top: 2px solid #F5F5F5;
     }
 
     table td:nth-child(1) {
@@ -251,15 +306,11 @@ export default {
         text-align: left;
     }
 
-    table tr:nth-child(-n+3)  td:nth-child(n+3) {
-        border-bottom: 2px solid #F5F5F5;
-    }
-
     .product-image {
         position: relative;
         width: 120px;
         height: 120px;
-        background: linear-gradient(45deg, #FAFAFA 50%, #C7EAF3 50%);
+        background: linear-gradient(45deg, #FAFAFA 50%, #ffe6b1 50%);
     }
 
     img {
@@ -369,5 +420,11 @@ export default {
 
     .close-button:hover {
         background-color: rgb(170, 67, 67);
+    }
+
+    @media (max-width: 1300px) {
+        .overlay {
+            background: cadetblue;
+        }
     }
 </style>

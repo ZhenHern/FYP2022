@@ -34,84 +34,13 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                         </td>
-                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                    </tr>
-                    <tr>
                         <td>
-                            <div class="product-image">
-                                <img src="../../assets/cake1.png" alt="">
+                            $ 99.99
+                            <div class="cancel-item">
+                                <i class="fa fa-times" aria-hidden="true"></i>
                             </div>
                         </td>
-                        <td>Black Forest Cake</td>
-                        <td>$ 99.99</td>
-                        <td>
-                            <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </div>
-                                    1
-                            <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="product-image">
-                                <img src="../../assets/cake1.png" alt="">
-                            </div>
-                        </td>
-                        <td>Black Forest Cake</td>
-                        <td>$ 99.99</td>
-                        <td>
-                            <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </div>
-                                    1
-                            <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="product-image">
-                                <img src="../../assets/cake1.png" alt="">
-                            </div>
-                        </td>
-                        <td>Black Forest Cake</td>
-                        <td>$ 99.99</td>
-                        <td>
-                            <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </div>
-                                    1
-                            <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="product-image">
-                                <img src="../../assets/cake1.png" alt="">
-                            </div>
-                        </td>
-                        <td>Black Forest Cake</td>
-                        <td>$ 99.99</td>
-                        <td>
-                            <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </div>
-                                    1
-                            <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                        <td>$ 99.99 <i class="fa fa-times" aria-hidden="true"></i></td>
-                    </tr>
+                    </tr>  
                 </table>
             </div>
         </div>
@@ -229,12 +158,13 @@ export default {
         overflow: auto;
         height: 550px;
         margin-top: 48px;
+        
     }
     
     table {
         color: rgb(58,65,79);
         width: 90%;
-        height: 80%;
+        height: 250px;
         border-collapse: collapse;
         overflow: auto;
     }
@@ -247,7 +177,7 @@ export default {
     }
 
     table th:nth-child(1) {
-        width: 20%;
+        width: 212px;
         background: #FAFAFA;
     }
 
@@ -255,7 +185,7 @@ export default {
         padding-right: 10%;
         padding-left: 5%;
         text-align: left;
-        width: 40%;
+        width: 425px;
         background: linear-gradient(90deg, #FAFAFA 91%, #FFFFFF 9%);
     }
 
@@ -333,6 +263,12 @@ export default {
         position: relative;
         float: right;
         right: 65px;
+        cursor: pointer;
+    }
+    
+    .cancel-item {
+        position: relative;
+        float: right;
         cursor: pointer;
     }
 
@@ -423,8 +359,213 @@ export default {
     }
 
     @media (max-width: 1300px) {
-        .overlay {
-            background: cadetblue;
+        .item-cart {
+            width: 850px;
+        }
+
+        .product-name-title {
+            font-size: 13px;
+        }
+
+        table th:nth-child(2) {
+            background: linear-gradient(90deg, #FAFAFA 92%, #FFFFFF 8%);
+        }
+
+        table tr {
+            font-size: 13px;
+        }
+
+        .minus {
+            left: 45px;
+        }
+
+        .plus {
+            right: 45px;
+        }
+
+        .checkout {
+            padding-left: 50px;
+            font-size: 15px;
+        }
+
+        .checkout-button {
+            margin-left: 148px;
+            width: 120px;
+            font-size: 12px;
+        }
+
+        .close-button {
+            margin-left: 60px;
+            width: 120px;
+            font-size: 12px;
+        }
+
+        table th:nth-child(1) {
+        width: 150px;
+        background: #FAFAFA;
+        }
+
+        table th:nth-child(2) {
+            width: 298px;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .item-cart {
+            width: 700px;
+        }
+
+        table td {
+            height: 115px;
+        }
+
+
+        table th:nth-child(1) {
+            width: 110px;
+        }
+
+        table th:nth-child(2) {
+            width: 260px;
+            background: linear-gradient(90deg, #FAFAFA 92%, #FFFFFF 8%);
+        }
+
+        .minus {
+            left: 38px;
+        }
+
+        .plus {
+            right: 38px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+        }
+
+        .checkout-button {
+            margin-left: 70px;
+            width: 110px;
+            font-size: 12px;
+        }
+
+        .close-button {
+            margin-left: 40px;
+            width: 110px;
+            font-size: 12px;
+        }
+    }
+    @media (max-width: 750px) {
+        .item-cart {
+            height: 80%;
+            width: 90%;
+        }
+
+        .product-list {
+            background: linear-gradient(to right, #FAFAFA 0%, #FAFAFA 40%, #FFFFFF 40%, #FFFFFF 100%);
+        }
+
+        .header {
+            height: 15%;
+        }
+
+        .product-list {
+            height: 65%;
+        }
+        
+        .responsive-table {
+            margin-top: 0px;
+            height: 100%;
+        }
+
+        table th:nth-child(1) {
+            display: none;
+        }
+        table th:nth-child(2) {
+            width: 50%;
+            background: linear-gradient(90deg, #FAFAFA 89%, #FFFFFF 11%);
+        }
+
+        table th:nth-child(3) {
+            display: none;
+        }
+
+        table th:nth-child(5) {
+            padding-left: 7%;
+        }
+
+        table td:nth-child(1) {
+            display: none;
+        }
+        
+        table td:nth-child(3) {
+            display: none;
+        }
+
+        table td:nth-child(5) {
+            padding-left: 7%;
+        }
+
+        .responsive-table::-webkit-scrollbar {
+            display: none;
+        }
+
+        .checkout {
+            padding-top: 5%;
+            padding-left: 5%;
+        }
+
+        .left-checkout {
+            width: 30%;
+        }
+
+        .subtotal {
+            width: 100%;
+            font-size: 11px;
+        }
+
+        .subtotal span {
+            font-size: 13px;
+        }
+
+        .tnc {
+            font-size: 11px;
+        }
+
+        .minus {
+            left: 15%;
+        }
+
+        .plus {
+            right: 15%;
+        }
+
+        .checkout-button {
+            width: 95px;
+            height: 50px;
+            font-size: 10px;
+        }
+
+        .close-button {
+            width: 95px;
+            height: 50px;
+            font-size: 10px;
+        }
+    }
+
+    @media (max-width: 510px) {
+        .left-checkout {
+            width: 60%;
+        }
+
+        .checkout-button {
+            margin-left: 3%;
+            margin-top: 0;
+            float: none;
+        }
+
+        .close-button {
+            margin-left: 0;
+            float: none;
         }
     }
 </style>

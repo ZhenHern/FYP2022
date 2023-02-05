@@ -56,6 +56,8 @@ const login = async (req, res) => {
     }
     account.logged_in = true
     await account.save()
+    res.status(201).send("Login successfully")
+    console.log("DONE")
 }
 
 const verifyEmail = async (req, res) => {

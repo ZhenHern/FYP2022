@@ -65,7 +65,7 @@ export default {
             email: "",
             password: "",
             emailValidity : "",
-            error: null
+            error: null,
         }
     },
     watch: {
@@ -109,12 +109,15 @@ export default {
                     email: this.email,
                     password: this.password
                 })
+                this.loginAccount()
             }
             catch (error) {
                 this.error = error.response.data
             }
-            
         },
+        loginAccount() {
+            window.location.href = "products"
+        }
     }
 }
 </script>

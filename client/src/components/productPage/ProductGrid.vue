@@ -90,11 +90,13 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth'})
     },
     async addCart(id, index) {
-      await ItemCartService.addToCart({
-        userID: this.currentUserID,
-        productID: id,
-        quantity: this.quantity[index]
-      })
+      if(this.quantity[index] != 0) {
+          await ItemCartService.addToCart({
+          userID: this.currentUserID,
+          productID: id,
+          quantity: this.quantity[index]
+        })
+      }
       this.quantity[index] = 0
     }
   }

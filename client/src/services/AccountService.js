@@ -12,5 +12,12 @@ export default {
     },
     login(credentials) {
         return Api().post('api/users/login', credentials)
+    },
+    async checkCurrentUser() {
+        var response 
+        await Api().get('api/users/checkCurrentUser').then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

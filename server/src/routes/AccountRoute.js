@@ -12,4 +12,6 @@ router.post("/resendVerificationEmail", accountController.resendVerificationLink
 
 router.get("/verify/:token", accountController.verifyEmail)
 
+router.get("/checkCurrentUser", accountController.checkCurrentUser)
+
 module.exports = router

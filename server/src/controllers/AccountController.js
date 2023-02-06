@@ -135,14 +135,22 @@ const resendVerificationLink = async (req, res) => {
     // Preview only available when sending through an Ethereal account
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-    
 }
 
+const checkCurrentUser = async (req, res) => {
+    const currentUser = await Account.findOne({
+        where: {
+            logged_in: 1
+        }
+    })
+    res.send(currentUser)
+}
 
 module.exports = {
     createAccount,
     checkEmail,
     verifyEmail,
     resendVerificationLink,
-    login
+    login,
+    checkCurrentUser
 }

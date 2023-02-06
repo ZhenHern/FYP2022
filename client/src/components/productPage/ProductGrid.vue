@@ -15,6 +15,9 @@
             <i class="fa-solid fa-circle-minus" @click="minusQuantity(index)"></i>
             <i class="fa-solid fa-circle-plus" @click="addQuantity(index)"></i>
           </div>
+          <div class="add-to-cart">
+            <div class="add-button" @click="addCart(product.product_id, index)">Add to Cart</div>
+          </div>
         </div>
       </div>
       </TransitionGroup>
@@ -36,12 +39,18 @@
 
 <script>
 import ProductService from "../../services/ProductService"
+import AccountService from "../../services/AccountService"
+import ItemCartService from "../../services/ItemCartService"
 
 export default {
   props: {
     category: Number
   },
   async mounted() {
+    var currentUser = await AccountService.checkCurrentUser()
+    this.currentUserID = currentUser.login_id
+    console.log(this.currentUserID)
+
     this.products = await ProductService.showProducts(this.category)
     for(var i = 0; i < Object.keys(this.products).length; i++) {
       this.quantity.push(0)
@@ -55,7 +64,8 @@ export default {
       totalPage: 10,
       products: null,
       currentProducts: null,
-      currentPage: 1
+      currentPage: 1,
+      currentUserID: null
     }
   },
   watch: { 
@@ -78,6 +88,14 @@ export default {
     changePage(page) {
       this.currentPage = page
       window.scrollTo({ top: 0, behavior: 'smooth'})
+    },
+    async addCart(id, index) {
+      await ItemCartService.addToCart({
+        userID: this.currentUserID,
+        productID: id,
+        quantity: this.quantity[index]
+      })
+      this.quantity[index] = 0
     }
   }
 }
@@ -201,6 +219,30 @@ img {
   background-color: white;
 }
 
+.add-to-cart {
+  padding-top: 23px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: fit-content;
+  background: white;
+  border-radius: 40px;
+  color: #fdb822;
+  transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #684f40;
+}
+
 .pagination {
   position: relative;
   top: 50px;
@@ -263,6 +305,10 @@ img {
     line-height: 30px;
     font-weight: 700;
   }
+
+  .edit-quantity {
+    padding-top: 15px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -297,6 +343,36 @@ img {
 
   .product-content {
     font-size: 25px;
+  }
+
+  .edit-quantity {
+    padding-top: 45px;
+  }
+
+  .add-to-cart {
+    padding-top: 100px;
+  }
+
+  .add-button {
+    font-size: 35px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 620px) {
+  .add-to-cart {
+    padding-top: 20px;
+  }
+
+  .add-button {
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 

@@ -30,6 +30,8 @@ db.users = require("./UserModel.js")(sequelize, DataTypes)
 db.products = require("./ProductModel")(sequelize, DataTypes)
 db.productsCategory = require("./ProductCategoryModel")(sequelize, DataTypes)
 db.productsIngredient = require("./ProductIngredientModel")(sequelize, DataTypes)
+db.itemCarts = require("./ItemCartModel")(sequelize, DataTypes)
+db.items = require("./ItemModel")(sequelize, DataTypes)
 
 db.users.belongsTo(db.accounts, {
     foreignKey: "login_id"
@@ -41,6 +43,20 @@ db.products.belongsTo(db.productsCategory, {
 db.productsIngredient.belongsTo(db.products, {
     foreignKey: "product_id"
 })
+
+db.itemCarts.belongsTo(db.users, {
+    foreignKey: "user_id"
+})
+
+db.items.belongsTo(db.itemCarts, {
+    foreignKey: "item_cart_id"
+})
+
+db.items.belongsTo(db.products, {
+    foreignKey: "product_id"
+})
+
+
 
 
 db.sequelize.sync({ force: false })

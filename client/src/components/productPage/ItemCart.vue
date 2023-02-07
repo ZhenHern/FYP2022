@@ -1,6 +1,5 @@
 <template>
-  <div class="overlay" ref="cart"
-  >
+  <div class="overlay" ref="cart">
     <div class="item-cart">
         <div class="header">
             <div class="header-title">
@@ -17,7 +16,31 @@
                         <th>Qty</th>
                         <th>Total</th>
                     </tr>
-                    <tr>
+                    <tr v-for="(item, index) in items" :key="index">
+                        <td>
+                            <div class="product-image">
+                                <img :src="getImgUrl(products[index].image_name1)">
+                            </div>
+                        </td>
+                        <td>{{products[index].product_name}}</td>
+                        <td>{{products[index].product_price}}</td>
+                        <td>
+                            <div class="minus">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                            {{item.quantity}}
+                            <div class="plus">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                        <td>
+                            RM {{item.quantity * products[index].product_price}}
+                            <div class="cancel-item">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
                         <td>
                             <div class="product-image">
                                 <img src="../../assets/cake1.png" alt="">
@@ -40,7 +63,7 @@
                                 <i class="fa fa-times" aria-hidden="true"></i>
                             </div>
                         </td>
-                    </tr>  
+                    </tr>   -->
                 </table>
             </div>
         </div>
@@ -60,16 +83,60 @@
 </template>
 
 <script>
+import ProductService from "../../services/ProductService"
+import AccountService from "../../services/AccountService"
+import ItemCartService from "../../services/ItemCartService"
+
 export default {
+    async mounted() {
+        var currentUser = await AccountService.checkCurrentUser()
+        this.currentUserID = currentUser.login_id
+
+        var currentItemCart = await ItemCartService.getCurrentCart(this.currentUserID)
+        this.currentItemCartID = currentItemCart.item_cart_id
+
+        this.items = await ItemCartService.showAllItems(this.currentItemCartID)
+        this.allProducts = await ProductService.showAllProducts()
+
+        for(let i=0; i < this.allProducts.length; i++) {
+            for(let j=0; j< this.items.length; j++) {
+                if(this.allProducts[i].product_id == this.items[j].product_id) {
+                    this.products.push(this.allProducts[i])
+                }
+            }
+        }
+    },
     data() {
         return {
-            showItemCart: false
+            showItemCart: false,
+            currentUserID: null,
+            currentItemCartID: null,
+            items: [],
+            allProducts: null,
+            products: []
         }
     },
     methods: {
         closeCart() {
             this.showItemCart = false
-        }
+        },
+        getImgUrl(picture) {
+            return require("../../assets/productImages/" + picture)
+        },
+        getProduct(productID) { 
+            setTimeout(() => {
+                if (this.products == null) {
+                    this.getProduct(productID)
+                }
+                else {
+                    for(let i=0; i < this.products.length; i++) {
+                        if(this.products[i].product_id == productID) {
+                            return i
+                        }
+                    }
+                }
+            }, 500) 
+        },
     },
     watch: {
         showItemCart(newShow) {

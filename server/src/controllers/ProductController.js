@@ -81,6 +81,11 @@ const showProducts = async(req, res) => {
     res.send(cakes)
 }
 
+const showAllProducts = async(req, res) => {
+    const cakes = await Product.findAll()
+    res.send(cakes)
+}
+
 const showDetails = async(req, res) => {
     let product_id = req.params.product_id
     const details = await Product.findOne({
@@ -105,6 +110,7 @@ module.exports = {
     createCategory,
     createProducts,
     showProducts,
+    showAllProducts,
     showAllCategories,
     showCategory,
     showDetails,

@@ -49,7 +49,6 @@ export default {
   async mounted() {
     var currentUser = await AccountService.checkCurrentUser()
     this.currentUserID = currentUser.login_id
-    console.log(this.currentUserID)
 
     this.products = await ProductService.showProducts(this.category)
     for(var i = 0; i < Object.keys(this.products).length; i++) {

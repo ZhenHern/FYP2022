@@ -12,6 +12,8 @@ router.post("/createProduct", upload.array("image", 3), productController.create
 
 router.get("/showProduct/:category_id", productController.showProducts)
 
+router.get("/showAllProducts", productController.showAllProducts)
+
 router.get("/showAllCategories", productController.showAllCategories)
 
 router.get("/showCategory/:category_id", productController.showCategory)

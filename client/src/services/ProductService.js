@@ -8,6 +8,13 @@ export default {
         })
         return response
     },
+    async showAllProducts() {
+        var response
+        await Api().get('api/products/showAllProducts').then(function(res) {
+            response = res.data
+        })
+        return response
+    },
     async showAllCategories() {
         var response
         await Api().get('api/products/showAllCategories').then(function(res) {

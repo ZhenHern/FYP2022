@@ -40,36 +40,12 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- <tr>
-                        <td>
-                            <div class="product-image">
-                                <img src="../../assets/cake1.png" alt="">
-                            </div>
-                        </td>
-                        <td>Black Forest Cake</td>
-                        <td>$ 99.99</td>
-                        <td>
-                            <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </div>
-                                    1
-                            <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                        <td>
-                            $ 99.99
-                            <div class="cancel-item">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </div>
-                        </td>
-                    </tr>   -->
                 </table>
             </div>
         </div>
         <div class="checkout">
             <div class="left-checkout">
-                <div class="subtotal">Subtotal <span>$ 249.49</span></div>
+                <div class="subtotal">Subtotal <span>{{subtotal.toFixed(2)}}</span></div>
                 <div class="tnc">
                     <input type="checkbox">
                     I agree to <span>Terms & Condition</span>
@@ -98,13 +74,15 @@ export default {
         this.items = await ItemCartService.showAllItems(this.currentItemCartID)
         this.allProducts = await ProductService.showAllProducts()
 
-        for(let i=0; i < this.allProducts.length; i++) {
-            for(let j=0; j< this.items.length; j++) {
-                if(this.allProducts[i].product_id == this.items[j].product_id) {
-                    this.products.push(this.allProducts[i])
+        for(let i=0; i < this.items.length; i++) {
+            for(let j=0; j< this.allProducts.length; j++) {
+                if(this.allProducts[j].product_id == this.items[i].product_id) {
+                    this.products.push(this.allProducts[j])
                 }
             }
         }
+
+        this.calculateSubtotal()
     },
     data() {
         return {
@@ -113,7 +91,8 @@ export default {
             currentItemCartID: null,
             items: [],
             allProducts: null,
-            products: []
+            products: [],
+            subtotal: 0
         }
     },
     methods: {
@@ -137,14 +116,29 @@ export default {
                 }
             }, 500) 
         },
+        calculateSubtotal() {
+            this.subtotal = 0
+            for(let i=0; i < this.items.length; i++) {
+                this.subtotal += this.items[i].quantity * this.products[i].product_price
+            }
+        }
     },
     watch: {
-        showItemCart(newShow) {
+        async showItemCart(newShow) {
             if (newShow == false) {
                 this.$refs.cart.style.opacity = "0%";
                 this.$refs.cart.style.visibility = "hidden";
             }
             else if (newShow == true) {
+                this.items = await ItemCartService.showAllItems(this.currentItemCartID)
+                for(let i=0; i < this.allProducts.length; i++) {
+                    for(let j=0; j< this.items.length; j++) {
+                        if(this.allProducts[i].product_id == this.items[j].product_id) {
+                            this.products.push(this.allProducts[i])
+                        }
+                    }
+                }
+                this.calculateSubtotal()
                 this.$refs.cart.style.opacity = "100%";
                 this.$refs.cart.style.visibility = "visible";
             }

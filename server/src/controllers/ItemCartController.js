@@ -99,11 +99,60 @@ const addToCart = async(req, res) => {
     
 }
 
+const addQuantity = async(req, res) => {
+    try {
+        item = await Item.findOne({
+            where: {
+                item_id: req.body.itemID
+            }
+        })
+        item.set({
+            quantity: item.dataValues.quantity + 1
+        })
+        await item.save()
+        res.send("Successfully added quantity by 1")
+    }
+    catch(err) {
+        res.send(err)
+    }
+}
+
+const subtractQuantity = async(req, res) => {
+    try {
+        item = await Item.findOne({
+            where: {
+                item_id: req.body.itemID
+            }
+        })
+
+        if (item.dataValues.quantity == 1) {
+            await Item.destroy({
+                where: {
+                    item_id: req.body.itemID
+                }
+            })
+            res.send("Removed item from cart")
+        }
+        else {
+            item.set({
+                quantity: item.dataValues.quantity - 1
+            })
+            await item.save()
+            res.send("Successfully subtract quantity by 1")
+        }
+    }
+    catch(err) {
+        res.send(err)
+    }
+}
+
 
 
 module.exports = {
     addToCart,
     createCart,
     getCurrentCart,
-    showAllItems
+    showAllItems,
+    addQuantity,
+    subtractQuantity
 }

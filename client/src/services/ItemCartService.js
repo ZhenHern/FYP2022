@@ -4,6 +4,12 @@ export default {
     addToCart(userID, productID, quantity) {
         return Api().post('api/itemCarts/addToCart', userID, productID, quantity)
     },
+    addQuantity(itemID) {
+        return Api().post('api/itemCarts/addQuantity', itemID)
+    },
+    subtractQuantity(itemID) {
+        return Api().post('api/itemCarts/subtractQuantity', itemID)
+    },
     async getCurrentCart(userID) {
         var response
         await Api().get('api/itemCarts/getCurrentCart/' + userID).then(function(res) {

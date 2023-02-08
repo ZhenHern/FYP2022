@@ -26,11 +26,11 @@
                         <td>{{products[index].product_price}}</td>
                         <td>
                             <div class="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                <i class="fa fa-minus" aria-hidden="true" @click="subtractQuantity(item.item_id)"></i>
                             </div>
                             {{item.quantity}}
                             <div class="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                <i class="fa fa-plus" aria-hidden="true" @click="addQuantity(item.item_id)"></i>
                             </div>
                         </td>
                         <td>
@@ -71,18 +71,9 @@ export default {
         var currentItemCart = await ItemCartService.getCurrentCart(this.currentUserID)
         this.currentItemCartID = currentItemCart.item_cart_id
 
-        this.items = await ItemCartService.showAllItems(this.currentItemCartID)
         this.allProducts = await ProductService.showAllProducts()
 
-        for(let i=0; i < this.items.length; i++) {
-            for(let j=0; j< this.allProducts.length; j++) {
-                if(this.allProducts[j].product_id == this.items[i].product_id) {
-                    this.products.push(this.allProducts[j])
-                }
-            }
-        }
-
-        this.calculateSubtotal()
+        this.updateCart()
     },
     data() {
         return {
@@ -116,6 +107,30 @@ export default {
                 }
             }, 500) 
         },
+        async addQuantity(itemID) {
+            await ItemCartService.addQuantity({
+                itemID: itemID
+            })
+            await this.updateCart()
+        },
+        async subtractQuantity(itemID) {
+            await ItemCartService.subtractQuantity({
+                itemID: itemID
+            })
+            await this.updateCart()
+        },
+        async updateCart() {
+            this.items = await ItemCartService.showAllItems(this.currentItemCartID)
+            this.products = []
+            for(let i=0; i < this.items.length; i++) {
+                for(let j=0; j< this.allProducts.length; j++) {
+                    if(this.allProducts[j].product_id == this.items[i].product_id) {
+                        this.products.push(this.allProducts[j])
+                    }
+                }
+            }
+            this.calculateSubtotal()
+        },
         calculateSubtotal() {
             this.subtotal = 0
             for(let i=0; i < this.items.length; i++) {
@@ -130,15 +145,7 @@ export default {
                 this.$refs.cart.style.visibility = "hidden";
             }
             else if (newShow == true) {
-                this.items = await ItemCartService.showAllItems(this.currentItemCartID)
-                for(let i=0; i < this.allProducts.length; i++) {
-                    for(let j=0; j< this.items.length; j++) {
-                        if(this.allProducts[i].product_id == this.items[j].product_id) {
-                            this.products.push(this.allProducts[i])
-                        }
-                    }
-                }
-                this.calculateSubtotal()
+                this.updateCart()
                 this.$refs.cart.style.opacity = "100%";
                 this.$refs.cart.style.visibility = "visible";
             }

@@ -10,6 +10,9 @@ export default {
     subtractQuantity(itemID) {
         return Api().post('api/itemCarts/subtractQuantity', itemID)
     },
+    removeItem(itemID) {
+        return Api().post('api/itemCarts/removeItem', itemID)
+    },
     async getCurrentCart(userID) {
         var response
         await Api().get('api/itemCarts/getCurrentCart/' + userID).then(function(res) {

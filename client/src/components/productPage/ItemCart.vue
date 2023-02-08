@@ -36,7 +36,7 @@
                         <td>
                             RM {{item.quantity * products[index].product_price}}
                             <div class="cancel-item">
-                                <i class="fa fa-times" aria-hidden="true"></i>
+                                <i class="fa fa-times" aria-hidden="true" @click="removeItem(item.item_id)"></i>
                             </div>
                         </td>
                     </tr>
@@ -115,6 +115,12 @@ export default {
         },
         async subtractQuantity(itemID) {
             await ItemCartService.subtractQuantity({
+                itemID: itemID
+            })
+            await this.updateCart()
+        },
+        async removeItem(itemID) {
+            await ItemCartService.removeItem({
                 itemID: itemID
             })
             await this.updateCart()

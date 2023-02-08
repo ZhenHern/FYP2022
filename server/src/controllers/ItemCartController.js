@@ -131,7 +131,7 @@ const subtractQuantity = async(req, res) => {
                     item_id: req.body.itemID
                 }
             })
-            res.send("Removed item from cart")
+            res.send("Item is removed from cart")
         }
         else {
             item.set({
@@ -146,6 +146,20 @@ const subtractQuantity = async(req, res) => {
     }
 }
 
+const removeItem = async(req, res) => {
+    try {
+        await Item.destroy({
+            where: {
+                item_id: req.body.itemID
+            }
+        })
+        res.send("Item is removed from cart")
+    }
+    catch(err) {
+        res.send(err)
+    }
+}
+
 
 
 module.exports = {
@@ -154,5 +168,6 @@ module.exports = {
     getCurrentCart,
     showAllItems,
     addQuantity,
-    subtractQuantity
+    subtractQuantity,
+    removeItem
 }

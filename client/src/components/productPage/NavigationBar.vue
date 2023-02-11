@@ -11,7 +11,32 @@
       </div>
       <div class="buttons">
           <i class="fa-sharp fa-solid fa-cart-shopping" @click="openItemCart()"></i>
-          <a href="login" class="log-in">Log in</a>
+          <a v-if="currentUserID === undefined || currentUserID === null" href="login" class="log-in">Log in</a>
+          <div class="user-div" v-else>
+            <div class="user-icon">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            <div class="dropdown">
+              <div class="dropdown-header" @click="toggleDropdown()">
+                <div class="username">Zhen Hern</div>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div class="dropdown-content" ref="dropdown">
+                <div class="my-account">
+                  My Account
+                  <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="my-purchases">
+                  My Purchases
+                  <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div class="logout">
+                  Logout
+                  <i class="fa-solid fa-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="responsive-cart">
         <i class="fa-sharp fa-solid fa-cart-shopping" @click="openItemCart()"></i>
@@ -27,9 +52,9 @@
 </template>
 
 <script>
-import { ref,onMounted } from '@vue/runtime-core'
 import ProductService from '../../services/ProductService'
 import ItemCart from "../productPage/ItemCart.vue"
+import AccountService from "../../services/AccountService"
 
 export default {
   props: {
@@ -38,18 +63,17 @@ export default {
   components: {
     ItemCart
   },
-  setup() {
-    var categories = ref(null)
-    onMounted(async() => {
-      categories.value = await ProductService.showAllCategories()
-    })
-    return {
-      categories
-    }
+  async mounted() {
+    var currentUser = await AccountService.checkCurrentUser()
+    this.currentUserID = currentUser.login_id
+    this.categories = await ProductService.showAllCategories()
   },
   data() {
     return {
+      currentUserID: null,
+      categories: null,
       categoryID: 1,
+      showDropdown: false
     }
   },
   methods: {
@@ -59,6 +83,17 @@ export default {
     },
     openItemCart() {
       this.$refs.itemCart.showItemCart = true
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown
+      if (this.showDropdown) {
+        this.$refs.dropdown.style.visibility = "visible"
+        this.$refs.dropdown.style.opacity = "100%"
+      }
+      else {
+        this.$refs.dropdown.style.visibility = "hidden"
+        this.$refs.dropdown.style.opacity = "0%"
+      }
     }
   }
 }
@@ -140,12 +175,12 @@ a {
   align-items: center;
 }
 
-.buttons i {
-  cursor: pointer;
+.buttons i.fa-sharp.fa-solid.fa-cart-shopping {
   transition: color 0.3s ease-in;
 }
 
-.buttons i:hover {
+.buttons i.fa-sharp.fa-solid.fa-cart-shopping:hover {
+  cursor: pointer;
   color: rgba(160, 97, 84, 0.986);
 }
 
@@ -179,6 +214,167 @@ label {
 
 #check {
   display: none;
+}
+
+.user-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease-in;
+}
+
+.dropdown-header:hover {
+  cursor: pointer;
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.dropdown-content {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  margin-top: 20px;
+  right: 20px;
+  height: 165px;
+  width: 200px;
+  background: white;
+  z-index: 1;
+  border: #e0dede solid 1px;
+  font-size: 17px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 15px;
+  opacity: 0%;
+  transition: 0.3s linear ease-in, 0.3s opacity ease-in;
+}
+
+.user-icon {
+  float: left;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.user-icon i.fa {
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0 0 2px #888;
+  padding: 0.5em 0.6em;
+}
+
+.username {
+  margin-right: 8px;
+}
+
+.fa-solid.fa-chevron-down {
+  font-size: 13px;
+}
+
+.my-account {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.25s ease-in color;
+}
+
+.my-account i{
+  font-size: 15px;
+  color: #777777;
+  transition: 0.25s ease-in color;
+}
+
+.my-account:hover {
+  cursor: pointer;
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.my-account:hover i {
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.my-account::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0%;
+  width: 100%; 
+  border-bottom: 1px solid rgb(206, 206, 206); 
+}
+
+.my-purchases {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.25s ease-in color;
+}
+
+.my-purchases i{
+  font-size: 15px;
+  color: #777777;
+  transition: 0.25s ease-in color;
+}
+
+.my-purchases:hover {
+  cursor: pointer;
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.my-purchases:hover i {
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.my-purchases::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0%;
+  width: 100%; 
+  border-bottom: 1px solid rgb(206, 206, 206); 
+}
+
+.logout {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.25s ease-in color;
+}
+
+.logout i{
+  font-size: 15px;
+  color: #777777;
+  transition: 0.25s ease-in color;
+}
+
+.logout:hover {
+  cursor: pointer;
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.logout:hover i {
+  color: rgba(160, 97, 84, 0.986);
+}
+
+.logout::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0%;
+  width: 100%; 
+  border-bottom: 1px solid rgb(206, 206, 206); 
 }
 
 @media (max-width: 1400px) {

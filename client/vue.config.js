@@ -19,6 +19,12 @@ module.exports = defineConfig({
       template: 'public/index.html',
       title: 'Product Page',
       chunks: [ 'products' ]
+    },
+    userProfile: {
+      entry: 'src/pages/UserProfilePage/main.js',
+      template: 'public/index.html',
+      title: 'User Profile Page',
+      chunks: [ 'userProfile']
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <div class="header">
-      <div class="title">Change Passowrd</div>
+      <div class="title">Change Password</div>
         For your account's security, do not share your password with anyone else
       </div>
     <div class="form">

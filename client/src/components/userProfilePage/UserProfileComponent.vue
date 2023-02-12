@@ -45,7 +45,7 @@ export default {
 }
 
 .container {
-  height: 650px;
+  height: 540px;
 }
 
 .content {

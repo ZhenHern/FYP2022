@@ -1,5 +1,47 @@
 <template>
-  <div class="main-container">hi</div>
+  <div class="main-container">
+    <div class="header">
+      <div class="title">My Profile</div>
+      Manage and protect your account
+    </div>
+    <div class="form">
+      <div class="row-container">
+        <div class="label">
+          Email
+        </div>
+        <div class="email-input">
+            zhenhern123@gmail.com
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="label">
+          First Name
+        </div>
+        <div class="name-input">
+            <input type="placeholder">
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="label">
+          Last Name
+        </div>
+        <div class="name-input">
+            <input type="placeholder">
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="label">
+          Date of birth
+        </div>
+        <div class="name-input">
+            <input type="date">
+        </div>
+      </div>
+    </div>
+    <div class="save-button-container">
+        <div class="save-button">Save</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -13,8 +55,109 @@ export default {
   position: relative;
   float: left;
   left: 0px;
-  width: 1020px;
-  background: red;
+  width: 940px;
+  background: #FFFFFF;
   height: 100%;
+  margin-left: 45px;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+  border-radius: 0.125rem;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 10px;
 }
+
+.header {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  color: #555555;
+  letter-spacing: -1px;
+  word-spacing: 1px;
+  border-bottom: 0.0625rem solid #efefef;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  letter-spacing: 0px;
+  margin-bottom: 5px;
+}
+
+.form {
+  position: relative;
+  padding-top: 30px;
+  padding-left: 25px;
+}
+
+.row-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.label {
+  position: relative;
+  color: rgba(85,85,85,.8);
+  float: left;
+  width: 100px;
+  margin-right: 40px;
+}
+
+.email-input {
+  position: relative;
+}
+
+.name-input {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,.14);
+  border-radius: 2px;
+  width: 300px;
+}
+
+.name-input input {
+  width: 100%;
+  background: none;
+  padding: 12px;
+  outline: none;
+  border: 0;
+  filter: none;
+}
+
+.date-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 60px;
+}
+
+.save-button {
+  color: white;
+  background: rgb(145, 75, 75);
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.save-button:hover {
+  cursor: pointer;
+  background: rgb(171, 88, 88);
+}
+
+.save-button:active {
+  background: rgb(118, 61, 61);
+}
+
+
 </style>

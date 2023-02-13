@@ -1,4 +1,5 @@
 <template>
+  <DisplayOverlay ref="overlay"/>
   <div class="main-container">
     <div class="header">
       <div class="title">Change Password</div>
@@ -9,36 +10,127 @@
         <div class="label">
           Current Password
         </div>
-        <div class="input">
-            <input type="placeholder">
+        <div :class="currentPasswordValidity ? 'input' : 'error'">
+            <input :type="hideCurrentPassword ? 'password' : 'placeholder'" v-model="currentPassword">
+            <div class="toggle-hide">
+              <i class="fa-solid fa-eye" v-if="hideCurrentPassword" @click="toggleHideCurrentPassword()"></i>
+              <i class="fa-solid fa-eye-slash" v-else @click="toggleHideCurrentPassword()"></i>
+            </div>
         </div>
       </div>
+      <div class="error-text" v-show="!currentPasswordValidity">Password should at least contain 8 characters.</div>
       <div class="row-container">
         <div class="label">
           New Password
         </div>
-        <div class="input">
-            <input type="placeholder">
+        <div :class="newPasswordValidity ? 'input' : 'error'">
+            <input :type="hideNewPassword ? 'password' : 'placeholder'" v-model="newPassword">
+            <div class="toggle-hide">
+              <i class="fa-solid fa-eye" v-if="hideNewPassword" @click="toggleHideNewPassword()"></i>
+              <i class="fa-solid fa-eye-slash" v-else @click="toggleHideNewPassword()"></i>
+            </div>
         </div>
       </div>
+      <div class="error-text" v-show="!newPasswordValidity">Password should at least contain 8 characters, one uppercase and one lowercase characters, one number and one symbol.</div>
       <div class="row-container">
         <div class="label">
           Confirm Password
         </div>
-        <div class="input">
-            <input type="placeholder">
+        <div :class="confirmPasswordValidity ? 'input' : 'error'">
+            <input :type="hideConfirmPassword ? 'password' : 'placeholder'" v-model="confirmPassword">
+            <div class="toggle-hide">
+              <i class="fa-solid fa-eye" v-if="hideConfirmPassword" @click="toggleHideConfirmPassword()"></i>
+              <i class="fa-solid fa-eye-slash" v-else @click="toggleHideConfirmPassword()"></i>
+            </div>
         </div>
       </div>
+      <div class="error-text" v-show="!confirmPasswordValidity">Password entered is different.</div>
     </div>
     <div class="confirm-button-container">
-        <div class="confirm-button">Confirm</div>
+        <div class="confirm-button" @click="checkValidity()">Confirm</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import AccountService from "../../services/AccountService"
+import DisplayOverlay from "./DisplayOverlay.vue"
 
+export default {
+  components: {
+    DisplayOverlay
+  },
+  data() {
+    return {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+      hideCurrentPassword: true,
+      hideNewPassword: true,
+      hideConfirmPassword: true,
+      currentPasswordValidity: true,
+      newPasswordValidity: true,
+      confirmPasswordValidity: true
+    }
+  },
+  methods: {
+    toggleHideCurrentPassword() {
+      this.hideCurrentPassword = !this.hideCurrentPassword
+    },
+    toggleHideNewPassword() {
+      this.hideNewPassword = !this.hideNewPassword
+    },
+    toggleHideConfirmPassword() {
+      this.hideConfirmPassword = !this.hideConfirmPassword
+    },
+    checkValidity() {
+      if (this.currentPassword.length < 8) {
+        this.currentPasswordValidity = false
+      }
+      if (this.newPassword.length < 8 || !/\d/.test(this.newPassword) || !/[ `!@`[`#$%^&*()_+\-={};':"\\|\],.<>`/`?~]/.test(this.newPassword) 
+         || !(this.newPassword !== this.newPassword.toUpperCase())
+         || !(this.newPassword !== this.newPassword.toLowerCase())) {
+        this.newPasswordValidity = false
+      }
+      if (this.confirmPassword != this.newPassword) {
+        this.confirmPasswordValidity = false
+      }
+      else {
+        this.confirmPasswordValidity = true
+      }
+
+      if (this.currentPasswordValidity && this.newPasswordValidity && this.confirmPasswordValidity) {
+        this.changePassword ()
+      }
+    },
+    async changePassword() {
+      var currentAccount = await AccountService.checkCurrentUser()
+      if (currentAccount.password == this.currentPassword) {
+        await AccountService.changePassword({
+          loginID: currentAccount.login_id,
+          password: this.newPassword
+        })
+        this.$refs.overlay.openOverlay("Password changed")
+      }
+      else {
+        this.$refs.overlay.openErrorOverlay("Incorrect password")
+      }
+      this.currentPassword = ""
+      this.newPassword = ""
+      this.confirmPassword = ""
+    }
+  },
+  watch: {
+    currentPassword() {
+      this.currentPasswordValidity = true
+    },
+    newPassword() {
+      this.newPasswordValidity = true
+    },
+    confirmPassword() {
+      this.confirmPasswordValidity = true
+    }
+  }
 }
 </script>
 
@@ -102,7 +194,7 @@ export default {
   height: 40px;
   border: 1px solid rgba(0,0,0,.14);
   border-radius: 2px;
-  width: 300px;
+  width: 330px;
 }
 
 .input input {
@@ -142,4 +234,43 @@ export default {
   background: rgb(118, 61, 61);
 }
 
+.toggle-hide {
+  position: relative;
+  right: 12px;
+  font-size: 14px;
+  color: rgb(145, 75, 75);
+}
+
+.toggle-hide i:hover {
+  cursor: pointer;
+}
+
+.error {
+  background: #fff9fa;
+  border: 1px solid #ff424f;
+  border-radius: 2px;
+  width: 330px;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.error-text {
+  width: 330px;
+  color: #ff424f;
+  font-size: 14px;
+  margin-left: 190px;
+  position: relative;
+  top: -18px;
+}
+
+.error input {
+  width: 100%;
+  background: none;
+  padding: 12px;
+  outline: none;
+  border: 0;
+  filter: none; 
+}
 </style>

@@ -12,6 +12,8 @@ router.post("/resendVerificationEmail", accountController.resendVerificationLink
 
 router.post("/saveProfile", accountController.saveProfile)
 
+router.post("/changePassword", accountController.changePassword)
+
 router.get("/verify/:token", accountController.verifyEmail)
 
 router.get("/checkCurrentUser", accountController.checkCurrentUser)

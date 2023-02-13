@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-container">
+  <div class="menu-container" v-if="renderComponent">
     <div class="username">{{firstName}}</div>
     <div class="menu-buttons">
         <div class="button" @click="showAccountDropdown()">
@@ -12,12 +12,15 @@
             <div :class="component === 'MyProfile' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('MyProfile')">
                 Profile
             </div>
+            <i :class="component === 'MyProfile' ? 'a fa-regular fa-edit' : 'fa-regular fa-edit'" @click="changeComponent('MyProfile')"></i>
             <div :class="component === 'MyPayment' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('MyPayment')">
                 Payment Methods
             </div>
+            <i :class="component === 'MyPayment' ? 'a fa-regular fa-credit-card' : 'fa-regular fa-credit-card'" @click="changeComponent('MyPayment')"></i>
             <div :class="component === 'ChangePassword' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('ChangePassword')">
                 Change Password
             </div>
+            <i :class="component === 'ChangePassword' ? 'a fa-solid fa-key' : 'fa-solid fa-key'" @click="changeComponent('ChangePassword')"></i>
         </div>
         <div class="button" @click="showPurchaseTab">
             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
@@ -55,7 +58,8 @@ export default {
             currentUserID: null,
             firstName: null,
             showAccount: true,
-            component: "MyProfile"
+            component: "MyProfile",
+            renderComponent: true,
         }
     },
     methods: {
@@ -74,6 +78,10 @@ export default {
         changeComponent(component) {
             this.component = component
             this.$emit("component", component)
+        },
+        async forceRerender() {
+            var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+            this.firstName = currentUser.first_name
         }
     },
     watch: {
@@ -161,5 +169,107 @@ export default {
     cursor: pointer;
 }
 
+.fa-edit {
+    display: none;
+}
+
+.fa-credit-card {
+    display: none;
+}
+
+.fa-key {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .menu-container {
+        width: 130px;
+    }
+
+    .username {
+        font-size: 14px;
+    }
+
+    .button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-container {
+        width: 10%;
+    }
+
+    .username {
+        display: none;
+    }
+
+    .menu-buttons {
+        padding-left: 0px;
+    }
+
+    .buttons-title {
+        display: none;
+    }
+
+    .button {
+        font-size: 20px;
+        justify-content: center;
+    }
+
+    .account-dropdown-content {
+        display: none;
+    }
+
+    .account-dropdown-content-active {
+        display: none;
+    }
+
+    .fa-edit {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        transition: 0.25s ease color;
+    }
+
+    .fa-edit:hover {
+        cursor: pointer;
+        color: rgba(160, 97, 84, 0.986);
+    }
+
+    .fa-credit-card {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        transition: 0.25s ease color;
+    }
+
+    .fa-credit-card:hover {
+        cursor: pointer;
+        color: rgba(160, 97, 84, 0.986);
+    }
+
+    .a {
+        color: rgba(160, 97, 84, 0.986);
+    }
+
+    .fa-key {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+        transition: 0.25s ease color;
+    }
+
+    .fa-key:hover {
+        cursor: pointer;
+        color: rgba(160, 97, 84, 0.986);
+    }
+
+    .account-dropdown {
+        padding-left: 0px;
+    }
+
+
+}
 
 </style>

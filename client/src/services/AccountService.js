@@ -16,6 +16,9 @@ export default {
     saveProfile(information) {
         return Api().post('api/users/saveProfile', information)
     },
+    changePassword(information) {
+        return Api().post('api/users/changePassword', information)
+    },
     async checkCurrentUser() {
         var response 
         await Api().get('api/users/checkCurrentUser').then(function(res) {

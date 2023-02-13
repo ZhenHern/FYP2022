@@ -60,7 +60,7 @@ export default {
 }
 
 .popup-text {
-  width: 400px;
+  width: 550px;
   height: 200px;
   padding: 30px;
   background: #fff;

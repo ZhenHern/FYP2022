@@ -3,8 +3,8 @@
     <NavigationBar @changeCategory="changeCategory($event)"/>
     <div class="container">
       <div class="content" @click="test">
-        <UserProfileMenu @component="currentTabComponent = $event"/>
-        <component v-bind:is="currentTabComponent"></component>
+        <UserProfileMenu @component="currentTabComponent = $event" ref="menu"/>
+        <component v-bind:is="currentTabComponent" @save="rerenderMenu"></component>
       </div>
     </div>
     <WebsiteFooter/>
@@ -28,11 +28,15 @@ export default {
   },
   data() {
     return {
-      currentTabComponent: "MyProfile"
+      currentTabComponent: "MyProfile",
+      save: 0
     }
   },
   methods: {
-  },
+    rerenderMenu() {
+      this.$refs.menu.forceRerender()
+    }
+  }
 }
 </script>
 
@@ -54,5 +58,23 @@ export default {
   width: 1200px;
   height: 100%;
   padding-top: 20px;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    width: 800px;
+  }
+}
+
+@media (max-width: 900px) {
+  .content {
+    width: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    width: 80%
+  }
 }
 </style>

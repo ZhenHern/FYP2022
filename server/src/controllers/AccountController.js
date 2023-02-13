@@ -174,8 +174,24 @@ const saveProfile = async(req, res) => {
     catch (error) {
         res.send(error)
     }
+}
 
-
+const changePassword = async(req, res) => {
+    try {
+        const currentAccount = await Account.findOne({
+            where: {
+                login_id: req.body.loginID
+            }
+        })
+        currentAccount.set({
+            password: req.body.password
+        })
+        await currentAccount.save()
+        res.send("Password Changed")
+    }
+    catch (error) {
+        res.send(error)
+    }
 }
 
 module.exports = {
@@ -186,5 +202,6 @@ module.exports = {
     login,
     checkCurrentUser,
     showCurrentUser,
-    saveProfile
+    saveProfile,
+    changePassword
 }

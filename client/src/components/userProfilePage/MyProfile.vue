@@ -100,6 +100,7 @@ export default {
       })
       if (status.data == "Profile Saved") {
         this.$refs.overlay.openOverlay("Profile saved")
+        this.$emit("save")
       }
       else {
         this.$refs.overlay.openErrorOverlay("Fail to save profile")
@@ -230,6 +231,8 @@ export default {
 }
 
 .save-button-container {
+  position: absolute;
+  left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -256,6 +259,87 @@ export default {
 .save-button:active {
   background: rgb(118, 61, 61);
 }
+
+@media (max-width: 1200px) {
+  .main-container {
+    width: 70%;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-container {
+    width: 370px;
+  }
+
+  .form {
+    padding-left: 10px;
+  }
+  
+  .label {
+    font-size: 13px;
+    width: 140px;
+  }
+
+  .email-input {
+    font-size: 13px;
+    padding-right: 24px;
+  }
+
+  .error-text {
+    font-size: 10px;
+    margin-left: 124px;
+  }
+
+  .input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    width: 80%;
+    margin-left: 10%;
+    padding-left: 8%;
+    padding-right: 4%;
+  }
+
+  .header {
+    font-size: 13px;
+  }
+
+  .form {
+    padding: 15px 0px 0px 0px;
+  }
+
+  .label {
+    margin-right: 5%;
+    width: 20%;
+    font-size: 10px;
+  }
+
+  .email-input {
+    width: 80%;
+    word-wrap: break-word;
+    padding-right: 0px;
+    font-size: 10px;
+  }
+
+  input {
+    font-size: 10px;
+  }
+
+  .error-text {
+    font-size: 9px;
+    margin-left: 20%;
+  }
+
+  .save-button {
+    height: 40px;
+    width: 65px;
+    font-size: 14px;
+  }
+}
+
 
 
 </style>

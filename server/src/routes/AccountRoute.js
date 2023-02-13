@@ -10,8 +10,12 @@ router.post("/login", accountController.login)
 
 router.post("/resendVerificationEmail", accountController.resendVerificationLink)
 
+router.post("/saveProfile", accountController.saveProfile)
+
 router.get("/verify/:token", accountController.verifyEmail)
 
 router.get("/checkCurrentUser", accountController.checkCurrentUser)
+
+router.get("/showCurrentUser/:loginID", accountController.showCurrentUser)
 
 module.exports = router

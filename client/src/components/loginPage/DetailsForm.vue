@@ -33,7 +33,7 @@
     </form>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity() + createAccount() + changeComponent('VerificationComponent')">Confirm</button>
+            <button @click="checkValidity()">Confirm</button>
         </div>
     </div>
   </div>
@@ -53,7 +53,8 @@ export default {
             birthday: "",
             firstNameValidity: "",
             lastNameValidity: "",
-            birthdayValidity: ""
+            birthdayValidity: "",
+            allValidity: true
         }
     },
     watch: {
@@ -88,15 +89,23 @@ export default {
             }
         },
         checkValidity() {
+            this.allValidity = true
             if (this.firstNameValidity !== "-valid") {
                 this.firstNameValidity = "-invalid"
+                this.allValidity = false
             }
             if (this.lastNameValidity !== "-valid") {
                 this.lastNameValidity = "-invalid"
+                this.allValidity = false
             }
             if (this.birthday === "") {
                 this.birthdayValidity = "-invalid"
+                this.allValidity = false
             } 
+            if (this.allValidity) {
+                this.createAccount()
+                this.changeComponent('VerificationComponent')
+            }
         },
         changeComponent(component) {
             this.$emit("changeComponent", {component: component, email: null, password: null})
@@ -106,7 +115,8 @@ export default {
                 email: this.email,
                 password: this.password,
                 firstName: this.firstName,
-                lastName: this.lastName
+                lastName: this.lastName,
+                birthday: this.birthday
             })
         }
     }

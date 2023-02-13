@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         last_name: {
             type: DataTypes.STRING
+        },
+        birthday: {
+            type: DataTypes.DATEONLY
         }
     })
 

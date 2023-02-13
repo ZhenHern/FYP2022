@@ -13,9 +13,19 @@ export default {
     login(credentials) {
         return Api().post('api/users/login', credentials)
     },
+    saveProfile(information) {
+        return Api().post('api/users/saveProfile', information)
+    },
     async checkCurrentUser() {
         var response 
         await Api().get('api/users/checkCurrentUser').then(function(res) {
+            response = res.data
+        })
+        return response
+    },
+    async showCurrentUser(loginID) {
+        var response 
+        await Api().get('api/users/showCurrentUser/' + loginID).then(function(res) {
             response = res.data
         })
         return response

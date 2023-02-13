@@ -17,6 +17,7 @@ const createAccount = async (req, res) => {
         await User.create({
             first_name: req.body.firstName,
             last_name: req.body.lastName,
+            birthday: req.body.birthday,
             login_id: account.login_id,
         })
         res.status(200).send(account)
@@ -146,11 +147,44 @@ const checkCurrentUser = async (req, res) => {
     res.send(currentUser)
 }
 
+const showCurrentUser = async (req, res) => {
+    const currentUser = await User.findOne({
+        where: {
+            login_id: req.params.loginID
+        }
+    })
+    res.send(currentUser)
+}
+
+const saveProfile = async(req, res) => {
+    try {
+        const currentUser = await User.findOne({
+            where: {
+                login_id: req.body.loginID
+            }
+        })
+        currentUser.set({
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            birthday: req.body.birthday
+        })
+        await currentUser.save()
+        res.send("Profile Saved")
+    }
+    catch (error) {
+        res.send(error)
+    }
+
+
+}
+
 module.exports = {
     createAccount,
     checkEmail,
     verifyEmail,
     resendVerificationLink,
     login,
-    checkCurrentUser
+    checkCurrentUser,
+    showCurrentUser,
+    saveProfile
 }

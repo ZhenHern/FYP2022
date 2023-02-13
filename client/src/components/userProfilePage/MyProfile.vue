@@ -1,4 +1,5 @@
 <template>
+  <DisplayOverlay ref="overlay"/>
   <div class="main-container">
     <div class="header">
       <div class="title">My Profile</div>
@@ -10,43 +11,112 @@
           Email
         </div>
         <div class="email-input">
-            zhenhern123@gmail.com
+            {{email}}
         </div>
       </div>
       <div class="row-container">
         <div class="label">
           First Name
         </div>
-        <div class="name-input">
-            <input type="placeholder">
+        <div :class="firstNameValidity ? 'name-input' : 'error'">
+          <input type="placeholder" v-model="firstName">
         </div>
       </div>
+      <div class="error-text" v-show="!firstNameValidity">First name cannot be empty.</div>
       <div class="row-container">
         <div class="label">
           Last Name
         </div>
-        <div class="name-input">
-            <input type="placeholder">
+        <div :class="lastNameValidity ? 'name-input' : 'error'">
+          <input type="placeholder" v-model="lastName">
         </div>
       </div>
+      <div class="error-text" v-show="!lastNameValidity">Last name cannot be empty.</div>
       <div class="row-container">
         <div class="label">
           Date of birth
         </div>
-        <div class="name-input">
-            <input type="date">
+        <div :class="birthdayValidity ? 'name-input' : 'error'">
+          <input type="date" v-model="birthday">
         </div>
       </div>
+      <div class="error-text" v-show="!birthdayValidity">Date of birth cannot be empty.</div>
     </div>
     <div class="save-button-container">
-        <div class="save-button">Save</div>
+        <div class="save-button" @click="checkValidity()">Save</div>
     </div>
   </div>
 </template>
 
 <script>
+import AccountService from "../../services/AccountService"
+import DisplayOverlay from "./DisplayOverlay.vue"
 export default {
-
+  async mounted() {
+      var currentAccount = await AccountService.checkCurrentUser()
+      this.email = currentAccount.email
+      this.currentUserID = currentAccount.login_id
+      var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+      this.firstName = currentUser.first_name
+      this.lastName = currentUser.last_name
+      this.birthday = currentUser.birthday
+  },
+  components: {
+    DisplayOverlay
+  },
+  data() {
+    return {
+      currentUserID: null,
+      email: null,
+      firstName: null,
+      lastName: null,
+      birthday: null,
+      firstNameValidity: true,
+      lastNameValidity: true,
+      birthdayValidity: true
+    }
+  },
+  methods: {
+    checkValidity() {
+      if (this.firstName === "") {
+        this.firstNameValidity = false
+      }
+      if (this.lastName === "") {
+        this.lastNameValidity = false
+      }
+      if (this.birthday === "") {
+        this.birthdayValidity = false
+      }
+      if (this.firstNameValidity && this.lastNameValidity && this.birthdayValidity) {
+        this.saveProfile()
+      }
+    },
+    async saveProfile() {
+      var status = await AccountService.saveProfile({
+        loginID: this.currentUserID,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        birthday: this.birthday
+      })
+      if (status.data == "Profile Saved") {
+        this.$refs.overlay.openOverlay("Profile saved")
+      }
+      else {
+        this.$refs.overlay.openErrorOverlay("Fail to save profile")
+      }
+    }
+  },
+  watch: {
+    firstName() {
+      this.firstNameValidity = true
+    },
+    lastName() {
+      this.lastNameValidity = true
+    },
+    birthday() {
+      this.birthdayValidity = true
+    }
+  }
 }
 </script>
 
@@ -117,6 +187,25 @@ export default {
   width: 300px;
 }
 
+.error {
+  background: #fff9fa;
+  border: 1px solid #ff424f;
+  border-radius: 2px;
+  width: 300px;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.error-text {
+  color: #ff424f;
+  font-size: 14px;
+  margin-left: 142px;
+  position: relative;
+  top: -18px;
+}
+
 .name-input input {
   width: 100%;
   background: none;
@@ -124,6 +213,15 @@ export default {
   outline: none;
   border: 0;
   filter: none;
+}
+
+.error input {
+  width: 100%;
+  background: none;
+  padding: 12px;
+  outline: none;
+  border: 0;
+  filter: none; 
 }
 
 .date-input {

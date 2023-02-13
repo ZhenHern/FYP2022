@@ -1,6 +1,6 @@
 <template>
   <div class="menu-container">
-    <div class="username">Zhen Hern</div>
+    <div class="username">{{firstName}}</div>
     <div class="menu-buttons">
         <div class="button" @click="showAccountDropdown()">
             <i class="fa fa-user" aria-hidden="true"></i>
@@ -42,9 +42,18 @@
 </template>
 
 <script>
+import AccountService from "../../services/AccountService"
 export default {
+    async mounted() {
+        var currentAccount = await AccountService.checkCurrentUser()
+        this.currentUserID = currentAccount.login_id
+        var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+        this.firstName = currentUser.first_name
+    },
     data() {
         return {
+            currentUserID: null,
+            firstName: null,
             showAccount: true,
             component: "MyProfile"
         }

@@ -25,6 +25,6 @@ module.exports = defineConfig({
       template: 'public/index.html',
       title: 'User Profile Page',
       chunks: [ 'userProfile']
-    }
+    },
   }
 })

@@ -26,6 +26,9 @@ const getCurrentCart = async(req, res) => {
                 paid: false
             }
         })
+        if (itemCart == null) {
+            await createCart(req.params.userID)
+        }
         res.send(itemCart.dataValues)
     }
     catch(err) {
@@ -160,6 +163,24 @@ const removeItem = async(req, res) => {
     }
 }
 
+const completeOrder = async(req, res) => {
+    try {
+        itemCart = await ItemCart.findOne({
+            where: {
+                item_cart_id: req.body.itemCartID
+            }
+        })
+        itemCart.set({
+            paid: 1
+        })
+        await itemCart.save()
+        res.send("Order is completed")
+    }
+    catch(err) {
+        res.send(err)
+    }
+}
+
 
 
 module.exports = {
@@ -169,5 +190,6 @@ module.exports = {
     showAllItems,
     addQuantity,
     subtractQuantity,
-    removeItem
+    removeItem,
+    completeOrder
 }

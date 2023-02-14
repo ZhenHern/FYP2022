@@ -13,6 +13,9 @@ export default {
     removeItem(itemID) {
         return Api().post('api/itemCarts/removeItem', itemID)
     },
+    completeOrder(itemCartID) {
+        return Api().post('api/itemCarts/completeOrder', itemCartID)    
+    },
     async getCurrentCart(userID) {
         var response
         await Api().get('api/itemCarts/getCurrentCart/' + userID).then(function(res) {

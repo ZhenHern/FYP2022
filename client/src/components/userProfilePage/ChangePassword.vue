@@ -207,6 +207,8 @@ export default {
 }
 
 .confirm-button-container {
+  position: relative;
+  left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -272,5 +274,84 @@ export default {
   outline: none;
   border: 0;
   filter: none; 
+}
+
+@media (max-width: 1200px) {
+  .main-container {
+    width: 70%;
+  }
+
+  .error-text {
+    font-size: 12px;
+    width: 300px;
+    margin-left: 176px;
+  }
+  
+  .confirm-button-container {
+    bottom: 35px;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-container {
+    width: 370px;
+  }
+
+  .form {
+    padding-left: 0px;
+  }
+
+  .error-text {
+    font-size: 11px;
+    width: 185px;
+    margin-left: 125px;
+  }
+
+  .confirm-button-container {
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    width: 80%;
+    margin-left: 10%;
+    padding-left: 8%;
+    padding-right: 4%;
+  }
+
+  .header {
+    font-size: 13px;
+  }
+
+  .form {
+    padding: 15px 0px 0px 0px;
+  }
+
+  .label {
+    margin-right: 5%;
+    width: 20%;
+    font-size: 10px;
+  }
+
+  input {
+    font-size: 10px;
+  }
+
+  .error-text {
+    width: 75%;
+    font-size: 9px;
+    margin-left: 25%;
+  }
+
+  .confirm-button-container {
+    bottom: 25px;
+  }
+
+  .confirm-button {
+    height: 40px;
+    width: 65px;
+    font-size: 12px;
+  }
 }
 </style>

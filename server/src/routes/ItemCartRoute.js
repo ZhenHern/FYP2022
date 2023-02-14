@@ -12,6 +12,8 @@ router.post("/subtractQuantity", itemCartController.subtractQuantity)
 
 router.post("/removeItem", itemCartController.removeItem)
 
+router.post("/completeOrder", itemCartController.completeOrder)
+
 router.get("/getCurrentCart/:userID", itemCartController.getCurrentCart)
 
 router.get("/showAllItems/:itemCartID", itemCartController.showAllItems)

@@ -1,6 +1,6 @@
 <template>
   <div class="overlay" ref="cart">
-    <div class="item-cart">
+    <div class="item-cart" v-if="!showPaypal">
         <div class="header">
             <div class="header-title">
                 Item Cart
@@ -51,10 +51,11 @@
                     I agree to <span>Terms & Condition</span>
                 </div>
             </div>
-            <div class="checkout-button">Checkout</div>
+            <div :class="checkoutEnabled ? 'checkout-button' : 'disabled-checkout-button'" @click="goToPaypal()" ref="checkout">Checkout</div>
             <div class="close-button" @click="closeCart">Close Cart</div>
         </div>
     </div>
+    <PaypalComponent v-else @showPaypal="returnItemCart()" :subtotal="subtotal" :itemCartID="currentItemCartID"/>
   </div>
 </template>
 
@@ -62,8 +63,12 @@
 import ProductService from "../../services/ProductService"
 import AccountService from "../../services/AccountService"
 import ItemCartService from "../../services/ItemCartService"
+import PaypalComponent from "./PaypalComponent.vue"
 
 export default {
+    components: {
+        PaypalComponent
+    },
     async mounted() {
         var currentUser = await AccountService.checkCurrentUser()
         this.currentUserID = currentUser.login_id
@@ -83,10 +88,21 @@ export default {
             items: [],
             allProducts: null,
             products: [],
-            subtotal: 0
+            subtotal: 0,
+            showPaypal: false,
+            slideDirection: "slide-left",
+            checkoutEnabled: null
         }
     },
     methods: {
+        goToPaypal() {
+            if (this.checkoutEnabled) {
+                this.showPaypal = true
+            }
+        },
+        returnItemCart() {
+            this.showPaypal = false
+        },
         closeCart() {
             this.showItemCart = false
         },
@@ -126,6 +142,7 @@ export default {
             await this.updateCart()
         },
         async updateCart() {
+            this.checkoutEnabled = true
             this.items = await ItemCartService.showAllItems(this.currentItemCartID)
             this.products = []
             for(let i=0; i < this.items.length; i++) {
@@ -134,6 +151,9 @@ export default {
                         this.products.push(this.allProducts[j])
                     }
                 }
+            }
+            if (this.items.length == 0) {
+                this.checkoutEnabled = false
             }
             this.calculateSubtotal()
         },
@@ -155,7 +175,7 @@ export default {
                 this.$refs.cart.style.opacity = "100%";
                 this.$refs.cart.style.visibility = "visible";
             }
-        }
+        },
     }
 }
 </script>
@@ -178,7 +198,7 @@ export default {
 
     .item-cart {
         width: 1200px;
-        height: 850px;
+        height: 1000px;
         background-color: white;
         margin-left: auto;
         margin-right: auto;
@@ -412,6 +432,23 @@ export default {
         background-color: #f8bc6ec7;
     }
 
+    .disabled-checkout-button {
+        margin-top: 15px;
+        margin-left: 345px;
+        float: left;
+        height: 60px;
+        width: 150px;
+        position: relative;
+        color: #798488;
+        background-color: #e2e8ea;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        letter-spacing: 2px;
+        cursor: not-allowed;      
+    }
+
     .close-button {
         display: flex;
         justify-content: center;
@@ -468,6 +505,12 @@ export default {
             font-size: 12px;
         }
 
+        .disabled-checkout-button {
+            margin-left: 148px;
+            width: 120px;
+            font-size: 12px;
+        }
+
         .close-button {
             margin-left: 60px;
             width: 120px;
@@ -517,6 +560,12 @@ export default {
         }
 
         .checkout-button {
+            margin-left: 70px;
+            width: 110px;
+            font-size: 12px;
+        }
+
+        .disabled-checkout-button {
             margin-left: 70px;
             width: 110px;
             font-size: 12px;
@@ -619,6 +668,12 @@ export default {
             font-size: 10px;
         }
 
+        .disabled-checkout-button {
+            width: 95px;
+            height: 50px;
+            font-size: 10px;
+        }
+
         .close-button {
             width: 95px;
             height: 50px;
@@ -632,6 +687,12 @@ export default {
         }
 
         .checkout-button {
+            margin-left: 3%;
+            margin-top: 0;
+            float: none;
+        }
+
+        .disabled-checkout-button {
             margin-left: 3%;
             margin-top: 0;
             float: none;

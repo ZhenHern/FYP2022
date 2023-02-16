@@ -29,5 +29,12 @@ export default {
             response = res.data
         })
         return response
+    },
+    async showPaidOrders(userID) {
+        var response
+        await Api().get('api/itemCarts/showPaidOrders/' + userID).then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

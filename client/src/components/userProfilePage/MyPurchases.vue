@@ -7,47 +7,28 @@
         <div class="navigation-button">Cancelled</div>
     </div>
     <div class="order-list">
-        <div class="order-item">
+        <div class="order-item" v-for="(order, index) in itemsArray" :key="index">
             <div class="top-container">
                 <div class="order-title">
-                    <div class="order-id">Order ID: 20198039</div>
+                    <div class="order-id">Order ID: {{order.item_list_id}}</div>
                     <div class="order-status">Order has been prepared</div>
                 </div>
-                <div class="order-container">
+                <div class="order-container" v-for="(item, index) in this.findItems(order.item_list_id)" :key="index">
                     <div class="order-content">
                         <div class="product-image">
-                            <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
+                            <img :src="getImgUrl(item.image_name1)">
                         </div>
                         <div class="name-quantity">
-                            <div class="name">Blackforest Cake</div>
-                            <div class="quantity">x1</div>
+                            <div class="name">{{item.product_name}}</div>
+                            <div class="quantity">x{{item.quantity}}</div>
                         </div>
                     </div>
-                    <div class="price">RM 55.50</div>
+                    <div class="price">RM {{item.product_price}}</div>
                 </div>
-                <div class="order-container">
-                    <div class="order-content">
-                        <div class="product-image">
-                            <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
-                        </div>
-                        <div class="name-quantity">
-                            <div class="name">Blackforest Cake</div>
-                            <div class="quantity">x1</div>
-                        </div>
-                    </div>
-                    <div class="price">RM 55.50</div>
-                </div>
-                <div class="order-container">
-                    <div class="order-content">
-                        <div class="product-image">
-                            <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
-                        </div>
-                        <div class="name-quantity">
-                            <div class="name">Blackforest Cake</div>
-                            <div class="quantity">x1</div>
-                        </div>
-                    </div>
-                    <div class="price">RM 55.50</div>
+            </div>
+            <div class="bottom-container">
+                <div class="subtotal">Subtotal:
+                    <span>{{order.subtotal}}</span>
                 </div>
             </div>
         </div>
@@ -57,37 +38,67 @@
 
 <script>
 import AccountService from "../../services/AccountService"
-// import ItemCartService from "../../services/ItemCartService"
+import ItemCartService from "../../services/ItemCartService"
 import ProductService from "../../services/ProductService"
 export default {
     async mounted() {
         var currentAccount = await AccountService.checkCurrentUser()
         this.currentUserID = currentAccount.login_id
-        // this.itemList = await ItemCartService.showAllItems(2)
-
-        // console.log(this.itemList[0].product_id)
-        this.item = await ProductService.showProduct(1)
-        this.testImage = this.item.image_name1
+        this.itemList = await ItemCartService.showPaidOrders(this.currentUserID)
+        for (let i = 0; i < this.itemList.length; i++) {
+            var subtotal = 0
+            this.products = []
+            this.items = await this.getAllItems(this.itemList[i].item_cart_id)
+            for (let j = 0; j < this.items.length; j++) {
+                var product = await ProductService.showProduct(this.items[j].product_id)
+                this.products.push({
+                    product_id: product.product_id,
+                    product_name: product.product_name,
+                    product_price: product.product_price,
+                    quantity: this.items[j].quantity,
+                    image_name1: product.image_name1
+                })
+                subtotal = product.product_price * this.items[j].quantity
+            }
+            this.itemsArray.push({
+                item_list_id: this.itemList[i].item_cart_id,
+                items: this.products,
+                subtotal: subtotal
+            })
+        }
     },
     data() {
         return {
             currentUserID: null,
             itemList: [],
-            item: null,
+            itemsArray: [],
+            items: [],
+            products: [],
             testImage: null
         }
     },
     methods: {
         getImgUrl(picture) {
-            console.log(picture)
             return require("../../assets/productImages/" + picture)
         },
+        async getAllItems(itemCartID) {
+            var items = await ItemCartService.showAllItems(itemCartID)
+            return items
+        },
+        findItems(itemCartID) {
+            for (let i = 0; i < this.itemsArray.length; i++) {
+                if (itemCartID == this.itemsArray[i].item_list_id) {
+                    return this.itemsArray[i].items
+                }
+            }
+        }
     }
 }
 </script>
 
 <style>
 .main-container {
+  display: block;
   position: relative;
   float: left;
   left: 0px;
@@ -97,6 +108,9 @@ export default {
 }
 
 .navigation-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     width: 100%;
     margin-bottom: 12px;
     display: flex;
@@ -106,7 +120,6 @@ export default {
     border-top-right-radius: 2px;
     flex-wrap: nowrap;
     justify-content: center;
-    position: sticky;
 }
 
 .navigation-button {
@@ -197,5 +210,18 @@ export default {
     display: flex;
     justify-content: right;
     align-items: center;
+}
+
+.bottom-container {
+    border-top: 1px dotted rgba(0,0,0,.09);
+    padding: 20px 25px;
+    font-size: 20px;
+}
+
+.bottom-container span {
+    margin-left: 10px;
+    font-size: 28px;
+    color: rgba(197, 115, 99, 0.986);
+    font-weight: bold;
 }
 </style>

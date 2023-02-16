@@ -1,5 +1,9 @@
 <template>
-  <div class="main-container">
+  <div class="empty-list" v-if="itemList.length == 0">
+    <img src="../../assets/order.png" alt="">
+    <div class="text">Please place your orders first.</div>
+  </div>
+  <div class="main-container" v-else>
     <div class="navigation-header">
         <div class="navigation-button-active">All</div>
         <div class="navigation-button">To Collect</div>
@@ -44,7 +48,10 @@ export default {
     async mounted() {
         var currentAccount = await AccountService.checkCurrentUser()
         this.currentUserID = currentAccount.login_id
-        this.itemList = await ItemCartService.showPaidOrders(this.currentUserID)
+        var itemList = await ItemCartService.showPaidOrders(this.currentUserID)
+        if (itemList.name != 'SequelizeDatabaseError') {
+            this.itemList = itemList
+        }
         for (let i = 0; i < this.itemList.length; i++) {
             var subtotal = 0
             this.products = []
@@ -58,7 +65,7 @@ export default {
                     quantity: this.items[j].quantity,
                     image_name1: product.image_name1
                 })
-                subtotal = product.product_price * this.items[j].quantity
+                subtotal += product.product_price * this.items[j].quantity
             }
             this.itemsArray.push({
                 item_list_id: this.itemList[i].item_cart_id,
@@ -97,14 +104,37 @@ export default {
 </script>
 
 <style>
+.empty-list {
+    float: left;
+    width: 940px;
+    height: 600px;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+    border-radius: 0.125rem;
+    margin-left: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.empty-list img {
+    height: 205px;
+    width: 200px
+}
+
+.text {
+    width: 260px;
+}
+
 .main-container {
-  display: block;
-  position: relative;
-  float: left;
-  left: 0px;
-  width: 940px;
-  min-height: min-content;
-  margin-left: 45px;
+    display: block;
+    position: relative;
+    float: left;
+    left: 0px;
+    width: 940px;
+    min-height: min-content;
+    margin-left: 45px;
 }
 
 .navigation-header {

@@ -10,7 +10,9 @@ router.post("/createCategory", productController.createCategory)
 
 router.post("/createProduct", upload.array("image", 3), productController.createProducts)
 
-router.get("/showProduct/:category_id", productController.showProducts)
+router.get("/showProducts/:category_id", productController.showProducts)
+
+router.get("/showProduct/:productID", productController.showProduct)
 
 router.get("/showAllProducts", productController.showAllProducts)
 

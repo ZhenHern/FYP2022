@@ -81,6 +81,15 @@ const showProducts = async(req, res) => {
     res.send(cakes)
 }
 
+const showProduct = async(req, res) => {
+    const product = await Product.findOne({
+        where: {
+            product_id: req.params.productID
+        }
+    })
+    res.send(product)
+}
+
 const showAllProducts = async(req, res) => {
     const cakes = await Product.findAll()
     res.send(cakes)
@@ -110,6 +119,7 @@ module.exports = {
     createCategory,
     createProducts,
     showProducts,
+    showProduct,
     showAllProducts,
     showAllCategories,
     showCategory,

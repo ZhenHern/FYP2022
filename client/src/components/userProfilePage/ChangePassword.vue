@@ -141,7 +141,7 @@ export default {
   left: 0px;
   width: 940px;
   background: #FFFFFF;
-  height: 100%;
+  height: 540px;
   margin-left: 45px;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
   border-radius: 0.125rem;

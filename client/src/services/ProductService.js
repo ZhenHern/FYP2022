@@ -3,10 +3,17 @@ import Api from '@/services/Api'
 export default {
     async showProducts(category) {
         var response
-        await Api().get('api/products/showProduct/' + category).then(function(res) {
+        await Api().get('api/products/showProducts/' + category).then(function(res) {
             response = res.data
         })
         return response
+    },
+    async showProduct(productID) {
+        var response
+        await Api().get('api/products/showProduct/' + productID).then(function(res) {
+            response = res.data
+        })
+        return response      
     },
     async showAllProducts() {
         var response

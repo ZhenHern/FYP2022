@@ -2,10 +2,8 @@
   <div class="viewport">
     <NavigationBar @changeCategory="changeCategory($event)"/>
     <div class="container">
-      <div class="content" @click="test">
-        <UserProfileMenu @component="currentTabComponent = $event" ref="menu"/>
-        <component v-bind:is="currentTabComponent" @save="rerenderMenu"></component>
-      </div>
+      <UserProfileMenu @component="currentTabComponent = $event" ref="menu"/>
+      <component v-bind:is="currentTabComponent" @save="rerenderMenu"></component>
     </div>
     <WebsiteFooter/>
   </div>
@@ -16,6 +14,7 @@ import NavigationBar from "../productPage/NavigationBar.vue"
 import UserProfileMenu from "../userProfilePage/UserProfileMenu.vue"
 import MyProfile from "./MyProfile.vue"
 import ChangePassword from "./ChangePassword.vue"
+import MyPurchase from "./MyPurchases.vue"
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
 
 export default {
@@ -24,6 +23,7 @@ export default {
     UserProfileMenu,
     MyProfile,
     ChangePassword,
+    MyPurchase,
     WebsiteFooter
   },
   data() {
@@ -49,31 +49,28 @@ export default {
 }
 
 .container {
-  height: 540px;
-}
-
-.content {
+  overflow: auto;
   margin-left: auto;
   margin-right: auto;
   width: 1200px;
-  height: 100%;
   padding-top: 20px;
 }
 
+
 @media (max-width: 1200px) {
-  .content {
+  .container {
     width: 800px;
   }
 }
 
 @media (max-width: 900px) {
-  .content {
+  .container {
     width: 550px;
   }
 }
 
 @media (max-width: 600px) {
-  .content {
+  .container {
     width: 80%
   }
 }

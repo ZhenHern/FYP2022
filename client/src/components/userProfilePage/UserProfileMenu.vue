@@ -22,19 +22,19 @@
             </div>
             <i :class="component === 'ChangePassword' ? 'a fa-solid fa-key' : 'fa-solid fa-key'" @click="changeComponent('ChangePassword')"></i>
         </div>
-        <div class="button" @click="showPurchaseTab">
+        <div :class="showTab == 'purchase' ? 'button-active' : 'button'" @click="showPurchaseTab">
             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             <div class="buttons-title">
                 My Purchases
             </div>
         </div>
-        <div class="button" @click="showNotificationTab">
+        <div :class="showTab == 'notification' ? 'button-active' : 'button'" @click="showNotificationTab">
             <i class="fa-solid fa-bell"></i>
             <div class="buttons-title">
                 My Notifications
             </div>
         </div>
-        <div class="button" @click="showVoucherTab">
+        <div :class="showTab == 'voucher' ? 'button-active' : 'button'" @click="showVoucherTab">
             <i class="fa-solid fa-barcode"></i>
             <div class="buttons-title">
                 My Vouchers
@@ -57,23 +57,24 @@ export default {
         return {
             currentUserID: null,
             firstName: null,
-            showAccount: true,
+            showTab: "account",
             component: "MyProfile",
             renderComponent: true,
         }
     },
     methods: {
         showAccountDropdown() {
-            this.showAccount = true
+            this.showTab = "account"
         },
         showPurchaseTab() {
-            this.showAccount = false
+            this.showTab = "purchase"
+            this.changeComponent("MyPurchase")
         },
         showNotificationTab() {
-            this.showAccount = false
+            this.showTab = "notification"
         },
         showVoucherTab() {
-            this.showAccount = false
+            this.showTab = "voucher"
         },
         changeComponent(component) {
             this.component = component
@@ -85,8 +86,8 @@ export default {
         }
     },
     watch: {
-        showAccount(newShowAccount) {
-            if (newShowAccount) {
+        showTab(newShowTab) {
+            if (newShowTab == "account") {
                 this.$refs.account.style.visibility = "visible"
                 this.$refs.account.style.opacity = "100%"
                 this.$refs.account.style.height = "fit-content"
@@ -133,6 +134,15 @@ export default {
 }
 
 .button:hover {
+    cursor: pointer;
+    color: rgba(160, 97, 84, 0.986);
+}
+
+.button-active {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;  
     cursor: pointer;
     color: rgba(160, 97, 84, 0.986);
 }

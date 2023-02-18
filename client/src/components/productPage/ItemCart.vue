@@ -198,7 +198,7 @@ export default {
 
     .item-cart {
         width: 1200px;
-        height: 1000px;
+        height: 800px;
         background-color: white;
         margin-left: auto;
         margin-right: auto;

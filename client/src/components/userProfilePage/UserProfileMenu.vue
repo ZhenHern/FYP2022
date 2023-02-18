@@ -68,7 +68,7 @@ export default {
         },
         showPurchaseTab() {
             this.showTab = "purchase"
-            this.changeComponent("MyPurchase")
+            this.changeComponent("MyPurchases")
         },
         showNotificationTab() {
             this.showTab = "notification"

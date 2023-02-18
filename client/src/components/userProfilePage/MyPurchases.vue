@@ -10,7 +10,7 @@
         <div class="navigation-button">Completed</div>
         <div class="navigation-button">Cancelled</div>
     </div>
-    <div class="order-list">
+    <div class="order-list" ref="scrollComponent">
         <div class="order-item" v-for="(order, index) in itemsArray" :key="index">
             <div class="top-container">
                 <div class="order-title">
@@ -46,13 +46,17 @@ import ItemCartService from "../../services/ItemCartService"
 import ProductService from "../../services/ProductService"
 export default {
     async mounted() {
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+        window.addEventListener("scroll", this.handleScroll)
         var currentAccount = await AccountService.checkCurrentUser()
         this.currentUserID = currentAccount.login_id
         var itemList = await ItemCartService.showPaidOrders(this.currentUserID)
         if (itemList.name != 'SequelizeDatabaseError') {
             this.itemList = itemList
         }
-        for (let i = 0; i < this.itemList.length; i++) {
+        for (let i = 0; i < 3; i++) {
             var subtotal = 0
             this.products = []
             this.items = await this.getAllItems(this.itemList[i].item_cart_id)
@@ -81,7 +85,8 @@ export default {
             itemsArray: [],
             items: [],
             products: [],
-            testImage: null
+            testImage: null,
+            orderCount: 3
         }
     },
     methods: {
@@ -98,12 +103,53 @@ export default {
                     return this.itemsArray[i].items
                 }
             }
+        },
+        handleScroll() {
+            if ((document.getElementsByClassName('container')[0].offsetHeight + document.getElementsByClassName('main-navigation-bar')[0].offsetHeight) <= window.innerHeight + document.documentElement.scrollTop) {
+                this.loadMore()
+            }
+        },
+        async loadMore() {
+            window.removeEventListener("scroll", this.handleScroll)
+            if (this.orderCount - this.itemList.length < 3) {
+                var untilCount = 0
+                if (this.orderCount < this.itemList.length) {
+                    untilCount = 3
+                }
+                else {
+                    untilCount = this.orderCount - this.itemList.length 
+                }
+                for (let i = this.orderCount; i < this.orderCount + untilCount; i++) {
+                    var subtotal = 0
+                    this.products = []
+                    this.items = await this.getAllItems(this.itemList[i].item_cart_id)
+                    for (let j = 0; j < this.items.length; j++) {
+                        var product = await ProductService.showProduct(this.items[j].product_id)
+                        this.products.push({
+                            product_id: product.product_id,
+                            product_name: product.product_name,
+                            product_price: product.product_price,
+                            quantity: this.items[j].quantity,
+                            image_name1: product.image_name1
+                        })
+                        subtotal += product.product_price * this.items[j].quantity
+                    }
+                    this.itemsArray.push({
+                        item_list_id: this.itemList[i].item_cart_id,
+                        items: this.products,
+                        subtotal: subtotal
+                    })
+                    console.log("hi")
+                }
+                this.orderCount += 3
+                window.addEventListener("scroll", this.handleScroll)
+            }
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .empty-list {
     float: left;
     width: 940px;

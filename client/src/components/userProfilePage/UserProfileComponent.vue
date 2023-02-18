@@ -14,7 +14,7 @@ import NavigationBar from "../productPage/NavigationBar.vue"
 import UserProfileMenu from "../userProfilePage/UserProfileMenu.vue"
 import MyProfile from "./MyProfile.vue"
 import ChangePassword from "./ChangePassword.vue"
-import MyPurchase from "./MyPurchases.vue"
+import MyPurchases from "./MyPurchases.vue"
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
 
 export default {
@@ -23,7 +23,7 @@ export default {
     UserProfileMenu,
     MyProfile,
     ChangePassword,
-    MyPurchase,
+    MyPurchases,
     WebsiteFooter
   },
   data() {

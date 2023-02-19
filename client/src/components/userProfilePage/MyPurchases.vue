@@ -1,21 +1,38 @@
 <template>
-  <div class="empty-list" v-if="itemList.length == 0">
-    <img src="../../assets/order.png" alt="">
-    <div class="text">Please place your orders first.</div>
-  </div>
-  <div class="main-container" v-else>
+  <div class="main-container">
     <div class="navigation-header">
-        <div class="navigation-button-active">All</div>
-        <div class="navigation-button">To Collect</div>
-        <div class="navigation-button">Completed</div>
-        <div class="navigation-button">Cancelled</div>
+        <div :class="showing == 'all' ? 'navigation-button-active' : 'navigation-button'" @click="showAll()">All</div>
+        <div :class="showing == 'preparing' ? 'navigation-button-active' : 'navigation-button'" @click="showPreparing()">Preparing</div>
+        <div :class="showing == 'collect' ? 'navigation-button-active' : 'navigation-button'" @click="showToCollect()">To Collect</div>
+        <div :class="showing == 'completed' ? 'navigation-button-active' : 'navigation-button'" @click="showCompleted()">Completed</div>
+        <div :class="showing == 'cancelled' ? 'navigation-button-active' : 'navigation-button'" @click="showCancelled()">Cancelled</div>
     </div>
-    <div class="order-list" ref="scrollComponent">
+    <div class="loading" v-if="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+    </div>
+    <div class="order-list" ref="scrollComponent" v-else-if="!loading && itemList.length != 0">
         <div class="order-item" v-for="(order, index) in itemsArray" :key="index">
             <div class="top-container">
                 <div class="order-title">
                     <div class="order-id">Order ID: {{order.item_list_id}}</div>
-                    <div class="order-status">Order has been prepared</div>
+                    <div class="order-status">
+                        <div class="prepared" v-if="order.collected">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                            Order is completed
+                        </div>
+                        <div class="cancelled" v-else-if="order.cancelled">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            Order is cancelled
+                        </div>
+                        <div class="prepared" v-else-if="order.prepared">
+                            <i class="fa-solid fa-store"></i>
+                            Order is ready for collection
+                        </div>
+                        <div class="preparing" v-else-if="!order.prepared">
+                            <i class="fa-solid fa-spinner"></i>
+                            Preparing order
+                        </div>
+                    </div>
                 </div>
                 <div class="order-container" v-for="(item, index) in this.findItems(order.item_list_id)" :key="index">
                     <div class="order-content">
@@ -37,6 +54,10 @@
             </div>
         </div>
     </div>
+    <div class="empty-list" v-else>
+        <img src="../../assets/order.png" alt="">
+        <div class="text">Please place your orders first.</div>
+    </div>
   </div>
 </template>
 
@@ -52,41 +73,25 @@ export default {
         window.addEventListener("scroll", this.handleScroll)
         var currentAccount = await AccountService.checkCurrentUser()
         this.currentUserID = currentAccount.login_id
-        var itemList = await ItemCartService.showPaidOrders(this.currentUserID)
-        if (itemList.name != 'SequelizeDatabaseError') {
-            this.itemList = itemList
+        this.paidOrders = await ItemCartService.showPaidOrders(this.currentUserID)
+        if (this.paidOrders.name != 'SequelizeDatabaseError') {
+            this.itemList = this.paidOrders
         }
-        for (let i = 0; i < 3; i++) {
-            var subtotal = 0
-            this.products = []
-            this.items = await this.getAllItems(this.itemList[i].item_cart_id)
-            for (let j = 0; j < this.items.length; j++) {
-                var product = await ProductService.showProduct(this.items[j].product_id)
-                this.products.push({
-                    product_id: product.product_id,
-                    product_name: product.product_name,
-                    product_price: product.product_price,
-                    quantity: this.items[j].quantity,
-                    image_name1: product.image_name1
-                })
-                subtotal += product.product_price * this.items[j].quantity
-            }
-            this.itemsArray.push({
-                item_list_id: this.itemList[i].item_cart_id,
-                items: this.products,
-                subtotal: subtotal
-            })
-        }
+        await this.pushArray()
+        this.loading = false
     },
     data() {
         return {
+            showing: "all",
             currentUserID: null,
+            paidOrders: [],
             itemList: [],
             itemsArray: [],
             items: [],
             products: [],
             testImage: null,
-            orderCount: 3
+            orderCount: 3,
+            loading: true
         }
     },
     methods: {
@@ -103,6 +108,93 @@ export default {
                     return this.itemsArray[i].items
                 }
             }
+        },
+        async pushArray() {
+            var itemsArray = []
+            var untilCount = 3
+            if (this.itemList.length < untilCount) {
+                untilCount = this.itemList.length
+            }
+            for (let i = 0; i < untilCount; i++) {
+                var subtotal = 0
+                this.products = []
+                this.items = await this.getAllItems(this.itemList[i].item_cart_id)
+                for (let j = 0; j < this.items.length; j++) {
+                    var product = await ProductService.showProduct(this.items[j].product_id)
+                    this.products.push({
+                        product_id: product.product_id,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        quantity: this.items[j].quantity,
+                        image_name1: product.image_name1
+                    })
+                    subtotal += product.product_price * this.items[j].quantity
+                }
+                itemsArray.push({
+                    item_list_id: this.itemList[i].item_cart_id,
+                    prepared: this.itemList[i].prepared,
+                    collected: this.itemList[i].collected,
+                    cancelled: this.itemList[i].cancelled,
+                    items: this.products,
+                    subtotal: subtotal
+                })
+            }
+            this.itemsArray = itemsArray
+        },
+        async showAll() {
+            this.loading = true
+            this.showing = "all"
+            this.itemList = this.paidOrders
+            await this.pushArray()
+            this.loading = false
+        },
+        async showPreparing() {
+            this.loading = true
+            this.showing = "preparing"
+            this.itemList = []
+            for (let i = 0; i < this.paidOrders.length; i++) {
+                if (this.paidOrders[i].prepared == 0) {
+                    this.itemList.push(this.paidOrders[i])
+                }
+            }
+            await this.pushArray()
+            this.loading = false
+        },
+        async showToCollect() {
+            this.loading = true
+            this.showing = "collect"
+            this.itemList = []
+            for (let i = 0; i < this.paidOrders.length; i++) {
+                if (this.paidOrders[i].prepared == 1) {
+                    this.itemList.push(this.paidOrders[i])
+                }
+            }
+            await this.pushArray()
+            this.loading = false
+        },
+        async showCompleted() {
+            this.loading = true
+            this.showing = "completed"
+            this.itemList = []
+            for (let i = 0; i < this.paidOrders.length; i++) {
+                if (this.paidOrders[i].collected == 1) {
+                    this.itemList.push(this.paidOrders[i])
+                }
+            }
+            await this.pushArray()
+            this.loading = false
+        },
+        async showCancelled() {
+            this.loading = true
+            this.showing = "cancelled"
+            this.itemList = []
+            for (let i = 0; i < this.paidOrders.length; i++) {
+                if (this.paidOrders[i].cancelled == 1) {
+                    this.itemList.push(this.paidOrders[i])
+                }
+            }
+            await this.pushArray()
+            this.loading = false
         },
         handleScroll() {
             if ((document.getElementsByClassName('container')[0].offsetHeight + document.getElementsByClassName('main-navigation-bar')[0].offsetHeight) <= window.innerHeight + document.documentElement.scrollTop) {
@@ -136,6 +228,9 @@ export default {
                     }
                     this.itemsArray.push({
                         item_list_id: this.itemList[i].item_cart_id,
+                        prepared: this.itemList[i].prepared,
+                        collected: this.itemList[i].collected,
+                        cancelled: this.itemList[i].cancelled,
                         items: this.products,
                         subtotal: subtotal
                     })
@@ -157,7 +252,6 @@ export default {
     background: #fff;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
     border-radius: 0.125rem;
-    margin-left: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -199,7 +293,7 @@ export default {
 }
 
 .navigation-button {
-    width: 25%;
+    width: 20%;
     height: 52px;
     display: flex;
     justify-content: center;
@@ -216,7 +310,7 @@ export default {
 }
 
 .navigation-button-active {
-    width: 25%;
+    width: 20%;
     height: 52px;
     display: flex;
     justify-content: center;
@@ -228,6 +322,14 @@ export default {
     cursor: pointer;
 }
 
+.loading {
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+    justify-content: center;
+    font-size: 30px;
+}
+
 .order-list {
     min-height: 600px;
 }
@@ -237,6 +339,38 @@ export default {
     background: white;
     box-shadow: 0 1px 1px 0 rgb(0 0 0 / 5%);
     border-radius: 0.125rem;
+}
+
+.order-status {
+    display: flex;
+    justify-content: right;
+}
+
+.prepared {
+    color: #26aa99;
+    font-weight: bold;
+}
+
+.prepared i {
+    margin-right: 10px;
+}
+
+.cancelled {
+    color: rgb(255, 83, 83);
+    font-weight: bold;
+}
+
+.cancelled i {
+    margin-right: 10px;
+}
+
+.preparing {
+    color: rgb(237, 209, 68);
+    font-weight: bold;
+}
+
+.preparing i {
+    margin-right: 10px;
 }
 
 .top-container {

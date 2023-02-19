@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      currentTabComponent: "MyProfile",
+      currentTabComponent: "MyPurchases",
       save: 0
     }
   },

@@ -11,8 +11,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         paid: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.BOOLEAN
         },
+        prepared: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0
+        },
+        collected: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0
+        },
+        cancelled: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0   
+        }
     })
 
     return ItemCart

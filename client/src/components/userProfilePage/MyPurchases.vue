@@ -1,11 +1,24 @@
 <template>
   <div class="main-container">
     <div class="navigation-header">
-        <div :class="showing == 'all' ? 'navigation-button-active' : 'navigation-button'" @click="showAll()">All</div>
-        <div :class="showing == 'preparing' ? 'navigation-button-active' : 'navigation-button'" @click="showPreparing()">Preparing</div>
-        <div :class="showing == 'collect' ? 'navigation-button-active' : 'navigation-button'" @click="showToCollect()">To Collect</div>
-        <div :class="showing == 'completed' ? 'navigation-button-active' : 'navigation-button'" @click="showCompleted()">Completed</div>
-        <div :class="showing == 'cancelled' ? 'navigation-button-active' : 'navigation-button'" @click="showCancelled()">Cancelled</div>
+        <div :class="showing == 'All' ? 'navigation-button-active' : 'navigation-button'" @click="showAll()">All</div>
+        <div :class="showing == 'Preparing' ? 'navigation-button-active' : 'navigation-button'" @click="showPreparing()">Preparing</div>
+        <div :class="showing == 'To Collect' ? 'navigation-button-active' : 'navigation-button'" @click="showToCollect()">To Collect</div>
+        <div :class="showing == 'Completed' ? 'navigation-button-active' : 'navigation-button'" @click="showCompleted()">Completed</div>
+        <div :class="showing == 'Cancelled' ? 'navigation-button-active' : 'navigation-button'" @click="showCancelled()">Cancelled</div>
+    </div>
+    <div class="navigation-container">
+        <div class="navigation-dropdown" @click="toggleDropdown()">
+            {{showing}}
+            <i class="fa-solid fa-caret-down"></i>
+            <div class="dropdown-selections" ref="dropdown">
+                <div class="selection" @click="showAll()">All</div>
+                <div class="selection" @click="showPreparing()">Preparing</div>
+                <div class="selection" @click="showToCollect()">To Collect</div>
+                <div class="selection" @click="showCompleted()">Completed</div>
+                <div class="selection" @click="showCancelled()">Cancelled</div>
+            </div>
+        </div>
     </div>
     <div class="loading" v-if="loading">
         <i class="fas fa-spinner fa-spin"></i>
@@ -82,7 +95,7 @@ export default {
     },
     data() {
         return {
-            showing: "all",
+            showing: "All",
             currentUserID: null,
             paidOrders: [],
             itemList: [],
@@ -143,14 +156,14 @@ export default {
         },
         async showAll() {
             this.loading = true
-            this.showing = "all"
+            this.showing = "All"
             this.itemList = this.paidOrders
             await this.pushArray()
             this.loading = false
         },
         async showPreparing() {
             this.loading = true
-            this.showing = "preparing"
+            this.showing = "Preparing"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
                 if (this.paidOrders[i].prepared == 0) {
@@ -162,7 +175,7 @@ export default {
         },
         async showToCollect() {
             this.loading = true
-            this.showing = "collect"
+            this.showing = "To Collect"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
                 if (this.paidOrders[i].prepared == 1) {
@@ -174,7 +187,7 @@ export default {
         },
         async showCompleted() {
             this.loading = true
-            this.showing = "completed"
+            this.showing = "Completed"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
                 if (this.paidOrders[i].collected == 1) {
@@ -186,7 +199,7 @@ export default {
         },
         async showCancelled() {
             this.loading = true
-            this.showing = "cancelled"
+            this.showing = "Cancelled"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
                 if (this.paidOrders[i].cancelled == 1) {
@@ -195,6 +208,14 @@ export default {
             }
             await this.pushArray()
             this.loading = false
+        },
+        toggleDropdown() {
+            if (this.$refs.dropdown.style.display == "block"){
+                this.$refs.dropdown.style.display = "none"
+            }
+            else {
+                this.$refs.dropdown.style.display = "block"
+            }
         },
         handleScroll() {
             if ((document.getElementsByClassName('container')[0].offsetHeight + document.getElementsByClassName('main-navigation-bar')[0].offsetHeight) <= window.innerHeight + document.documentElement.scrollTop) {
@@ -247,7 +268,7 @@ export default {
 <style scoped>
 .empty-list {
     float: left;
-    width: 940px;
+    width: 100%;
     height: 600px;
     background: #fff;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
@@ -275,6 +296,10 @@ export default {
     width: 940px;
     min-height: min-content;
     margin-left: 45px;
+}
+
+.navigation-container {
+    display: none;
 }
 
 .navigation-header {
@@ -433,5 +458,106 @@ export default {
     font-size: 28px;
     color: rgba(197, 115, 99, 0.986);
     font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  .main-container {
+    width: 575px;
+  }
+  
+  .navigation-button {
+    font-size: 15px;
+  }
+  .navigation-button-active {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 900px) {
+    .main-container {
+        width: 375px;
+    }
+
+    .navigation-button {
+        font-size: 12px;
+    }
+
+    .navigation-button-active {
+        font-size: 12px;
+    }
+
+    .top-container {
+        font-size: 14px;
+    }
+
+    .product-image {
+        display: none;
+    }
+
+    .name-quantity {
+        padding-left: 0px;
+    }
+
+    .subtotal {
+        font-size: 16px;
+    }
+
+    .subtotal span {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        padding-top: 20px;
+        margin-left: 5px;
+        width: 80%;
+    }
+
+    .navigation-header {
+        display: none;
+    }
+
+    .navigation-container {
+        display: block;
+        width: 80%;
+        margin-left: 24px;
+    }
+
+    .navigation-dropdown {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+        cursor: pointer;
+    }
+
+    .dropdown-selections {
+        display: none;
+        margin-top: 32px;
+        position: absolute;
+        width: 80%;
+        height: 200px;
+        background: white;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+    }
+
+    .selection {
+        width: 100%;
+        height: 20%;
+        padding-left: 26px;
+        display: flex;
+        align-items: center;
+    }
+
+    .selection:hover {
+        background: rgb(239,239,239);
+    }
+}
+
+@media (max-width: 480px) {
+    .top-container {
+        font-size: 10px;
+    }
 }
 </style>

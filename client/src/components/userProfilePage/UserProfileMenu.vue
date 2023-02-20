@@ -227,6 +227,11 @@ export default {
         justify-content: center;
     }
 
+    .button-active {
+        font-size: 20px;
+        justify-content: center;
+    }
+
     .account-dropdown-content {
         display: none;
     }

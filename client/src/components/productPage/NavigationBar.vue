@@ -107,7 +107,12 @@ export default {
     },
     logout() {
       this.$storage.removeStorageSync("loginID")
+      this.$storage.removeStorageSync("userProfile")
       window.location.href = "products"
+    },
+    async forceRerender() {
+      var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+      this.firstName = currentUser.first_name
     }
   }
 }

@@ -68,6 +68,7 @@ export default {
         changeComponent(component) {
             this.component = component
             this.$emit("component", component)
+            this.$storage.setStorageSync("userProfile", this.component)
         },
         async forceRerender() {
             var currentUser = await AccountService.showCurrentUser(this.currentUserID)

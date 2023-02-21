@@ -1,6 +1,6 @@
 <template>
   <div class="viewport">
-    <NavigationBar @changeCategory="changeCategory($event)"/>
+    <NavigationBar @changeCategory="changeCategory($event)" ref="navbar"/>
     <div class="container">
       <UserProfileMenu @component="currentTabComponent = $event" ref="menu"/>
       <component v-bind:is="currentTabComponent" @save="rerenderMenu"></component>
@@ -26,18 +26,67 @@ export default {
     MyPurchases,
     WebsiteFooter
   },
+  beforeCreate() {
+    if (this.$storage.getStorageSync("loginID") == undefined) {
+      window.location.href = "products"
+    }
+  },
+  beforeMount() {
+    if (this.$storage.getStorageSync("loginID") != undefined) {
+      this.activeteActivityTracker()
+    }
+  },
+  beforeUnmount() {
+    window.removeEventListener("mousemove", this.userActivityThrottler);
+    window.removeEventListener("scroll", this.userActivityThrottler);
+    window.removeEventListener("keydown", this.userActivityThrottler);
+    window.removeEventListener("resize", this.userActivityThrottler);
+  
+    clearTimeout(this.userActivityTimeout);
+    clearTimeout(this.userActivityThrottlerTimeout);
+  },
   mounted() {
     this.currentTabComponent = this.$storage.getStorageSync("userProfile")
   },
   data() {
     return {
       currentTabComponent: "",
-      save: 0
+      save: 0,
+      userActivityTimeout: null,
+      userActivityThrottlerTimeout: null
     }
   },
   methods: {
     rerenderMenu() {
       this.$refs.menu.forceRerender()
+      this.$refs.navbar.forceRerender()
+    },
+    activeteActivityTracker() {
+      window.addEventListener("mousemove", this.resetUserActivityTimeout)
+      window.addEventListener("scroll", this.resetUserActivityTimeout)
+      window.addEventListener("keydown", this.resetUserActivityTimeout)
+      window.addEventListener("resize", this.resetUserActivityTimeout)
+    },
+    resetUserActivityTimeout() {
+      clearTimeout(this.userActivityTimeout)
+      this.userActivityTimeout = setTimeout(() => {
+        this.inactiveUserAction()
+      }, 9000)
+    },
+    userActivityThrottler() {
+      if (!this.userActivityThrottlerTimeout) {
+        this.userActivityThrottlerTimeout = setTimeout(() => {
+          this.resetUserActivityTimeout();
+
+          clearTimeout(this.userActivityThrottlerTimeout);
+          this.userActivityThrottlerTimeout = null;
+        }, 1000);
+      }
+    },
+    inactiveUserAction() {
+      console.log("EXPIRED LIAO")
+      this.$storage.clearStorageSync("loginID");
+      this.$storage.clearStorageSync("userProfile");
     }
   }
 }

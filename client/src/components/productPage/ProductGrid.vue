@@ -1,5 +1,6 @@
 <template>
   <div>
+    <DisplayOverlay ref="overlay"/>
     <div class="product-grid">
       <TransitionGroup name="list">
       <div class="grid-item" v-for="(product, index) in currentProducts" :key="index">
@@ -39,16 +40,18 @@
 
 <script>
 import ProductService from "../../services/ProductService"
-import AccountService from "../../services/AccountService"
 import ItemCartService from "../../services/ItemCartService"
+import DisplayOverlay from "../userProfilePage/DisplayOverlay.vue"
 
 export default {
+  components: {
+    DisplayOverlay
+  },
   props: {
     category: Number
   },
   async mounted() {
-    var currentUser = await AccountService.checkCurrentUser()
-    this.currentUserID = currentUser.login_id
+    this.currentUserID = this.$storage.getStorageSync("loginID")
 
     this.products = await ProductService.showProducts(this.category)
     for(var i = 0; i < Object.keys(this.products).length; i++) {
@@ -89,12 +92,17 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth'})
     },
     async addCart(id, index) {
-      if(this.quantity[index] != 0) {
-          await ItemCartService.addToCart({
-          userID: this.currentUserID,
-          productID: id,
-          quantity: this.quantity[index]
-        })
+      if (this.$storage.getStorageSync("loginID") == undefined) {
+        this.$refs.overlay.openErrorOverlay("Please login first")
+      }
+      else {
+        if(this.quantity[index] != 0) {
+            await ItemCartService.addToCart({
+            userID: this.currentUserID,
+            productID: id,
+            quantity: this.quantity[index]
+          })
+        }
       }
       this.quantity[index] = 0
     }

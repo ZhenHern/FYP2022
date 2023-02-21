@@ -61,7 +61,6 @@
 
 <script>
 import ProductService from "../../services/ProductService"
-import AccountService from "../../services/AccountService"
 import ItemCartService from "../../services/ItemCartService"
 import PaypalComponent from "./PaypalComponent.vue"
 
@@ -70,8 +69,7 @@ export default {
         PaypalComponent
     },
     async mounted() {
-        var currentUser = await AccountService.checkCurrentUser()
-        this.currentUserID = currentUser.login_id
+        this.currentUserID = this.$storage.getStorageSync("loginID")
 
         var currentItemCart = await ItemCartService.getCurrentCart(this.currentUserID)
         this.currentItemCartID = currentItemCart.item_cart_id

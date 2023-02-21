@@ -26,9 +26,12 @@ export default {
     MyPurchases,
     WebsiteFooter
   },
+  mounted() {
+    this.currentTabComponent = this.$storage.getStorageSync("userProfile")
+  },
   data() {
     return {
-      currentTabComponent: "MyPurchases",
+      currentTabComponent: "",
       save: 0
     }
   },

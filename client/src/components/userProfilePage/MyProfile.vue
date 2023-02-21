@@ -53,9 +53,9 @@ import AccountService from "../../services/AccountService"
 import DisplayOverlay from "./DisplayOverlay.vue"
 export default {
   async mounted() {
-      var currentAccount = await AccountService.checkCurrentUser()
+      this.currentUserID = this.$storage.getStorageSync("loginID")
+      var currentAccount = await AccountService.showCurrentAccount(this.currentUserID)
       this.email = currentAccount.email
-      this.currentUserID = currentAccount.login_id
       var currentUser = await AccountService.showCurrentUser(this.currentUserID)
       this.firstName = currentUser.first_name
       this.lastName = currentUser.last_name

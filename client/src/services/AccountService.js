@@ -19,9 +19,9 @@ export default {
     changePassword(information) {
         return Api().post('api/users/changePassword', information)
     },
-    async checkCurrentUser() {
+    async showCurrentAccount(loginID) {
         var response 
-        await Api().get('api/users/checkCurrentUser').then(function(res) {
+        await Api().get('api/users/showCurrentAccount/' + loginID).then(function(res) {
             response = res.data
         })
         return response

@@ -104,7 +104,7 @@ export default {
       }
     },
     async changePassword() {
-      var currentAccount = await AccountService.checkCurrentUser()
+      var currentAccount = await AccountService.showCurrentAccount(this.$storage.getStorageSync("loginID"))
       if (currentAccount.password == this.currentPassword) {
         await AccountService.changePassword({
           loginID: currentAccount.login_id,

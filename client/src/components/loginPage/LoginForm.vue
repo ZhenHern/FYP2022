@@ -105,17 +105,19 @@ export default {
                 return
             }
             try {
-                await AccountService.login({
+                var account = await AccountService.login({
                     email: this.email,
                     password: this.password
                 })
-                this.loginAccount()
+                this.loginAccount(account.data.login_id)
             }
             catch (error) {
                 this.error = error.response.data
             }
         },
-        loginAccount() {
+        loginAccount(loginID) {
+            this.$storage.setStorageSync("loginID", loginID);
+            console.log(this.$storage.getStorageSync("loginID"))
             window.location.href = "products"
         }
     }

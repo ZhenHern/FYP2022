@@ -16,7 +16,7 @@ router.post("/changePassword", accountController.changePassword)
 
 router.get("/verify/:token", accountController.verifyEmail)
 
-router.get("/checkCurrentUser", accountController.checkCurrentUser)
+router.get("/showCurrentAccount/:loginID", accountController.showCurrentAccount)
 
 router.get("/showCurrentUser/:loginID", accountController.showCurrentUser)
 

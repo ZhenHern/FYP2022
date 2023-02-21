@@ -22,19 +22,19 @@
             </div>
             <i :class="component === 'ChangePassword' ? 'a fa-solid fa-key' : 'fa-solid fa-key'" @click="changeComponent('ChangePassword')"></i>
         </div>
-        <div :class="showTab == 'purchase' ? 'button-active' : 'button'" @click="showPurchaseTab">
+        <div :class="component == 'MyPurchases' ? 'button-active' : 'button'" @click="changeComponent('MyPurchases')">
             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             <div class="buttons-title">
                 My Purchases
             </div>
         </div>
-        <div :class="showTab == 'notification' ? 'button-active' : 'button'" @click="showNotificationTab">
+        <div :class="component == 'MyNotifications' ? 'button-active' : 'button'" @click="changeComponent('MyNotifications')">
             <i class="fa-solid fa-bell"></i>
             <div class="buttons-title">
                 My Notifications
             </div>
         </div>
-        <div :class="showTab == 'voucher' ? 'button-active' : 'button'" @click="showVoucherTab">
+        <div :class="component == 'MyVouchers' ? 'button-active' : 'button'" @click="changeComponent('MyVouchers')">
             <i class="fa-solid fa-barcode"></i>
             <div class="buttons-title">
                 My Vouchers
@@ -48,8 +48,8 @@
 import AccountService from "../../services/AccountService"
 export default {
     async mounted() {
-        var currentAccount = await AccountService.checkCurrentUser()
-        this.currentUserID = currentAccount.login_id
+        this.component = this.$storage.getStorageSync("userProfile")
+        this.currentUserID = this.$storage.getStorageSync("loginID")
         var currentUser = await AccountService.showCurrentUser(this.currentUserID)
         this.firstName = currentUser.first_name
     },
@@ -57,24 +57,13 @@ export default {
         return {
             currentUserID: null,
             firstName: null,
-            showTab: "account",
-            component: "MyProfile",
+            component: "",
             renderComponent: true,
         }
     },
     methods: {
         showAccountDropdown() {
             this.showTab = "account"
-        },
-        showPurchaseTab() {
-            this.showTab = "purchase"
-            this.changeComponent("MyPurchases")
-        },
-        showNotificationTab() {
-            this.showTab = "notification"
-        },
-        showVoucherTab() {
-            this.showTab = "voucher"
         },
         changeComponent(component) {
             this.component = component

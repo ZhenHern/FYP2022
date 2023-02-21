@@ -18,19 +18,19 @@
             </div>
             <div class="dropdown">
               <div class="dropdown-header" @click="toggleDropdown()">
-                <div class="username">Zhen Hern</div>
+                <div class="username">{{firstName}}</div>
                 <i class="fa-solid fa-chevron-down"></i>
               </div>
               <div class="dropdown-content" ref="dropdown">
-                <div class="my-account">
+                <div class="my-account" @click="goToAccount()">
                   My Account
                   <i class="fa-solid fa-chevron-right"></i>
                 </div>
-                <div class="my-purchases">
+                <div class="my-purchases" @click="goToPurchase()">
                   My Purchases
                   <i class="fa-solid fa-chevron-right"></i>
                 </div>
-                <div class="logout">
+                <div class="logout" @click="logout()">
                   Logout
                   <i class="fa-solid fa-chevron-right"></i>
                 </div>
@@ -52,9 +52,9 @@
 </template>
 
 <script>
+import AccountService from "../../services/AccountService"
 import ProductService from '../../services/ProductService'
 import ItemCart from "../productPage/ItemCart.vue"
-import AccountService from "../../services/AccountService"
 
 export default {
   props: {
@@ -64,8 +64,9 @@ export default {
     ItemCart
   },
   async mounted() {
-    var currentUser = await AccountService.checkCurrentUser()
-    this.currentUserID = currentUser.login_id
+    this.currentUserID = this.$storage.getStorageSync("loginID")
+    var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+    this.firstName = currentUser.first_name
     this.categories = await ProductService.showAllCategories()
   },
   data() {
@@ -73,7 +74,8 @@ export default {
       currentUserID: null,
       categories: null,
       categoryID: 1,
-      showDropdown: false
+      showDropdown: false,
+      firstName: ""
     }
   },
   methods: {
@@ -94,6 +96,18 @@ export default {
         this.$refs.dropdown.style.visibility = "hidden"
         this.$refs.dropdown.style.opacity = "0%"
       }
+    },
+    goToAccount() {
+      this.$storage.setStorageSync("userProfile", "MyProfile")
+      window.location.href = "userProfile"
+    },
+    goToPurchase() {
+      this.$storage.setStorageSync("userProfile", "MyPurchases")
+      window.location.href = "userProfile"
+    },
+    logout() {
+      this.$storage.removeStorageSync("loginID")
+      window.location.href = "products"
     }
   }
 }

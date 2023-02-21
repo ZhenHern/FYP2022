@@ -57,7 +57,7 @@ const login = async (req, res) => {
     }
     account.logged_in = true
     await account.save()
-    res.status(201).send("Login successfully")
+    res.status(201).send(account)
     console.log("DONE")
 }
 
@@ -138,10 +138,10 @@ const resendVerificationLink = async (req, res) => {
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-const checkCurrentUser = async (req, res) => {
+const showCurrentAccount = async (req, res) => {
     const currentUser = await Account.findOne({
         where: {
-            logged_in: 1
+            login_id: req.params.loginID
         }
     })
     res.send(currentUser)
@@ -200,7 +200,7 @@ module.exports = {
     verifyEmail,
     resendVerificationLink,
     login,
-    checkCurrentUser,
+    showCurrentAccount,
     showCurrentUser,
     saveProfile,
     changePassword

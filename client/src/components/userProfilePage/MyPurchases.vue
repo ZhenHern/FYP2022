@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import AccountService from "../../services/AccountService"
 import ItemCartService from "../../services/ItemCartService"
 import ProductService from "../../services/ProductService"
 export default {
@@ -84,8 +83,7 @@ export default {
             window.scrollTo(0, 0);
         }
         window.addEventListener("scroll", this.handleScroll)
-        var currentAccount = await AccountService.checkCurrentUser()
-        this.currentUserID = currentAccount.login_id
+        this.currentUserID = this.$storage.getStorageSync("loginID")
         this.paidOrders = await ItemCartService.showPaidOrders(this.currentUserID)
         if (this.paidOrders.name != 'SequelizeDatabaseError') {
             this.itemList = this.paidOrders

@@ -1,6 +1,6 @@
 <template>
   <div class="viewport">
-    <NavigationBar @changeCategory="changeCategory($event)"/>
+    <NavigationBar />
     <ProductContent :category="activeCategory" :key="componentKey"/> 
     <WebsiteFooter/>
   </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import NavigationBar from "./NavigationBar.vue"
+import NavigationBar from "../navigationBar/NavigationBar.vue"
 import ProductContent from "./ProductContent.vue"
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
 

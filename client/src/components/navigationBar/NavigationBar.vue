@@ -1,11 +1,14 @@
 <template>
   <div class="wrapper">
     <div class="main-container">
+        <div class="responsive-navbar">
+            <i class="fas fa-bars"></i>
+        </div>
         <div class="logo">
             <a href="index" class="logo">Bakery Shop</a>
         </div>
         <div class="mid-container">
-            <div class="links">Home</div>
+            <div class="links" @click="goToHome()">Home</div>
             <div class="products">
                 <div class="product-title">
                     Products
@@ -24,7 +27,10 @@
             <div class="item-cart-logo" @click="openItemCart()">
                 <i class="fa-sharp fa-solid fa-cart-shopping"></i>
             </div>
-            <div class="user">
+            <div class="login" v-if="currentUserID === undefined" @click="login()">
+                LOGIN
+            </div>
+            <div class="user" v-else>
                 <div class="user-title">
                     <i class="fa fa-user" aria-hidden="true"></i>
                         Zhen Hern
@@ -53,15 +59,20 @@ export default {
         this.currentUserID = this.$storage.getStorageSync("loginID")
         var currentUser = await AccountService.showCurrentUser(this.currentUserID)
         this.firstName = currentUser.first_name
+        console.log(this.currentUserID)
     },
     data() {
         return {
-            firstName: ""
+            firstName: "",
+            currentUserID: undefined
         }
     },
     methods: {
         openItemCart() {
             this.$refs.itemCart.showItemCart = true
+        },
+        goToHome() {
+            window.location.href = "home"
         },
         goToAccount() {
             this.$storage.setStorageSync("userProfile", "MyProfile")
@@ -70,6 +81,9 @@ export default {
         goToPurchase() {
             this.$storage.setStorageSync("userProfile", "MyPurchases")
             window.location.href = "userProfile"
+        },
+        login() {
+            window.location.href = "login"
         },
         logout() {
             this.$storage.removeStorageSync("loginID")
@@ -99,6 +113,10 @@ export default {
     height: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.responsive-navbar {
+    display: none;
 }
 
 .logo {
@@ -229,6 +247,7 @@ li:hover {
     padding-bottom: 35px;
 }
 
+
 .user-dropdown {
     width: 160px;
     text-transform: none;
@@ -253,4 +272,50 @@ li:hover {
     display: block;
 }
 
+.login {
+  background-color: white;
+  color: black;
+  line-height: 1.5;
+  padding: 8px 30px;
+  border: 1px solid rgb(187, 186, 186);
+}
+
+.login:hover {
+  background-color: rgb(235,236,237);
+  cursor: pointer;
+}
+
+@media (max-width: 950px) {
+    .wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .mid-container {
+        display: none;
+    }
+
+    .user {
+        display: none;
+    }
+
+    .item-cart-logo {
+        font-size: 23px;
+    }
+
+    .responsive-navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        width: 100px;
+    }
+}
+
+@media (max-width: 550px) {
+    .wrapper {
+        padding-left: 2px;
+        padding-right: 2px;    
+    }
+}
 </style>

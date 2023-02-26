@@ -1,10 +1,9 @@
 <template>
   <div class="viewport">
-    <NavigationBar />
+    <NavigationBar/>
     <ProductContent :category="activeCategory" :key="componentKey"/> 
     <WebsiteFooter/>
   </div>
-
 </template>
 
 <script>
@@ -83,4 +82,5 @@ export default {
   height: fit-content;
   width: 100%;
 }
+
 </style>

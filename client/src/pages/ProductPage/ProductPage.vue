@@ -1,5 +1,5 @@
 <template>
-  <ProductComponent/>
+    <ProductComponent/>
 </template>
 
 <script>
@@ -12,5 +12,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -103,6 +103,7 @@ export default {
         },
         closeCart() {
             this.showItemCart = false
+            document.body.style.overflow = "auto"
         },
         getImgUrl(picture) {
             return require("../../assets/productImages/" + picture)
@@ -193,6 +194,7 @@ export default {
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
         opacity: 0%;
+        overflow-y: scroll;
     }
 
     .item-cart {

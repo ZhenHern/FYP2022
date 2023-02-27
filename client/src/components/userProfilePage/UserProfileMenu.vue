@@ -110,7 +110,6 @@ export default {
 
 .menu-buttons {
     width: 100%;
-    height: 250px;
     padding-top: 25px;
     padding-left: 15px;
 }

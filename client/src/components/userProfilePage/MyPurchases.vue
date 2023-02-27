@@ -216,7 +216,7 @@ export default {
             }
         },
         handleScroll() {
-            if ((document.getElementsByClassName('container')[0].offsetHeight + document.getElementsByClassName('main-navigation-bar')[0].offsetHeight) <= window.innerHeight + document.documentElement.scrollTop) {
+            if ((document.getElementsByClassName('container')[0].offsetHeight) <= window.innerHeight + document.documentElement.scrollTop) {
                 this.loadMore()
             }
         },
@@ -253,7 +253,6 @@ export default {
                         items: this.products,
                         subtotal: subtotal
                     })
-                    console.log("hi")
                 }
                 this.orderCount += 3
                 window.addEventListener("scroll", this.handleScroll)

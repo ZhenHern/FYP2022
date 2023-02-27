@@ -1,6 +1,6 @@
 <template>
   <div class="viewport">
-    <NavigationBar @changeCategory="changeCategory($event)" ref="navbar"/>
+    <NavigationBar ref="navbar"/>
     <div class="container">
       <UserProfileMenu @component="currentTabComponent = $event" ref="menu"/>
       <component v-bind:is="currentTabComponent" @save="rerenderMenu"></component>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import NavigationBar from "../productPage/NavigationBar.vue"
+import NavigationBar from "../../components/navigationBar/NavigationBar.vue"
 import UserProfileMenu from "../userProfilePage/UserProfileMenu.vue"
 import MyProfile from "./MyProfile.vue"
 import ChangePassword from "./ChangePassword.vue"
@@ -71,7 +71,7 @@ export default {
       clearTimeout(this.userActivityTimeout)
       this.userActivityTimeout = setTimeout(() => {
         this.inactiveUserAction()
-      }, 9000)
+      }, 900000)
     },
     userActivityThrottler() {
       if (!this.userActivityThrottlerTimeout) {

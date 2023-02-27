@@ -3,14 +3,14 @@
     <div class="background-image">
       <div class="content">
         <Transition>
-        <div class="text" v-show="productCategoryID === category">
+        <div class="text">
             {{productCategory}}
         </div>
         </Transition>
       </div>
     </div>
     <Transition :name="slideDirection">
-      <ProductGrid :category="category" v-if="!showDetails" @checkDetails="checkDetails"/>
+      <ProductGrid :category="categoryID" v-if="!showDetails" @checkDetails="checkDetails"/>
       <ProductDetail v-else @checkDetails="checkDetails" :productID="productID"/>
     </Transition>
   </div>
@@ -22,15 +22,12 @@ import ProductGrid from "./ProductGrid.vue"
 import ProductDetail from "./ProductDetail.vue"
 
 export default {
-  props: {
-    category: Number
-  },
   async mounted() {
+    this.categoryID = this.$storage.getStorageSync("categoryID")
     var productCategory = null
-
-    productCategory = await ProductService.showCategory(this.category)
-    this.productCategoryID = productCategory.category_id
+    productCategory = await ProductService.showCategory(this.categoryID)
     this.productCategory = productCategory.category_name
+    this.categoryID = this.$storage.getStorageSync("categoryID")
   },
   components: {
     ProductGrid,
@@ -42,7 +39,8 @@ export default {
       showDetails: false,
       productID: null,
       productCategoryID: null,
-      productCategory: null
+      productCategory: null,
+      categoryID: null
     }
   },
   methods: {

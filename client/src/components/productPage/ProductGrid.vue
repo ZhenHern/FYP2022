@@ -47,13 +47,10 @@ export default {
   components: {
     DisplayOverlay
   },
-  props: {
-    category: Number
-  },
   async mounted() {
     this.currentUserID = this.$storage.getStorageSync("loginID")
-
-    this.products = await ProductService.showProducts(this.category)
+    this.categoryID = this.$storage.getStorageSync("categoryID")
+    this.products = await ProductService.showProducts(this.categoryID)
     for(var i = 0; i < Object.keys(this.products).length; i++) {
       this.quantity.push(0)
     }
@@ -63,11 +60,12 @@ export default {
   data() {
     return {
       quantity: [],
-      totalPage: 10,
+      totalPage: null,
       products: null,
       currentProducts: null,
       currentPage: 1,
-      currentUserID: null
+      currentUserID: null,
+      categoryID: null
     }
   },
   watch: { 

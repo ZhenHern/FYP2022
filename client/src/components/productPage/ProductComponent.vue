@@ -1,7 +1,7 @@
 <template>
   <div class="viewport">
     <NavigationBar/>
-    <ProductContent :category="activeCategory" :key="componentKey"/> 
+    <ProductContent/> 
     <WebsiteFooter/>
   </div>
 </template>
@@ -31,19 +31,16 @@ export default {
     clearTimeout(this.userActivityTimeout);
     clearTimeout(this.userActivityThrottlerTimeout);
   },
+  mounted() {
+    this.activeCategory = this.$storage.getStorageSync("categoryID")
+  },
   data() {
     return {
-      activeCategory: 1,
-      componentKey: 0,
       userActivityTimeout: null,
       userActivityThrottlerTimeout: null
     }
   },
   methods: {
-    changeCategory(activeCategory) {
-      this.activeCategory = activeCategory
-      this.componentKey += 1
-    },
     activeteActivityTracker() {
       window.addEventListener("mousemove", this.resetUserActivityTimeout)
       window.addEventListener("scroll", this.resetUserActivityTimeout)

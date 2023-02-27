@@ -15,10 +15,9 @@
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
                 <ul class="products-dropdown">
-                    <li>Cookies</li>
-                    <li>Bread</li>
-                    <li>Cakes</li>
-                    <li>Mooncakes</li>
+                    <li v-for="(category, index) in categories" :key="index" @click="goToProduct(category.category_id)">
+                        {{category.category_name}}
+                    </li>
                 </ul>
             </div>
             <div class="links">About Us</div>
@@ -53,7 +52,7 @@
         </div>
     </div>
     <ul class="menu-list">
-        <li class="responsive-selection">Home</li>
+        <li class="responsive-selection" @click="goToHome()">Home</li>
         <li>
             <div class="responsive-selection" @click="toggleProductDropdown()">
                 Products
@@ -61,20 +60,32 @@
                 <i class="fa-solid fa-caret-up" ref="arrowUp"></i>
             </div>
             <ul class="responsive-products-dropdown" ref="productDropdown">
-                <li>Cookies</li>
-                <li>Bread</li>
-                <li>Cakes</li>
-                <li>Mooncakes</li>
+                <li v-for="(category, index) in categories" :key="index" @click="goToProduct(category.category_id)">
+                    {{category.category_name}}
+                </li>
             </ul>
         </li>
         <li class="responsive-selection">About Us</li>
-        <li class="responsive-selection">Login</li>
+        <li class="responsive-selection" v-if="currentUserID === undefined" @click="login()">Login</li>
+        <li v-else>
+            <div class="responsive-selection" @click="toggleUserDropdown()">
+                {{firstName}}
+                <i class="fa-solid fa-caret-down" ref="userArrowDown"></i>
+                <i class="fa-solid fa-caret-up" ref="userArrowUp"></i>
+            </div>
+            <ul class="responsive-user-dropdown" ref="userDropdown">
+                <li @click="goToAccount()">My Profile</li>
+                <li @click="goToPurchase()">My Purchases</li>
+                <li @click="logout()">Logout</li>
+            </ul>
+        </li>
     </ul>
   </div>
 </template>
 
 <script>
 import AccountService from "../../services/AccountService"
+import ProductService from "../../services/ProductService"
 import ItemCart from "../productPage/ItemCart.vue"
 export default {
     components: {
@@ -84,12 +95,15 @@ export default {
         this.currentUserID = this.$storage.getStorageSync("loginID")
         var currentUser = await AccountService.showCurrentUser(this.currentUserID)
         this.firstName = currentUser.first_name
+        this.categories = await ProductService.showAllCategories()
     },
     data() {
         return {
             firstName: "",
             currentUserID: undefined,
-            productsToggle: false
+            productsToggle: false,
+            userToggle: false,
+            categories: []
         }
     },
     methods: {
@@ -120,8 +134,25 @@ export default {
                 this.$refs.arrowDown.style.display = "flex"
             }
         },
+        toggleUserDropdown() {
+            this.userToggle = !this.userToggle
+            if (this.userToggle) {
+                this.$refs.userDropdown.style.display = "block"
+                this.$refs.userArrowUp.style.display = "block"
+                this.$refs.userArrowDown.style.display = "none"
+            }
+            else {
+                this.$refs.userDropdown.style.display = "none"
+                this.$refs.userArrowUp.style.display = "none"
+                this.$refs.userArrowDown.style.display = "flex"
+            }
+        },
         goToHome() {
             window.location.href = "home"
+        },
+        goToProduct(categoryID) {
+            this.$storage.setStorageSync("categoryID", categoryID)
+            window.location.href = "products"
         },
         goToAccount() {
             this.$storage.setStorageSync("userProfile", "MyProfile")
@@ -138,6 +169,10 @@ export default {
             this.$storage.removeStorageSync("loginID")
             this.$storage.removeStorageSync("userProfile")
             window.location.href = "products"
+        },
+        async forceRerender() {
+            var currentUser = await AccountService.showCurrentUser(this.currentUserID)
+            this.firstName = currentUser.first_name
         }
     },
 }
@@ -352,9 +387,9 @@ export default {
     left: 0;
     background: white;
     z-index: 3;
-    /* visibility: hidden; */
+    visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    opacity: 100%;
+    opacity: 0%;
     overflow-y: scroll;
 }
 
@@ -443,6 +478,25 @@ export default {
     background-color: rgb(48,49,51);
 }
 
+.responsive-user-dropdown {
+    display: none;
+    text-align: center;
+    position: relative;
+    font-size: 18px;
+    list-style-type: none;
+}
+
+.responsive-user-dropdown li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.3s ease color, 0.3s ease background-color;
+}
+
+.responsive-user-dropdown li:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(48,49,51);
+}
 @media (max-width: 950px) {
     .wrapper {
         padding-left: 15px;
@@ -481,6 +535,10 @@ export default {
 
     .right-container {
         width: 100px;
+    }
+
+    .login {
+        display: none;
     }
 }
 

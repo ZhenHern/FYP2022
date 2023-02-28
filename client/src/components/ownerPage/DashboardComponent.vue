@@ -49,7 +49,49 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="order-container">
+                    <div class="latest-order-container">
+                        <div class="latest-order-top-container">
+                            <div class="latest-order-title">
+                                Latest Order
+                            </div>
+                            <div class="table-head">
+                                <div class="item-head"></div>
+                                <div class="name-head">Item</div>
+                                <div class="quantity-head">Quantity</div>
+                                <div class="price-head">Price</div>
+                            </div>
+                            <div class="table-content">
+                                <div class="order-item">
+                                    <div class="item-image">
+                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
+                                    </div>
+                                    <div class="item-name">Blackforest Cake</div>
+                                    <div class="item-quantity">5</div>
+                                    <div class="item-price">RM 55.70</div>
+                                </div>
+                                <div class="order-item">
+                                    <div class="item-image">
+                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
+                                    </div>
+                                    <div class="item-name">Blackforest Cake</div>
+                                    <div class="item-quantity">5</div>
+                                    <div class="item-price">RM 55.70</div>
+                                </div>
+                                <div class="order-item">
+                                    <div class="item-image">
+                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
+                                    </div>
+                                    <div class="item-name">Blackforest Cake</div>
+                                    <div class="item-quantity">5</div>
+                                    <div class="item-price">RM 55.70</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-orders">
+                            <div class="view-orders-button">
+                                View All Orders
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="right-container">
@@ -178,14 +220,97 @@ export default {
     float: right;
 }
 
-.order-container {
+.latest-order-container {
     position: relative;
     width: 800px;
-    height: 500px;
     background: white;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
     border-radius: 0.125rem;
-    padding: 15px 20px;
+}
+
+.latest-order-top-container {
+    padding: 25px 30px;
+}
+
+.latest-order-title {
+    font-size: 22px;
+}
+
+table {
+    width: 100%;
+}
+
+.table-head {
+    width: 100%;
+    height: 50px;
+    padding: 10px 10px;
+    background: rgb(250,250,250);
+    color: rgb(131,131,131);
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-head {
+    width: 150px;
+}
+
+.name-head {
+    width: 280px;
+}
+
+.quantity-head {
+    width: 120px;
+}
+
+.price-head {
+    width: 80px;
+}
+
+.order-item {
+    padding: 10px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-image {
+    height: 150px;
+    width: 150px;
+}
+
+.item-name {
+    width: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity {
+    width: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.item-price {
+    width: 80px;
+    display: flex;
+    align-items: center;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
+.view-orders {
+    width: 100%;
+    padding: 15px 30px;
+    border-top: 2px solid #F5F5F5;
+    color: rgb(139,139,139);
+}
+
+.view-orders-button:hover {
+    cursor: pointer;
+    width: fit-content;
 }
 
 .number-container {

@@ -26,5 +26,11 @@ module.exports = defineConfig({
       title: 'User Profile Page',
       chunks: [ 'userProfile']
     },
+    dashboard: {
+      entry: 'src/pages/DashboardPage/main.js',
+      template: 'public/index.html',
+      title: 'Dashboard',
+      chunks: [ 'dashboard']
+    }
   }
 })

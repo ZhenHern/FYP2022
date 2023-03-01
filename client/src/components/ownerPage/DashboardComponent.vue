@@ -103,7 +103,7 @@
                                 <div>RM 100.50 / RM 10000</div>
                             </div>
                             <div class="revenue-bar">
-                                <div class="revenue-progression"></div>
+                                <div class="revenue-progression" :style="{width: revenueProgression + '%'}"></div>
                             </div>
                             <div class="order-title">
                                 Order
@@ -155,6 +155,7 @@ export default {
             totalCompleted: 0,
             totalRevenue: 0,
             latestSubtotal: 0,
+            revenueProgression: 100,
             latestOrder: []
         }
     },
@@ -210,6 +211,13 @@ export default {
         },
         getImgUrl(picture) {
             return require("../../assets/productImages/" + picture)
+        },
+        calculateRevenueProgression(allOrders) {
+            var totalRevenue = 0
+            for (let i = 0; i < allOrders.length; i++) {
+                console.log(totalRevenue)
+            }
+            console.log(totalRevenue)
         }
     }
 }

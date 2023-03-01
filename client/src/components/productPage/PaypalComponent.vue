@@ -44,7 +44,8 @@ export default {
       product: {
         price: this.subtotal,
         description: "Payment for Bakery Shop FYP",
-      }
+      },
+      currentDateTime: null
     };
   },
   mounted() {
@@ -58,9 +59,27 @@ export default {
     back() {
       location.reload()
     },
+    formatDateTime() {
+      var d = new Date(),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+      if (month.length < 2) 
+        month = '0' + month;
+      if (day.length < 2) 
+        day = '0' + day;
+
+      var currentDateTime = [year, month, day].join('-') + " " + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
+      this.currentDateTime = currentDateTime
+      console.log(this.currentDateTime)
+    },
     async completeOrder() {
+      this.formatDateTime()
       await ItemCartService.completeOrder({
-        itemCartID: this.itemCartID
+        itemCartID: this.itemCartID,
+        subtotal: this.subtotal,
+        orderedAt: this.currentDateTime
       })
     },
     setLoaded() {

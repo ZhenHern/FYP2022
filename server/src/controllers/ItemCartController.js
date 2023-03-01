@@ -171,7 +171,9 @@ const completeOrder = async(req, res) => {
             }
         })
         itemCart.set({
-            paid: 1
+            paid: 1,
+            subtotal: req.body.subtotal,
+            orderedAt: req.body.orderedAt
         })
         await itemCart.save()
         res.send("Order is completed")
@@ -199,6 +201,23 @@ const showPaidOrders = async(req, res) => {
     }
 }
 
+const showAllPaidOrders = async(req, res) => {
+    try {
+        orders = await ItemCart.findAll({
+            where: {
+                paid: 1
+            },
+            order: [
+                ['orderedAt', 'DESC']
+            ]
+        })
+        res.send(orders)
+    }
+    catch (err) {
+        res.send(err)
+    }
+}
+
 
 
 module.exports = {
@@ -210,5 +229,6 @@ module.exports = {
     subtractQuantity,
     removeItem,
     completeOrder,
-    showPaidOrders
+    showPaidOrders,
+    showAllPaidOrders
 }

@@ -20,4 +20,6 @@ router.get("/showAllItems/:itemCartID", itemCartController.showAllItems)
 
 router.get("/showPaidOrders/:userID", itemCartController.showPaidOrders)
 
+router.get("/showAllPaidOrders", itemCartController.showAllPaidOrders)
+
 module.exports = router

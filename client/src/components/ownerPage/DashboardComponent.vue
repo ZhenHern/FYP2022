@@ -20,7 +20,7 @@
                                     Total Orders
                                 </div>
                                 <div class="total-number">
-                                    <vue3-autocounter :startAmount='0' :endAmount='215' :duration='2'/>
+                                    <vue3-autocounter :startAmount='0' :endAmount=totalOrder :duration='2'/>
                                 </div>
                             </li>
                             <li>
@@ -28,7 +28,7 @@
                                     Pending
                                 </div>
                                 <div class="pending-number">
-                                    <vue3-autocounter :startAmount='0' :endAmount='25' :duration='2'/>
+                                    <vue3-autocounter :startAmount='0' :endAmount=totalPending :duration='2'/>
                                 </div>
                             </li>
                             <li>
@@ -36,7 +36,7 @@
                                     Cancelled
                                 </div>
                                 <div class="cancelled-number">
-                                    <vue3-autocounter :startAmount='0' :endAmount='113' :duration='2'/>
+                                    <vue3-autocounter :startAmount='0' :endAmount=totalCancelled :duration='2'/>
                                 </div>
                             </li>
                             <li>
@@ -44,7 +44,7 @@
                                     Completed
                                 </div>
                                 <div class="completed-number">
-                                    <vue3-autocounter :startAmount='0' :endAmount='187' :duration='2'/>
+                                    <vue3-autocounter :startAmount='0' :endAmount=totalCompleted :duration='2'/>
                                 </div>
                             </li>
                         </ul>
@@ -60,30 +60,17 @@
                                 <div class="quantity-head">Quantity</div>
                                 <div class="price-head">Price</div>
                             </div>
-                            <div class="table-content">
-                                <div class="order-item">
+                            <div class="loading" v-if="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <div class="table-content" v-else>
+                                <div class="order-item" v-for="(item, index) in latestOrder" :key="index">
                                     <div class="item-image">
-                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
+                                        <img :src="getImgUrl(item.productImage)">
                                     </div>
-                                    <div class="item-name">Blackforest Cake</div>
-                                    <div class="item-quantity">5</div>
-                                    <div class="item-price">RM 55.70</div>
-                                </div>
-                                <div class="order-item">
-                                    <div class="item-image">
-                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
-                                    </div>
-                                    <div class="item-name">Blackforest Cake</div>
-                                    <div class="item-quantity">5</div>
-                                    <div class="item-price">RM 55.70</div>
-                                </div>
-                                <div class="order-item">
-                                    <div class="item-image">
-                                        <img src="../../assets/productImages/cake-1-600x600-removebg-preview.png">
-                                    </div>
-                                    <div class="item-name">Blackforest Cake</div>
-                                    <div class="item-quantity">5</div>
-                                    <div class="item-price">RM 55.70</div>
+                                    <div class="item-name">{{item.productName}}</div>
+                                    <div class="item-quantity">{{item.quantity}}</div>
+                                    <div class="item-price">{{item.price}}</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +85,8 @@
                     <div class="total-revenue-container">
                         <div class="total-revenue-title">Total Revenue :</div>
                         <div class="total-revenue-value">
-                            RM 5813.40
+                            RM
+                            <vue3-autocounter RM :startAmount='0' :endAmount=totalRevenue :duration='2' :decimals='2'/>
                         </div>
                     </div>
                     <div class="goals">
@@ -142,10 +130,87 @@
 <script>
 import NavigationBar from "../navigationBar/NavigationBar.vue"
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
+import ItemCartService from '../../services/ItemCartService'
+import ProductService from '../../services/ProductService'
 export default {
     components: {
         NavigationBar,
         WebsiteFooter
+    },
+    async mounted() {
+        var paidItems = await ItemCartService.showAllPaidOrders()
+        this.totalOrder = paidItems.length
+        this.calculatePending(paidItems)
+        this.calculateCancelled(paidItems)
+        this.calculateCompleted(paidItems)
+        this.calculateRevenue(paidItems)
+        this.getLatestOrder(paidItems)
+    },
+    data() {
+        return {
+            loading: true,
+            totalOrder: 0,
+            totalPending: 0,
+            totalCancelled: 0,
+            totalCompleted: 0,
+            totalRevenue: 0,
+            latestSubtotal: 0,
+            latestOrder: []
+        }
+    },
+    methods: {
+        calculatePending(allOrders) {
+            var total = 0
+            for (let i = 0; i < allOrders.length; i++) {
+                if ((allOrders[i].collected == false) && (allOrders[i].cancelled == false)) {
+                    total += 1 
+                }
+            }
+            this.totalPending = total
+        },
+        calculateCancelled(allOrders) {
+            var total = 0
+            for (let i = 0; i < allOrders.length; i++) {
+                if (allOrders[i].cancelled == true) {
+                    total += 1 
+                }
+            }
+            this.totalCancelled = total
+        },
+        calculateCompleted(allOrders) {
+            var total = 0
+            for (let i = 0; i < allOrders.length; i++) {
+                if (allOrders[i].collected == true) {
+                    total += 1 
+                }
+            }
+            this.totalCompleted = total
+        },
+        calculateRevenue(allOrders) {
+            var total = 0
+            for (let i = 0; i < allOrders.length; i++) {
+                total += parseFloat(allOrders[i].subtotal)
+            }
+            this.totalRevenue = total
+        },
+        async getLatestOrder(allOrders) {
+            var orderID = allOrders[0].item_cart_id
+            this.latestSubtotal = allOrders[0].subtotal
+            var items = await ItemCartService.showAllItems(orderID)
+            for(let i = 0; i < items.length; i++) {
+                var product = await ProductService.showProduct(items[i].product_id)
+                this.latestOrder.push({
+                    productImage: product.image_name1,
+                    productName: product.product_name,
+                    quantity: items[i].quantity,
+                    price: product.product_price
+                })
+            }
+            this.loading = false
+        },
+        getImgUrl(picture) {
+            return require("../../assets/productImages/" + picture)
+        }
     }
 }
 </script>
@@ -248,6 +313,17 @@ table {
     color: rgb(131,131,131);
     display: flex;
     justify-content: space-between;
+}
+
+.loading {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loading i {
+    font-size: 20px;
 }
 
 .item-head {

@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         user_id: {
             type: DataTypes.INTEGER
         },
+        subtotal: {
+            type: DataTypes.DECIMAL(10,2),
+            defaultValue: 0
+        },
         paid: {
             type: DataTypes.BOOLEAN
         },
@@ -24,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         cancelled: {
             type: DataTypes.BOOLEAN,
             defaultValue: 0   
+        },
+        orderedAt: {
+            type: DataTypes.DATE
         }
     })
 

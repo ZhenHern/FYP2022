@@ -36,5 +36,12 @@ export default {
             response = res.data
         })
         return response
+    },
+    async showAllPaidOrders() {
+        var response
+        await Api().get('api/itemCarts/showAllPaidOrders').then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

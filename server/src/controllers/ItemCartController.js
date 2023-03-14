@@ -1,4 +1,5 @@
 const db = require("../models")
+const { sequelize } = require("../models")
 
 const ItemCart = db.itemCarts
 const Item = db.items
@@ -218,6 +219,18 @@ const showAllPaidOrders = async(req, res) => {
     }
 }
 
+const showMonthOrders = async(req, res) => {
+        try {
+            orders = await ItemCart.findAll({
+                where: sequelize.where(sequelize.fn("MONTH", sequelize.col("orderedAt")), req.params.month)    
+            })
+            res.send(orders)
+        }
+        catch (err) {
+            res.send(err)
+        }
+}
+
 
 
 module.exports = {
@@ -230,5 +243,6 @@ module.exports = {
     removeItem,
     completeOrder,
     showPaidOrders,
-    showAllPaidOrders
+    showAllPaidOrders,
+    showMonthOrders
 }

@@ -43,5 +43,12 @@ export default {
             response = res.data
         })
         return response
+    },
+    async showMonthOrders(month) {
+        var response
+        await Api().get('api/itemCarts/showMonthOrders/' + month).then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

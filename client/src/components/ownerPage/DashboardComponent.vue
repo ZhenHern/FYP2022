@@ -93,8 +93,16 @@
                         <div class="goals-top-container">
                             <div class="goals-title">Goals and Overview</div>
                             <div class="months-dropdown">
-                                January 2023
-                                <i class="fa-solid fa-chevron-down"></i>
+                                <div class="months-title">
+                                    {{displayMonth}}
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <ul class="months-dropdown-content" ref="monthsDropdown">
+                                    <li v-for="(month, index) in previousMonths" :key="index" @click="changeMonth(month)">
+                                        {{month}}
+                                    </li>
+                                    <li  @click="changeMonth(currentMonth)">{{currentMonth}}</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="goals-content">
@@ -145,6 +153,8 @@ export default {
         this.calculateCompleted(paidItems)
         this.calculateRevenue(paidItems)
         this.getLatestOrder(paidItems)
+        this.getCurrentMonth()
+        this.getPreviousMonths()
     },
     data() {
         return {
@@ -156,7 +166,10 @@ export default {
             totalRevenue: 0,
             latestSubtotal: 0,
             revenueProgression: 100,
-            latestOrder: []
+            latestOrder: [],
+            currentMonth: "",
+            displayMonth: "",
+            previousMonths: []
         }
     },
     methods: {
@@ -218,6 +231,51 @@ export default {
                 console.log(totalRevenue)
             }
             console.log(totalRevenue)
+        },
+        getCurrentMonth() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December"
+                                ];
+            const d = new Date();
+            this.currentMonth = monthNames[d.getMonth()] + " " + d.getFullYear()      
+            this.displayMonth = this.currentMonth            
+        },
+        getPreviousMonths() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December"
+                                ];
+            const d = new Date();
+            var year = d.getFullYear()
+            var previousMonth
+            var j = 11
+            for (let i = 1; i < 12; i++) {
+                if ((d.getMonth() - i) < 0) {
+                    year = d.getFullYear() - 1
+                    previousMonth = monthNames[j]
+                    this.previousMonths.push(previousMonth + " " + year)
+                    j -= 1
+                }
+                else {
+                    previousMonth = monthNames[d.getMonth() - i]
+                    this.previousMonths.push(previousMonth + " " + year)
+                }
+            }
+            this.previousMonths = this.previousMonths.reverse()
+        },
+        changeMonth(newMonth) {
+            this.displayMonth = newMonth
+        }
+    },
+    watch: {
+        async displayMonth(newMonth) {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December"
+                                    ];
+            var stringArray = newMonth.split(/(\s+)/);             
+            var month = monthNames.indexOf(stringArray[0]) + 1
+            var year = stringArray[2]
+            var orders = await ItemCartService.showMonthOrders(month)
+            console.log(orders);
         }
     }
 }
@@ -541,18 +599,75 @@ img {
 
 .months-dropdown {
     font-size: 15px;
+    height: 35px;
     color: rgb(139,139,139);
+}
+
+.months-title {
+    padding-top: 6px;
 }
 
 .months-dropdown i {
     font-size: 13px;
     margin-left: 1px;
+    position: relative;
 }
 
 .goals-content {
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
+}
+
+.months-dropdown-content {
+    height: 155px;
+    width: 170px;
+    text-transform: none;
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 5px;
+    text-align: center;
+    z-index: 20;
+    font-size: 14px;
+    font-weight: normal;
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+    list-style-type: none;
+    overflow-y: scroll;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background-color: rgb(216, 216, 216);
+    border: 5px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;  
+}
+
+ul::-webkit-scrollbar {
+  width: 16px;
+}
+
+.months-dropdown:hover {
+    cursor: pointer;
+}
+
+.months-dropdown:hover .months-dropdown-content {
+    display: block;
+}
+
+.months-dropdown-content li {
+    padding: 7px 20px 7px 17px;
+}
+
+.months-dropdown-content li:hover {
+    background: rgb(245,245,245);
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .revenue-title {

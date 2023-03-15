@@ -44,9 +44,9 @@ export default {
         })
         return response
     },
-    async showMonthOrders(month) {
+    async showMonthOrders(month, year) {
         var response
-        await Api().get('api/itemCarts/showMonthOrders/' + month).then(function(res) {
+        await Api().get('api/itemCarts/showMonthOrders/' + month + "&" + year).then(function(res) {
             response = res.data
         })
         return response

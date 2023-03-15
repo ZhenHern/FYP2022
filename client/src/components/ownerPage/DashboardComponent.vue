@@ -108,17 +108,17 @@
                         <div class="goals-content">
                             <div class="revenue-title">
                                 Revenue
-                                <div>RM 100.50 / RM 10000</div>
+                                <div>RM {{revenue}} / RM 10000</div>
                             </div>
                             <div class="revenue-bar">
                                 <div class="revenue-progression" :style="{width: revenueProgression + '%'}"></div>
                             </div>
                             <div class="order-title">
                                 Order
-                                <div>10 / 30</div>
+                                <div>{{order}} / 30</div>
                             </div>
                             <div class="order-bar">
-                                <div class="order-progression"></div>
+                                <div class="order-progression" :style="{width: orderProgression + '%'}"></div>
                             </div>
                         </div>
                         <div class="edit-goals">
@@ -126,6 +126,16 @@
                                 <i class="fa-solid fa-pencil"></i>
                                 Edit Goals
                             </div>
+                        </div>
+                    </div>
+                    <div class="edit-container">
+                        <div class="edit-products">
+                            Edit Products
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="edit-vouchers">
+                            Edit Vouchers
+                            <i class="fa-solid fa-chevron-right"></i>
                         </div>
                     </div>
                 </div>
@@ -165,7 +175,10 @@ export default {
             totalCompleted: 0,
             totalRevenue: 0,
             latestSubtotal: 0,
-            revenueProgression: 100,
+            revenue: 0,
+            order: 0,
+            orderProgression: 0,
+            revenueProgression: 0,
             latestOrder: [],
             currentMonth: "",
             displayMonth: "",
@@ -264,18 +277,37 @@ export default {
         },
         changeMonth(newMonth) {
             this.displayMonth = newMonth
+        },
+        calculateProgression() {
+            if (this.revenue > 10000) {
+                this.revenueProgression = 100
+            }
+            else {
+                this.revenueProgression = this.revenue / 10000 * 100
+            }
+            if (this.order > 30) {
+                this.orderProgression = 100
+            }
+            else {
+                this.orderProgression = this.order / 30 * 100
+            }
         }
     },
     watch: {
         async displayMonth(newMonth) {
+            this.revenue = 0
             const monthNames = ["January", "February", "March", "April", "May", "June",
                                     "July", "August", "September", "October", "November", "December"
                                     ];
             var stringArray = newMonth.split(/(\s+)/);             
             var month = monthNames.indexOf(stringArray[0]) + 1
             var year = stringArray[2]
-            var orders = await ItemCartService.showMonthOrders(month)
-            console.log(orders);
+            var orders = await ItemCartService.showMonthOrders(month, year)
+            this.order = orders.length
+            for (let i = 0; i < orders.length; i++) {
+                this.revenue += parseFloat(orders[i].subtotal)
+            }
+            this.calculateProgression()
         }
     }
 }
@@ -583,6 +615,7 @@ img {
     background: white;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
     border-radius: 0.125rem;
+    margin-bottom: 15px;
 }
 
 .goals-top-container {
@@ -725,6 +758,45 @@ ul::-webkit-scrollbar {
 }
 
 .edit-goals-button:hover {
+    cursor: pointer;
+}
+
+.edit-container {
+    position: relative;
+    width: 100%;
+    height: 146px;
+    background: white;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
+    border-radius: 0.125rem;
+    margin-bottom: 15px;
+    color: rgb(139,139,139);
+}
+
+.edit-products {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+.edit-vouchers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+.edit-products:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.edit-vouchers:hover {
+    color: black;
     cursor: pointer;
 }
 </style>

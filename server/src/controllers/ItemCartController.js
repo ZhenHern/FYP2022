@@ -1,4 +1,5 @@
 const db = require("../models")
+const { Op } = require("sequelize");
 const { sequelize } = require("../models")
 
 const ItemCart = db.itemCarts
@@ -220,15 +221,16 @@ const showAllPaidOrders = async(req, res) => {
 }
 
 const showMonthOrders = async(req, res) => {
-        try {
             orders = await ItemCart.findAll({
-                where: sequelize.where(sequelize.fn("MONTH", sequelize.col("orderedAt")), req.params.month)    
+                where: {
+                    [Op.and]: [
+                        sequelize.where(sequelize.fn('YEAR', sequelize.col('orderedAt')), req.params.year),
+                        sequelize.where(sequelize.fn('MONTH', sequelize.col('orderedAt')), req.params.month)
+                    ]
+                }
+                
             })
             res.send(orders)
-        }
-        catch (err) {
-            res.send(err)
-        }
 }
 
 

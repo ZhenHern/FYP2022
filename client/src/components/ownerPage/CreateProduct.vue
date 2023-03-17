@@ -144,116 +144,114 @@
         </div>
     </div>
     <DisplayOverlay ref="overlay"/>
-    <div>
-    </div>
 </template>
 
 <script>
 import ProductService from "../../services/ProductService"
 import DisplayOverlay from '../userProfilePage/DisplayOverlay.vue'
 export default {
-components: {
-    DisplayOverlay
-}, 
-async mounted() {
-    this.categories = await ProductService.showAllCategories()
-},
-data() {
-    return {
-        productName: "",
-        productPrice: "",
-        productDesc: "",
-        image1: null,
-        image2: null,
-        image3: null,
-        categories: null,
-        category: "",
-        ingredient1: "",
-        ingredient2: "",
-        ingredient3: "",
-        ingredient4: "",
-        ingredient5: "",
-        ingredient6: "",
-        step: 1
+    components: {
+        DisplayOverlay
+    }, 
+    async mounted() {
+        this.categories = await ProductService.showAllCategories()
+    },
+    data() {
+        return {
+            productName: "",
+            productPrice: "",
+            productDesc: "",
+            image1: null,
+            image2: null,
+            image3: null,
+            categories: null,
+            category: "",
+            ingredient1: "",
+            ingredient2: "",
+            ingredient3: "",
+            ingredient4: "",
+            ingredient5: "",
+            ingredient6: "",
+            step: 1
+        }
+    },
+    methods: {
+        uploadImage1() {
+            this.image1 = this.$refs.image1.files[0]
+            console.log(this.image1)
+        },
+        uploadImage2() {
+            this.image2 = this.$refs.image2.files[0]
+            console.log(this.image2)
+        },
+        uploadImage3() {
+            this.image3 = this.$refs.image3.files[0]
+            console.log(this.image3)
+        },
+        async createProduct() {
+            let data = new FormData();
+            data.append("productName", this.productName)
+            data.append("productDesc", this.productDesc)
+            data.append("productPrice", this.productPrice)
+            data.append("productCategory", this.category)
+            data.append("image", this.image1)
+            data.append("image", this.image2)
+            data.append("image", this.image3)
+            var ingredients = []
+            ingredients.push(this.ingredient1)
+            if (this.ingredient2 != "") {
+                ingredients.push(this.ingredient2)
+            }
+            if (this.ingredient3 != "") {
+                ingredients.push(this.ingredient3)
+            }
+            if (this.ingredient4 != "") {
+                ingredients.push(this.ingredient4)
+            }
+            if (this.ingredient5 != "") {
+                ingredients.push(this.ingredient5)
+            }
+            if (this.ingredient6 != "") {
+                ingredients.push(this.ingredient6)
+            }
+            var product = await ProductService.createProduct(data)
+            await ProductService.createIngredients({
+                productID: product.product_id,
+                ingredientName: ingredients
+            })
+        },
+        nextStep() {
+            if (this.productName != "" && this.productDesc != "" && this.productPrice != "" && this.image1 != null && this.image2 != null && this.image3 != null) {
+                this.step = 2
+            }
+            else {
+                this.$refs.overlay.openErrorOverlay("Please enter everything")
+            }
+        },
+        async finish() {
+            if (this.category != "" && this.ingredient1 != "") {
+                await this.createProduct()
+                this.step = 1
+                this.productName = ""
+                this.productDesc = ""
+                this.productPrice = ""
+                this.image1 = null
+                this.image2 = null
+                this.image3 = null
+                this.category = ""
+                this.ingredient1 = ""
+                this.ingredient2 = ""
+                this.ingredient3 = ""
+                this.ingredient4 = ""
+                this.ingredient5 = ""
+                this.ingredient6 = ""
+                this.$refs.overlay.openOverlay("Successfully created.")
+            }
+            else {
+                this.$refs.overlay.openErrorOverlay("Please enter everything")
+            }
+        }
     }
-},
-methods: {
-    uploadImage1() {
-        this.image1 = this.$refs.image1.files[0]
-        console.log(this.image1)
-    },
-    uploadImage2() {
-        this.image2 = this.$refs.image2.files[0]
-        console.log(this.image2)
-    },
-    uploadImage3() {
-        this.image3 = this.$refs.image3.files[0]
-        console.log(this.image3)
-    },
-    async createProduct() {
-        let data = new FormData();
-        data.append("productName", this.productName)
-        data.append("productDesc", this.productDesc)
-        data.append("productPrice", this.productPrice)
-        data.append("productCategory", this.category)
-        data.append("image", this.image1)
-        data.append("image", this.image2)
-        data.append("image", this.image3)
-        var ingredients = []
-        ingredients.push(this.ingredient1)
-        if (this.ingredient2 != "") {
-            ingredients.push(this.ingredient2)
-        }
-        if (this.ingredient3 != "") {
-            ingredients.push(this.ingredient3)
-        }
-        if (this.ingredient4 != "") {
-            ingredients.push(this.ingredient4)
-        }
-        if (this.ingredient5 != "") {
-            ingredients.push(this.ingredient5)
-        }
-        if (this.ingredient6 != "") {
-            ingredients.push(this.ingredient6)
-        }
-        var product = await ProductService.createProduct(data)
-        await ProductService.createIngredients({
-            productID: product.product_id,
-            ingredientName: ingredients
-        })
-    },
-    nextStep() {
-        if (this.productName != "" && this.productDesc != "" && this.productPrice != "" && this.image1 != null && this.image2 != null && this.image3 != null) {
-            this.step = 2
-        }
-        else {
-            this.$refs.overlay.openErrorOverlay("Please enter everything")
-        }
-    },
-    async finish() {
-        if (this.category != "" && this.ingredient1 != "") {
-            await this.createProduct()
-            this.step = 1
-            this.productName = ""
-            this.productDesc = ""
-            this.productPrice = ""
-            this.image1 = null
-            this.image2 = null
-            this.image3 = null
-            this.category = ""
-            this.ingredient1 = ""
-            this.ingredient2 = ""
-            this.ingredient3 = ""
-            this.ingredient4 = ""
-            this.ingredient5 = ""
-            this.ingredient6 = ""
-            this.$refs.overlay.openOverlay("Successfully created.")
-        }
-        else {
-            this.$refs.overlay.openErrorOverlay("Please enter everything")
-        }
-    }
-}
 }
 </script>
 
@@ -422,11 +420,13 @@ textarea:focus {
 }
 
 .buttons-1 {
+    width: 400px;
     position: relative;
     left: 960px;
 }
 
 .buttons-2 {
+    width: 400px;
     margin-top: 144px;
     position: relative;
     left: 960px;

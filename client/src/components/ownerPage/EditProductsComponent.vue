@@ -10,7 +10,8 @@
         </Transition>
       </div>
     </div>
-    <CreateProducts/>
+    <DeleteProduct v-if="component == 'DeleteProduct'"/>
+    <CreateProduct v-else/>
     <WebsiteFooter/>
   </div>
 </template>
@@ -18,12 +19,19 @@
 <script>
 import NavigationBar from "../navigationBar/NavigationBar.vue"
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
-import CreateProducts from "./CreateProducts.vue"
+import CreateProduct from "./CreateProduct.vue"
+import DeleteProduct from './DeleteProduct.vue'
 export default {
     components: {
         NavigationBar,
         WebsiteFooter,
-        CreateProducts
+        CreateProduct,
+        DeleteProduct
+    },
+    data() {
+      return {
+        component: "DeleteProduct"
+      }
     },
 }
 </script>

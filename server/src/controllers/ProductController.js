@@ -42,15 +42,17 @@ const showAllCategories = async(req, res) => {
     }
 }
 
-const createProducts = async(req, res) => {
-    try {
-        console.log(req.files)
-        
+const createProduct = async(req, res) => {
+        category = await Category.findOne({
+            where: {
+                category_name: req.body.productCategory
+            }
+        }) 
         await Product.create({
             product_name: req.body.productName,
             product_price: req.body.productPrice,
             product_description: req.body.productDesc,
-            category_id: req.body.productCategory,
+            category_id: category.category_id,
             image_name1: req.files[0].filename,
             image_name2: req.files[1].filename,
             image_name3: req.files[2].filename,
@@ -65,10 +67,6 @@ const createProducts = async(req, res) => {
             ),
         })
         res.status(201).send("New Product Added")
-    }
-    catch(err) {
-        res.status(400).send(err)
-    }
 }
 
 const showProducts = async(req, res) => {
@@ -117,7 +115,7 @@ const showIngredients = async(req, res) => {
 
 module.exports = {
     createCategory,
-    createProducts,
+    createProduct,
     showProducts,
     showProduct,
     showAllProducts,

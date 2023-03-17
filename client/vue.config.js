@@ -12,25 +12,31 @@ module.exports = defineConfig({
       entry: 'src/pages/LoginPage/main.js',
       template: 'public/index.html',
       title: 'Login Page',
-      chunks: [ 'login' ]
+      chunks: ['login']
     },
     products: {
       entry: 'src/pages/ProductPage/main.js',
       template: 'public/index.html',
       title: 'Product Page',
-      chunks: [ 'products' ]
+      chunks: ['products']
     },
     userProfile: {
       entry: 'src/pages/UserProfilePage/main.js',
       template: 'public/index.html',
       title: 'User Profile Page',
-      chunks: [ 'userProfile']
+      chunks: ['userProfile']
     },
     dashboard: {
       entry: 'src/pages/DashboardPage/main.js',
       template: 'public/index.html',
       title: 'Dashboard',
-      chunks: [ 'dashboard']
+      chunks: ['dashboard']
+    },
+    editProducts: {
+      entry: 'src/pages/EditProductsPage/main.js',
+      template: 'public/index.html',
+      title: 'Edit Products',
+      chunks: ['editProducts']
     }
   }
 })

@@ -49,5 +49,8 @@ export default {
             response = res.data
         })
         return response
+    },
+    async createProduct(product) {
+        return Api().post('api/products/createProduct', product)
     }
 }

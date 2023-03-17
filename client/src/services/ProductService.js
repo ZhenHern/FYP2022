@@ -51,6 +51,17 @@ export default {
         return response
     },
     async createProduct(product) {
-        return Api().post('api/products/createProduct', product)
+        var response
+        await Api().post('api/products/createProduct', product).then(function(res) {
+            response = res.data
+        })
+        return response
+    },
+    async createIngredients(data) {
+        var response
+        await Api().post('api/products/createIngredients', data).then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

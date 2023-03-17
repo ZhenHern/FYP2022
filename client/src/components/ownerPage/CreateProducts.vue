@@ -22,7 +22,7 @@
                     Product Price (RM)
                 </div>
                 <div class="product-input">
-                    <input type="text" v-model="productPrice">
+                    <input type="number" v-model="productPrice">
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
             <div class="previous-button">
                 Previous Step
             </div>
-            <div class="next-button" @click="step = 2">
+            <div class="next-button" @click="nextStep()">
                 Next Step
             </div>
         </div>
@@ -138,19 +138,23 @@
             <div class="previous-button" @click="step = 1">
                 Previous Step
             </div>
-            <div class="finish-button" @click="createProduct()">
+            <div class="finish-button" @click="finish()">
                 Finish
             </div>
         </div>
     </div>
+    <DisplayOverlay ref="overlay"/>
     <div>
-
     </div>
 </template>
 
 <script>
 import ProductService from "../../services/ProductService"
+import DisplayOverlay from '../userProfilePage/DisplayOverlay.vue'
 export default {
+components: {
+    DisplayOverlay
+}, 
 async mounted() {
     this.categories = await ProductService.showAllCategories()
 },
@@ -195,13 +199,75 @@ methods: {
         data.append("image", this.image1)
         data.append("image", this.image2)
         data.append("image", this.image3)
-        await ProductService.createProduct(data)
+        var ingredients = []
+        ingredients.push(this.ingredient1)
+        if (this.ingredient2 != "") {
+            ingredients.push(this.ingredient2)
+        }
+        if (this.ingredient3 != "") {
+            ingredients.push(this.ingredient3)
+        }
+        if (this.ingredient4 != "") {
+            ingredients.push(this.ingredient4)
+        }
+        if (this.ingredient5 != "") {
+            ingredients.push(this.ingredient5)
+        }
+        if (this.ingredient6 != "") {
+            ingredients.push(this.ingredient6)
+        }
+        var product = await ProductService.createProduct(data)
+        await ProductService.createIngredients({
+            productID: product.product_id,
+            ingredientName: ingredients
+        })
+    },
+    nextStep() {
+        if (this.productName != "" && this.productDesc != "" && this.productPrice != "" && this.image1 != null && this.image2 != null && this.image3 != null) {
+            this.step = 2
+        }
+        else {
+            this.$refs.overlay.openErrorOverlay("Please enter everything")
+        }
+    },
+    async finish() {
+        if (this.category != "" && this.ingredient1 != "") {
+            await this.createProduct()
+            this.step = 1
+            this.productName = ""
+            this.productDesc = ""
+            this.productPrice = ""
+            this.image1 = null
+            this.image2 = null
+            this.image3 = null
+            this.category = ""
+            this.ingredient1 = ""
+            this.ingredient2 = ""
+            this.ingredient3 = ""
+            this.ingredient4 = ""
+            this.ingredient5 = ""
+            this.ingredient6 = ""
+            this.$refs.overlay.openOverlay("Successfully created.")
+        }
+        else {
+            this.$refs.overlay.openErrorOverlay("Please enter everything")
+        }
     }
 }
 }
 </script>
 
 <style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .top-container {
   margin-top: 50px;
   height: 120px;

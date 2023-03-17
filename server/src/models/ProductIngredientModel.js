@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         ingredient_name: {
             type: DataTypes.STRING,
-            unique: true,
             primaryKey: true
         },
     })

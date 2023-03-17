@@ -9,7 +9,7 @@
           {{product.product_name}} <br> <span>RM {{product.product_price}}</span>
         </div>
         <div class="product-hover">
-          <i class="fa fa-search" aria-hidden="true" @click="$emit('checkDetails', {productID: index + 1, showDetails: true, slideDirection: 'slide-right'})"></i>
+          <i class="fa fa-search" aria-hidden="true" @click="$emit('checkDetails', {productID: product.product_id, showDetails: true, slideDirection: 'slide-right'})"></i>
           <br>
           <span>Quantity: {{quantity[index]}}</span>
           <div class="edit-quantity">

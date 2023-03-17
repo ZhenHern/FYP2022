@@ -48,7 +48,7 @@ const createProduct = async(req, res) => {
                 category_name: req.body.productCategory
             }
         }) 
-        await Product.create({
+        var product = await Product.create({
             product_name: req.body.productName,
             product_price: req.body.productPrice,
             product_description: req.body.productDesc,
@@ -66,7 +66,7 @@ const createProduct = async(req, res) => {
                 path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[2].filename)
             ),
         })
-        res.status(201).send("New Product Added")
+        res.send(product)
 }
 
 const showProducts = async(req, res) => {
@@ -113,6 +113,16 @@ const showIngredients = async(req, res) => {
     res.send(ingredients)
 }
 
+const createIngredients = async(req, res) => {
+    for (let i=0; i< req.body.ingredientName.length; i++) {
+        await Ingredient.create({
+            product_id: req.body.productID,
+            ingredient_name: req.body.ingredientName[i]
+        })
+    }
+    res.send("CREATED INGREDIENTS")
+}
+
 module.exports = {
     createCategory,
     createProduct,
@@ -122,5 +132,6 @@ module.exports = {
     showAllCategories,
     showCategory,
     showDetails,
-    showIngredients
+    showIngredients,
+    createIngredients
 }

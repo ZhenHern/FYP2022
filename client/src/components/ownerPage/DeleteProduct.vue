@@ -16,10 +16,35 @@
                 Product
             </div>
             <div class="product-input">
-                <select v-model="product">
-                    <option :value="category.category_name" v-for="(product, index) in products" :key="index">{{product.product_id}} - {{product.product_name}}</option>
+                <select v-model="productID">
+                    <option :value="product.product_id" v-for="(product, index) in products" :key="index">{{product.product_id}} - {{product.product_name}}</option>
                 </select>
             </div>
+        </div>
+    </div>
+    <div class="bot-container" v-if="product != null">
+        <div class="product-details">
+            <div class="image-container">
+                <img :src="getImgUrl(product.image_name1)">
+            </div>
+            <div class="product-information">
+                <div class="product-top">
+                    <div class="product-name">{{product.product_name}}</div>
+                    <div class="product-price">RM {{product.product_price}}</div>
+                </div>
+                <div class="product-description">
+                    {{product.product_description}}
+                </div>
+                <div class="ingredients">
+                    <div class="ingredients-title">Ingredients:</div>
+                    <ul class="ingredients-content">
+                        <li v-for="(ingredient, index) in ingredients" :key="index">{{ingredient.ingredient_name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="delete-button">
+            Delete
         </div>
     </div>
   </div>
@@ -37,7 +62,17 @@ export default {
             categories: [],
             category: "",
             products: [],
-            product: ""
+            productID: "",
+            product: null,
+            ingredients: null
+        }
+    },
+    methods: {
+        getImgUrl(picture) {
+            return require("../../assets/productImages/" + picture)
+        },
+        deleteProduct() {
+            
         }
     },
     watch: {
@@ -49,6 +84,10 @@ export default {
                 }
             }
             this.products = await ProductService.showProducts(categoryID)
+        },
+        async productID(newProductID) {
+            this.product = await ProductService.showProduct(newProductID)
+            this.ingredients = await ProductService.showIngredients(newProductID)
         }
     }
 }
@@ -103,6 +142,88 @@ export default {
 .product-input select:focus {
     outline: none;
     border: 1px solid black;
+}
+
+.bot-container {
+    display: block;
+    position: relative;
+    padding: 40px 120px;
+    margin-top: 3px;
+    height: 570px;
+    width: 1530px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+}
+
+.product-details {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image-container {
+    height: 400px;
+    width: 400px;
+}
+
+.image-container img {
+    height: 400px;
+    width: 400px;
+}
+
+.product-information {
+    width: 800px;
+    height: 400px;
+}
+
+.product-top {
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-price {
+    color: rgb(233, 165, 18);
+}
+
+.product-description {
+    margin-top: 25px;
+}
+
+.ingredients {
+    margin-top: 80px;
+    font-size: 18px;
+}
+
+ul {
+    margin-top: 5px;
+    list-style-position: inside;
+    font-size: 15px;
+    column-count: 3;
+}
+
+.delete-button {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    width: 150px;
+    height: 40px;
+    background: rgb(233, 90, 71);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    border-radius: 4px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
 }
 
 </style>

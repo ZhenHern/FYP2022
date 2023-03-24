@@ -123,6 +123,26 @@ const createIngredients = async(req, res) => {
     res.send("CREATED INGREDIENTS")
 }
 
+const deleteProduct = async(req, res) => {
+    try {
+        await Ingredient.destroy({
+            where: {
+                product_id: req.body.product_id
+            }
+        })
+        await Product.destroy({
+            where: {
+                product_id: req.body.product_id
+            }
+        })
+        res.send("Deleted product")
+    }
+    catch (err) {
+        console.log(err)
+        res.status(400).send("Error deleting product.")
+    }
+}
+
 module.exports = {
     createCategory,
     createProduct,
@@ -133,5 +153,6 @@ module.exports = {
     showCategory,
     showDetails,
     showIngredients,
-    createIngredients
+    createIngredients,
+    deleteProduct
 }

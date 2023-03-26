@@ -29,19 +29,19 @@
                 <div class="order-title">
                     <div class="order-id">Order ID: {{order.item_list_id}}</div>
                     <div class="order-status">
-                        <div class="prepared" v-if="order.collected">
+                        <div class="prepared" v-if="order.status == 'Completed'">
                             <i class="fa-solid fa-clipboard-check"></i>
                             Order is completed
                         </div>
-                        <div class="cancelled" v-else-if="order.cancelled">
+                        <div class="cancelled" v-else-if="order.status == 'Cancelled'">
                             <i class="fa-solid fa-circle-exclamation"></i>
                             Order is cancelled
                         </div>
-                        <div class="prepared" v-else-if="order.prepared">
+                        <div class="prepared" v-else-if="order.status == 'Collect'">
                             <i class="fa-solid fa-store"></i>
                             Order is ready for collection
                         </div>
-                        <div class="preparing" v-else-if="!order.prepared">
+                        <div class="preparing" v-else-if="order.status == 'Preparing'">
                             <i class="fa-solid fa-spinner"></i>
                             Preparing order
                         </div>
@@ -143,9 +143,7 @@ export default {
                 }
                 itemsArray.push({
                     item_list_id: this.itemList[i].item_cart_id,
-                    prepared: this.itemList[i].prepared,
-                    collected: this.itemList[i].collected,
-                    cancelled: this.itemList[i].cancelled,
+                    status: this.itemList[i].status,
                     items: this.products,
                     subtotal: subtotal
                 })
@@ -164,7 +162,7 @@ export default {
             this.showing = "Preparing"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
-                if (this.paidOrders[i].prepared == 0) {
+                if (this.paidOrders[i].status == "Preparing") {
                     this.itemList.push(this.paidOrders[i])
                 }
             }
@@ -176,7 +174,7 @@ export default {
             this.showing = "To Collect"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
-                if (this.paidOrders[i].prepared == 1) {
+                if (this.paidOrders[i].status == "Collect") {
                     this.itemList.push(this.paidOrders[i])
                 }
             }
@@ -188,7 +186,7 @@ export default {
             this.showing = "Completed"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
-                if (this.paidOrders[i].collected == 1) {
+                if (this.paidOrders[i].status == "Completed") {
                     this.itemList.push(this.paidOrders[i])
                 }
             }
@@ -200,7 +198,7 @@ export default {
             this.showing = "Cancelled"
             this.itemList = []
             for (let i = 0; i < this.paidOrders.length; i++) {
-                if (this.paidOrders[i].cancelled == 1) {
+                if (this.paidOrders[i].status == "Cancelled") {
                     this.itemList.push(this.paidOrders[i])
                 }
             }
@@ -247,9 +245,7 @@ export default {
                     }
                     this.itemsArray.push({
                         item_list_id: this.itemList[i].item_cart_id,
-                        prepared: this.itemList[i].prepared,
-                        collected: this.itemList[i].collected,
-                        cancelled: this.itemList[i].cancelled,
+                        status: this.itemList[i].status,
                         items: this.products,
                         subtotal: subtotal
                     })

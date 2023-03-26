@@ -17,17 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         paid: {
             type: DataTypes.BOOLEAN
         },
-        prepared: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: 0
-        },
-        collected: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: 0
-        },
-        cancelled: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: 0   
+        status: {
+            type: DataTypes.STRING,
+            defaultValue: "Preparing"
         },
         orderedAt: {
             type: DataTypes.DATE

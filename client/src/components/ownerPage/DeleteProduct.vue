@@ -138,18 +138,18 @@ export default {
 
 <style scoped>
 .top-container {
-  padding: 15px 40px;
-  margin-top: 50px;
-  height: 120px;
-  width: 1530px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #fff;
-  color: #000;
-  border-radius: 4px;
-  box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
-  font-size: 17px;
-  position: relative;
+    padding: 15px 40px;
+    margin-top: 50px;
+    height: 120px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+    font-size: 17px;
+    position: relative;
 }
 
 .category-dropdown {
@@ -193,7 +193,7 @@ export default {
     padding: 40px 120px;
     margin-top: 3px;
     height: 570px;
-    width: 1530px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;

@@ -307,6 +307,7 @@ export default {
             for (let i = 0; i < orders.length; i++) {
                 this.revenue += parseFloat(orders[i].subtotal)
             }
+            this.revenue = this.revenue.toFixed(2)
             this.calculateProgression()
         }
     }

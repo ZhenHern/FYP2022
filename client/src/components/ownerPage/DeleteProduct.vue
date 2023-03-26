@@ -43,19 +43,36 @@
                 </div>
             </div>
         </div>
-        <div class="delete-button">
+        <div class="delete-button" @click="openDeleteOverlay()">
             Delete
-        </div>
-        <div class="delete-container">
-            Are you sure you want to delete this product?
         </div>
     </div>
   </div>
+  <div class="delete-overlay" ref="deleteOverlay">
+    <div class="delete-container">
+        <div class="delete-text">
+            Are you sure you want to delete this product?
+        </div>
+        <div class="delete-buttons">
+            <div class="yes-button" @click="deleteProduct()">
+                Yes
+            </div>
+            <div class="no-button" @click="closeDeleteOverlay()">
+                No
+            </div>
+        </div>
+    </div>
+  </div>
+  <DisplayOverlay ref="overlay"/>
 </template>
 
 <script>
 import ProductService from "../../services/ProductService"
+import DisplayOverlay from '../userProfilePage/DisplayOverlay.vue'
 export default {
+    components: {
+        DisplayOverlay
+    }, 
     async mounted() {
         this.categories = await ProductService.showAllCategories()
         this.products = await ProductService.showAllProducts()
@@ -74,8 +91,31 @@ export default {
         getImgUrl(picture) {
             return require("../../assets/productImages/" + picture)
         },
-        deleteProduct() {
-            
+        openDeleteOverlay() {
+            this.$refs.deleteOverlay.style.display = "block"
+        },
+        closeDeleteOverlay() {
+            this.$refs.deleteOverlay.style.display = "none"
+        },
+        async deleteProduct() {
+            try {
+                await ProductService.deleteProduct({
+                    productID: this.productID
+                })
+                this.rerender()
+                this.$refs.deleteOverlay.style.display = "none"
+                this.$refs.overlay.openOverlay("Item is deleted")
+            }
+            catch { 
+                this.$refs.deleteOverlay.style.display = "none"
+                this.$refs.overlay.openErrorOverlay("Item cannot be deleted")
+            }
+        },
+        async rerender() {
+            this.category = ""
+            this.productID = ""
+            this.product = null
+            this.products = await ProductService.showAllProducts()
         }
     },
     watch: {
@@ -229,9 +269,22 @@ ul {
     cursor: pointer;
 }
 
+.delete-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 2;
+}
+
 .delete-container {
     width: 500px;
-    height: 400px;
+    height: 300px;
     background: white;
     border-radius: 5%;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
@@ -239,6 +292,60 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 40px;
+}
+
+.delete-text {
+    position: relative;
+    top: 25px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.delete-buttons {
+    position: relative;
+    top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.yes-button {
+    height: 40px;
+    width: 80px;
+    border-radius: 4px;
+    background: #5b6468;
+    color: white;
+    box-shadow: 0 3px 10px #616262;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+
+.yes-button:active {
+    background: #3f4547;
+}
+
+.no-button:active {
+    background: #3f4547;
+}
+
+
+.no-button  {
+    height: 40px;
+    width: 80px;
+    border-radius: 4px;
+    background: #5b6468;
+    color: white;
+    box-shadow: 0 3px 10px #616262;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 100px;
 }
 
 </style>

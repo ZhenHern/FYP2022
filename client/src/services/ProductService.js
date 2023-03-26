@@ -63,5 +63,12 @@ export default {
             response = res.data
         })
         return response
+    },
+    async deleteProduct(productID) {
+        var response
+        await Api().post('api/products/deleteProduct', productID).then(function(res) {
+            response = res.data
+        })
+        return response
     }
 }

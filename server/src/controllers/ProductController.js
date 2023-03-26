@@ -127,18 +127,17 @@ const deleteProduct = async(req, res) => {
     try {
         await Ingredient.destroy({
             where: {
-                product_id: req.body.product_id
+                product_id: req.body.productID
             }
         })
         await Product.destroy({
             where: {
-                product_id: req.body.product_id
+                product_id: req.body.productID
             }
         })
         res.send("Deleted product")
     }
     catch (err) {
-        console.log(err)
         res.status(400).send("Error deleting product.")
     }
 }

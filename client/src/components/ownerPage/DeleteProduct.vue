@@ -46,6 +46,9 @@
         <div class="delete-button">
             Delete
         </div>
+        <div class="delete-container">
+            Are you sure you want to delete this product?
+        </div>
     </div>
   </div>
 </template>
@@ -224,6 +227,18 @@ ul {
 
 .delete-button:hover {
     cursor: pointer;
+}
+
+.delete-container {
+    width: 500px;
+    height: 400px;
+    background: white;
+    border-radius: 5%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 </style>

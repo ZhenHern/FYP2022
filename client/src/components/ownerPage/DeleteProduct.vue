@@ -49,20 +49,20 @@
     </div>
   </div>
   <div class="delete-overlay" ref="deleteOverlay">
-    <div class="delete-container">
-        <div class="delete-text">
-            Are you sure you want to delete this product?
-        </div>
-        <div class="delete-buttons">
-            <div class="yes-button" @click="deleteProduct()">
-                Yes
+        <div class="delete-container">
+            <div class="delete-text">
+                Are you sure you want to delete this product?
             </div>
-            <div class="no-button" @click="closeDeleteOverlay()">
-                No
+            <div class="delete-buttons">
+                <div class="yes-button" @click="deleteProduct()">
+                    Yes
+                </div>
+                <div class="no-button" @click="closeDeleteOverlay()">
+                    No
+                </div>
             </div>
         </div>
     </div>
-  </div>
   <DisplayOverlay ref="overlay"/>
 </template>
 
@@ -199,7 +199,7 @@ export default {
     background-color: #fff;
     color: #000;
     border-radius: 4px;
-    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
 }
 
 .product-details {

@@ -16,6 +16,9 @@ export default {
     completeOrder(itemCartID) {
         return Api().post('api/itemCarts/completeOrder', itemCartID)    
     },
+    changeStatus(itemCart) {
+        return Api().post('api/itemCarts/changeStatus', itemCart)    
+    },
     async getCurrentCart(userID) {
         var response
         await Api().get('api/itemCarts/getCurrentCart/' + userID).then(function(res) {
@@ -37,9 +40,23 @@ export default {
         })
         return response
     },
+    async showOrder(itemCartID) {
+        var response
+        await Api().get('api/itemCarts/showOrder/' + itemCartID).then(function(res) {
+            response = res.data
+        })
+        return response
+    },
     async showAllPaidOrders() {
         var response
         await Api().get('api/itemCarts/showAllPaidOrders').then(function(res) {
+            response = res.data
+        })
+        return response
+    },
+    async showStatusOrders(status) {
+        var response
+        await Api().get('api/itemCarts/showStatusOrders/' + status).then(function(res) {
             response = res.data
         })
         return response

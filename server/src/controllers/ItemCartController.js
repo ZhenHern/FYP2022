@@ -220,17 +220,67 @@ const showAllPaidOrders = async(req, res) => {
     }
 }
 
+const showOrder = async(req, res) => {
+    try {
+        order = await ItemCart.findOne({
+            where: { 
+                item_cart_id: req.params.itemCartID
+            }
+        })
+        res.send(order)
+    }
+    catch (err) {
+        res.send(err)
+    }
+}
+
+const showStatusOrders = async(req, res) => {
+    try {
+        orders = await ItemCart.findAll({
+            where: {
+                status: req.params.status,
+                paid: 1
+            },
+            order: [
+                ['orderedAt', 'DESC']
+            ]
+        })
+        res.send(orders)
+    }
+    catch (err) {
+        res.send(err)
+    }
+}
+
 const showMonthOrders = async(req, res) => {
-            orders = await ItemCart.findAll({
-                where: {
-                    [Op.and]: [
-                        sequelize.where(sequelize.fn('YEAR', sequelize.col('orderedAt')), req.params.year),
-                        sequelize.where(sequelize.fn('MONTH', sequelize.col('orderedAt')), req.params.month)
-                    ]
-                }
-                
-            })
-            res.send(orders)
+    orders = await ItemCart.findAll({
+        where: {
+            [Op.and]: [
+                sequelize.where(sequelize.fn('YEAR', sequelize.col('orderedAt')), req.params.year),
+                sequelize.where(sequelize.fn('MONTH', sequelize.col('orderedAt')), req.params.month)
+            ]
+        }
+        
+    })
+    res.send(orders)
+}
+
+const changeStatus = async(req, res) => {
+    try {
+        order = await ItemCart.findOne({
+            where: {
+                item_cart_id: req.body.itemCartID
+            }
+        })
+        order.set({
+            status: req.body.status
+        })
+        await order.save()
+        res.send("Successfully changed the status")
+    }
+    catch(err) {
+        res.send(err)
+    }
 }
 
 
@@ -246,5 +296,8 @@ module.exports = {
     completeOrder,
     showPaidOrders,
     showAllPaidOrders,
-    showMonthOrders
+    showOrder,
+    showStatusOrders,
+    showMonthOrders,
+    changeStatus
 }

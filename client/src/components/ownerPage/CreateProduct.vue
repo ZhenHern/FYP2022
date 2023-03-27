@@ -336,7 +336,7 @@ input[type=number] {
     background-color: #fff;
     color: #000;
     border-radius: 4px;
-    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
 }
 
 .product {

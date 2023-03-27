@@ -430,11 +430,12 @@ table {
 }
 
 .name-head {
-    width: 280px;
+    width: 220px;
 }
 
 .quantity-head {
     width: 120px;
+    text-align: center;
 }
 
 .price-head {
@@ -454,7 +455,7 @@ table {
 }
 
 .item-name {
-    width: 280px;
+    width: 220px;
     display: flex;
     align-items: center;
 }
@@ -462,6 +463,7 @@ table {
 .item-quantity {
     width: 120px;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 

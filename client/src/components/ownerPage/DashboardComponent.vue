@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="view-orders">
-                            <div class="view-orders-button">
+                            <div class="view-orders-button" @click="goToOrders()">
                                 View All Orders
                             </div>
                         </div>
@@ -129,8 +129,12 @@
                         </div>
                     </div>
                     <div class="edit-container">
-                        <div class="edit-products">
-                            Edit Products
+                        <div class="edit-products" @click="goToProduct('CreateProduct')">
+                            Create Products
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="edit-products" @click="goToProduct('DeleteProduct')">
+                            Delete Products
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
                         <div class="edit-vouchers">
@@ -186,10 +190,17 @@ export default {
         }
     },
     methods: {
+        goToOrders() {
+            window.location.href = "orders"
+        },
+        goToProduct(action) {
+            this.$storage.setStorageSync("editProducts", action)
+            window.location.href = "editProducts"
+        },
         calculatePending(allOrders) {
             var total = 0
             for (let i = 0; i < allOrders.length; i++) {
-                if ((allOrders[i].collected == false) && (allOrders[i].cancelled == false)) {
+                if (allOrders[i].status == "Preparing") {
                     total += 1 
                 }
             }
@@ -198,7 +209,7 @@ export default {
         calculateCancelled(allOrders) {
             var total = 0
             for (let i = 0; i < allOrders.length; i++) {
-                if (allOrders[i].cancelled == true) {
+                if (allOrders[i].status == "Cancelled") {
                     total += 1 
                 }
             }
@@ -207,7 +218,7 @@ export default {
         calculateCompleted(allOrders) {
             var total = 0
             for (let i = 0; i < allOrders.length; i++) {
-                if (allOrders[i].collected == true) {
+                if (allOrders[i].status == "Completed") {
                     total += 1 
                 }
             }
@@ -767,7 +778,7 @@ ul::-webkit-scrollbar {
 .edit-container {
     position: relative;
     width: 100%;
-    height: 146px;
+    height: 220px;
     background: white;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
     border-radius: 0.125rem;

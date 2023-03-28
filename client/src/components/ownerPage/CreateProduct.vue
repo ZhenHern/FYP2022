@@ -178,15 +178,12 @@ export default {
     methods: {
         uploadImage1() {
             this.image1 = this.$refs.image1.files[0]
-            console.log(this.image1)
         },
         uploadImage2() {
             this.image2 = this.$refs.image2.files[0]
-            console.log(this.image2)
         },
         uploadImage3() {
             this.image3 = this.$refs.image3.files[0]
-            console.log(this.image3)
         },
         async createProduct() {
             let data = new FormData();
@@ -269,7 +266,7 @@ input[type=number] {
 .top-container {
   margin-top: 50px;
   height: 120px;
-  width: 1530px;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
@@ -330,7 +327,7 @@ input[type=number] {
     padding: 40px 120px;
     margin-top: 3px;
     height: 570px;
-    width: 1530px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
@@ -422,14 +419,14 @@ textarea:focus {
 .buttons-1 {
     width: 400px;
     position: relative;
-    left: 960px;
+    left: 850px;
 }
 
 .buttons-2 {
     width: 400px;
     margin-top: 144px;
     position: relative;
-    left: 960px;
+    left: 850px;
 }
 
 .previous-button {
@@ -497,7 +494,7 @@ textarea:focus {
     padding: 40px 120px;
     margin-top: 3px;
     height: 570px;
-    width: 1530px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;

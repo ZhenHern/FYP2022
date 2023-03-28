@@ -5,7 +5,7 @@
       <div class="content">
         <Transition>
         <div class="text">
-            Edit Products
+            {{title}}
         </div>
         </Transition>
       </div>
@@ -28,11 +28,21 @@ export default {
         CreateProduct,
         DeleteProduct
     },
-    data() {
-      return {
-        component: "DeleteProduct"
+    mounted() {
+      this.component = this.$storage.getStorageSync("editProducts")
+      if (this.component == "CreateProduct") {
+        this.title = "Create Product"
+      }
+      else {
+        this.title = "Delete Product"
       }
     },
+    data() {
+      return {
+        component: null,
+        title: null
+      }
+    }
 }
 </script>
 

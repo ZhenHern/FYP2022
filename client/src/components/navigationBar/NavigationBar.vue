@@ -5,9 +5,25 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <a href="index" class="logo">Bakery Shop</a>
+            <a href="dashboard" class="logo" v-if="owner">Bakery Shop</a>
+            <a href="index" class="logo" v-else>Bakery Shop</a>
         </div>
-        <div class="mid-container">
+        <div class="mid-container" v-if="owner">
+            <div class="links" @click="goToDashboard()">Home</div>
+            <div class="owner-products">
+                <div class="product-title">
+                    Edit
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+                <ul class="owner-products-dropdown">
+                    <li @click="goToEdit('CreateProduct')">Create Product</li>
+                    <li @click="goToEdit('DeleteProduct')">Delete Product</li>
+                    <li>Edit Voucher</li>
+                </ul>
+            </div>
+            <div class="links" @click="goToOrders()">Orders</div>
+        </div>
+        <div class="mid-container" v-else>
             <div class="links" @click="goToHome()">Home</div>
             <div class="products">
                 <div class="product-title">
@@ -23,8 +39,10 @@
             <div class="links">About Us</div>
         </div>
         <div class="right-container">
-            <div class="item-cart-logo" @click="openItemCart()">
+            <div class="item-cart-logo" @click="openItemCart()" v-if="!owner">
                 <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+            </div>
+            <div class="item-cart-logo" v-else>
             </div>
             <div class="login" v-if="currentUserID === undefined" @click="login()">
                 LOGIN
@@ -51,7 +69,36 @@
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-    <ul class="menu-list">
+    <ul class="menu-list" v-if="owner">
+        <li class="responsive-selection" @click="goToDashboard()">Home</li>
+        <li>
+            <div class="responsive-selection" @click="toggleProductDropdown()">
+                Edit
+                <i class="fa-solid fa-caret-down" ref="arrowDown"></i>
+                <i class="fa-solid fa-caret-up" ref="arrowUp"></i>
+            </div>
+            <ul class="responsive-products-dropdown" ref="productDropdown">
+                <li @click="goToEdit('CreateProduct')">Create Product</li>
+                <li @click="goToEdit('DeleteProduct')">Delete Product</li>
+                <li>Edit Voucher</li>
+            </ul>
+        </li>
+        <li class="responsive-selection" @click="goToOrders()">Orders</li>
+        <li class="responsive-selection" v-if="currentUserID === undefined" @click="login()">Login</li>
+        <li v-else>
+            <div class="responsive-selection" @click="toggleUserDropdown()">
+                {{firstName}}
+                <i class="fa-solid fa-caret-down" ref="userArrowDown"></i>
+                <i class="fa-solid fa-caret-up" ref="userArrowUp"></i>
+            </div>
+            <ul class="responsive-user-dropdown" ref="userDropdown">
+                <li @click="goToAccount()">My Profile</li>
+                <li @click="goToPurchase()">My Purchases</li>
+                <li @click="logout()">Logout</li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="menu-list" v-else>
         <li class="responsive-selection" @click="goToHome()">Home</li>
         <li>
             <div class="responsive-selection" @click="toggleProductDropdown()">
@@ -103,7 +150,8 @@ export default {
             currentUserID: undefined,
             productsToggle: false,
             userToggle: false,
-            categories: []
+            categories: [],
+            owner: 1
         }
     },
     methods: {
@@ -161,6 +209,16 @@ export default {
         goToPurchase() {
             this.$storage.setStorageSync("userProfile", "MyPurchases")
             window.location.href = "userProfile"
+        },
+        goToDashboard() {
+            window.location.href = "dashboard"
+        },
+        goToEdit(action) {
+            this.$storage.setStorageSync("editProducts", action)
+            window.location.href = "editProducts"
+        },
+        goToOrders() {
+            window.location.href = "orders"
         },
         login() {
             window.location.href = "login"
@@ -244,6 +302,12 @@ export default {
     position: relative;
 }
 
+.owner-products {
+    transition: 0.2s ease-in color;
+    position: relative;
+}
+
+
 .products:hover {
     color: rgba(160, 97, 84, 0.986);
     cursor: pointer;
@@ -280,7 +344,31 @@ export default {
     list-style-type: none;
 }
 
+.owner-products-dropdown {
+    width: 150px;
+    text-transform: none;
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 13px;
+    text-align: left;
+    z-index: 20;
+    font-size: 14px;
+    font-weight: normal;
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 17%);
+    list-style-type: none;
+}
+
 .products:hover .products-dropdown {
+    display: block;
+}
+
+.owner-products:hover .owner-products-dropdown {
     display: block;
 }
 
@@ -289,6 +377,16 @@ export default {
 }
 
 .products-dropdown li:hover {
+    background: rgb(245,245,245);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.owner-products-dropdown li {
+    padding: 7px 20px 7px 17px;
+}
+
+.owner-products-dropdown li:hover {
     background: rgb(245,245,245);
     cursor: pointer;
     text-decoration: underline;

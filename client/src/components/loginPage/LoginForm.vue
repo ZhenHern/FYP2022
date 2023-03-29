@@ -115,10 +115,16 @@ export default {
                 this.error = error.response.data
             }
         },
-        loginAccount(loginID) {
+        async loginAccount(loginID) {
             this.$storage.setStorageSync("loginID", loginID);
-            console.log(this.$storage.getStorageSync("loginID"))
-            window.location.href = "products"
+            var currentUserID = this.$storage.getStorageSync("loginID")
+            var currentAccount = await AccountService.showCurrentAccount(currentUserID)
+            if (currentAccount.owner) {
+                window.location.href = "dashboard"
+            }
+            else {
+                window.location.href = "products"
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         token: {
             type: DataTypes.STRING
         },
-        logged_in: {
+        owner: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }

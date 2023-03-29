@@ -55,10 +55,7 @@ const login = async (req, res) => {
         res.status(400).send("Please verify your email first before trying to log in!")
         return
     }
-    account.logged_in = true
-    await account.save()
     res.status(201).send(account)
-    console.log("DONE")
 }
 
 const verifyEmail = async (req, res) => {

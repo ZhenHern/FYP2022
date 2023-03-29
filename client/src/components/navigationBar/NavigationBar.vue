@@ -23,7 +23,7 @@
             </div>
             <div class="links" @click="goToOrders()">Orders</div>
         </div>
-        <div class="mid-container" v-else>
+        <div class="mid-container" v-else-if="owner == 0">
             <div class="links" @click="goToHome()">Home</div>
             <div class="products">
                 <div class="product-title">
@@ -39,10 +39,10 @@
             <div class="links">About Us</div>
         </div>
         <div class="right-container">
-            <div class="item-cart-logo" @click="openItemCart()" v-if="!owner">
-                <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+            <div class="item-cart-logo" v-if="owner">
             </div>
-            <div class="item-cart-logo" v-else>
+            <div class="item-cart-logo" @click="openItemCart()" v-else-if="owner == 0">
+                <i class="fa-sharp fa-solid fa-cart-shopping"></i>
             </div>
             <div class="login" v-if="currentUserID === undefined" @click="login()">
                 LOGIN
@@ -53,9 +53,12 @@
                         {{firstName}}
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
-                <ul class="user-dropdown">
+                <ul class="user-dropdown" v-if="owner == 0">
                     <li @click="goToAccount()">My Profile</li>
                     <li @click="goToPurchase()">My Purchases</li>
+                    <li @click="logout()">Logout</li>
+                </ul>
+                <ul class="user-dropdown" v-else-if="owner">
                     <li @click="logout()">Logout</li>
                 </ul>
             </div>
@@ -139,10 +142,19 @@ export default {
         ItemCart
     },
     async mounted() {
+        console.log(this.owner)
         this.currentUserID = this.$storage.getStorageSync("loginID")
+        var currentAccount = await AccountService.showCurrentAccount(this.currentUserID)
+        if (this.currentUserID == undefined) {
+            this.owner = 0
+        }
+        else {
+            this.owner = currentAccount.owner
+        }
         var currentUser = await AccountService.showCurrentUser(this.currentUserID)
         this.firstName = currentUser.first_name
         this.categories = await ProductService.showAllCategories()
+        console.log(this.owner)
     },
     data() {
         return {
@@ -151,7 +163,7 @@ export default {
             productsToggle: false,
             userToggle: false,
             categories: [],
-            owner: 1
+            owner: null
         }
     },
     methods: {
@@ -425,6 +437,7 @@ export default {
 }
 
 .user-title {
+    width: 160px;
     padding-top: 35px;
     padding-bottom: 35px;
 }

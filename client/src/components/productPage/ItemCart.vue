@@ -161,6 +161,7 @@ export default {
             for(let i=0; i < this.items.length; i++) {
                 this.subtotal += this.items[i].quantity * this.products[i].product_price
             }
+            this.subtotal.toFixed(2)    
         }
     },
     watch: {

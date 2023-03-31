@@ -123,7 +123,7 @@ export default {
                 window.location.href = "dashboard"
             }
             else {
-                window.location.href = "products"
+                window.location.href = "home"
             }
         }
     }

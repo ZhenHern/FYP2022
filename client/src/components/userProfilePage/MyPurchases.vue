@@ -62,7 +62,7 @@
             </div>
             <div class="bottom-container">
                 <div class="subtotal">Subtotal:
-                    <span>{{order.subtotal}}</span>
+                    <span>{{order.subtotal.toFixed(2)}}</span>
                 </div>
             </div>
         </div>

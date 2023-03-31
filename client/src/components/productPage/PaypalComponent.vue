@@ -94,7 +94,7 @@ export default {
                 {
                   description: this.product.description,
                   amount: {
-                    value: this.product.price
+                    value: this.product.price.toFixed(2)
                   }
                 }
               ]

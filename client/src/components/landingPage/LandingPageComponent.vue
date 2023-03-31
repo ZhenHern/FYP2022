@@ -34,6 +34,26 @@
           </div>
           </TransitionGroup>
         </div>
+        <div class="more-products">
+          <div class="more-products-button" @click="goToProduct()">
+            More Products
+          </div>
+        </div>
+        <div class="voucher-wrapper">
+          <div class="voucher-content">
+            <div class="voucher-text-1">
+                Satisfy your sweet tooth with our bakery vouchers
+            </div>
+            <div class="voucher-text-2">
+                The perfect gift for any dessert lover!
+            </div>
+            <div class="voucher-button">
+              <div class="more-products-button">
+                View Vouchers
+              </div>
+            </div>
+        </div>
+        </div>
       </div>
       <ProductDetail v-else @checkDetails="checkDetails" :productID="productID"/>
     </Transition>
@@ -80,6 +100,9 @@ export default {
           this.showDetails = showDetails
           this.slideDirection = slideDirection
           window.scrollTo({top: 295, behavior: 'smooth'});
+        },
+        goToProduct() {
+            window.location.href = "products"
         }
     },
 }
@@ -252,6 +275,85 @@ img {
   word-spacing: 2px;
 }
 
+.more-products {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.more-products-button {
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #684f40;
+  border: 2px solid #684f40;
+  width: 200px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: 0.3s color ease, 0.3s background-color ease;
+}
+
+.more-products-button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #684f40;
+}
+
+.voucher-wrapper {
+  position: relative;
+  height: 590px;
+  width: 100%;
+}
+
+.voucher-content {
+  min-height: 100%;
+  filter: brightness(100%);
+}
+
+.voucher-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("../../assets/landing-page-2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.3;
+}
+
+.voucher-text-1 {
+  padding-top: 65px;
+  color: #684f40;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.voucher-text-2 {
+  color: #000000;
+  font-size: 40px;
+  font-weight: 100;
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.voucher-button {
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: all 0.3s ease-out;
@@ -265,5 +367,90 @@ img {
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-60px);
+}
+
+@media (max-width: 1200px) {
+  .latest-product-top-container {
+    width: 850px;
+  }
+
+  .product-grid {
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 190px 190px 190px 190px;
+    grid-auto-rows: 330px;
+    column-gap: 30px;
+    row-gap: 60px;
+    padding-top: 150px;
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .grid-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgb(104, 79, 64);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    text-transform: uppercase; 
+    text-align: center;
+    color: #684f40;
+    line-height: 30px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 900px) {
+  .latest-product-top-container {
+    width: 80%;
+    text-align: center
+  }
+
+  .product-grid {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 90%;
+    grid-auto-rows: var(--width);
+    column-gap: 30px;
+    row-gap: 60px;
+    padding-top: 150px;
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .grid-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgb(104, 79, 64);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    text-transform: uppercase; 
+    text-align: center;
+    color: #684f40;
+    line-height: 30px;
+    font-weight: 700;
+  }
+
+  .product-content {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  .voucher-button {
+    padding-top: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .voucher-button {
+    padding-top: 10px;
+  }
 }
 </style>

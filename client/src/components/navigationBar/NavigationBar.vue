@@ -238,7 +238,7 @@ export default {
         logout() {
             this.$storage.removeStorageSync("loginID")
             this.$storage.removeStorageSync("userProfile")
-            window.location.href = "products"
+            location.reload();
         },
         async forceRerender() {
             var currentUser = await AccountService.showCurrentUser(this.currentUserID)

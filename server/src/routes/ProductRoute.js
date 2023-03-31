@@ -20,6 +20,8 @@ router.get("/showProduct/:productID", productController.showProduct)
 
 router.get("/showAllProducts", productController.showAllProducts)
 
+router.get("/showLatestProducts", productController.showLatestProducts)
+
 router.get("/showAllCategories", productController.showAllCategories)
 
 router.get("/showCategory/:category_id", productController.showCategory)

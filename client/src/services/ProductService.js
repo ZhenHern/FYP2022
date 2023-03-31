@@ -22,6 +22,13 @@ export default {
         })
         return response
     },
+    async showLatestProducts() {
+        var response
+        await Api().get('api/products/showLatestProducts').then(function(res) {
+            response = res.data
+        })
+        return response
+    },
     async showAllCategories() {
         var response
         await Api().get('api/products/showAllCategories').then(function(res) {

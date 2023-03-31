@@ -48,6 +48,7 @@ export default {
       this.productID = productID
       this.showDetails = showDetails
       this.slideDirection = slideDirection
+      window.scrollTo({top: 295, behavior: 'smooth'});
     }
   }
 }

@@ -1,28 +1,16 @@
 <template>
-  <section>
-    <NavigationBar @changeComponent="activeComponent=$event"/>
-    <component :is="activeComponent"></component>
-  </section>
+  <LandingPageComponent/>
 </template>
 
 <script>
-import NavigationBar from "../../components/landingPage/NavigationBar.vue";
-import Home from "../../components/landingPage/HomeContent.vue";
-import About from "../../components/landingPage/AboutContent.vue";
+import LandingPageComponent from "../../components/landingPage/LandingPageComponent.vue";
+
 
 
 export default {
-  name: "App",
   components: {
-    NavigationBar,
-    Home,
-    About
+    LandingPageComponent
   },
-  data() {
-    return {
-      activeComponent: "Home"
-    }
-  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-container">
     <DisplayOverlay ref="overlay"/>
     <div class="product-grid">
       <TransitionGroup name="list">
@@ -112,6 +112,10 @@ export default {
 ::selection {
   background: #fdb822;
   color: white;
+}
+
+.main-container {
+  margin-bottom: 100px;
 }
 
 .product-grid {

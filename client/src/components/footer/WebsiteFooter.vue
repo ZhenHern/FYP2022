@@ -137,7 +137,6 @@ export default {
   position: relative;
   bottom: 0px;
   width: 100%;
-  margin-top: 100px;
   height: auto;
 }
 

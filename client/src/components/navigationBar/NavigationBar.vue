@@ -36,7 +36,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="links">About Us</div>
+            <div class="links" @click="goToAboutUs()">About Us</div>
         </div>
         <div class="right-container">
             <div class="item-cart-logo" v-if="owner">
@@ -142,7 +142,6 @@ export default {
         ItemCart
     },
     async mounted() {
-        console.log(this.owner)
         this.currentUserID = this.$storage.getStorageSync("loginID")
         var currentAccount = await AccountService.showCurrentAccount(this.currentUserID)
         if (this.currentUserID == undefined) {
@@ -154,7 +153,6 @@ export default {
         var currentUser = await AccountService.showCurrentUser(this.currentUserID)
         this.firstName = currentUser.first_name
         this.categories = await ProductService.showAllCategories()
-        console.log(this.owner)
     },
     data() {
         return {
@@ -213,6 +211,9 @@ export default {
         goToProduct(categoryID) {
             this.$storage.setStorageSync("categoryID", categoryID)
             window.location.href = "products"
+        },
+        goToAboutUs() {
+            window.location.href = "aboutUs"
         },
         goToAccount() {
             this.$storage.setStorageSync("userProfile", "MyProfile")

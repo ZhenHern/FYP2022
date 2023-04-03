@@ -103,6 +103,7 @@ export default {
 .container {
   height: fit-content;
   overflow: hidden;
+  margin-bottom: 100px;
   margin-left: auto;
   margin-right: auto;
   width: 1200px;

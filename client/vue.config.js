@@ -44,5 +44,11 @@ module.exports = defineConfig({
       title: 'Orders',
       chunks: ['orders']
     },
+    aboutUs: {
+      entry: 'src/pages/AboutUsPage/main.js',
+      template: 'public/index.html',
+      title: 'About Us',
+      chunks: ['aboutUs']
+    },
   }
 })

@@ -254,6 +254,8 @@ export default {
     float: left;
     width: 345px;
     height: 420px;
+    margin-top: 15px;
+    margin-left: 180px;
 }
 
 .background-picture img {
@@ -261,7 +263,116 @@ export default {
     height: 100%;
     opacity: 60%;
     background-color: white;
-    margin-top: 15px;
-    margin-left: 180px;
+}
+
+@media (max-width: 1200px) {
+    .introduction {
+        width: 970px;
+        height: 600px;
+    }
+
+    .introduction-picture {
+        width: 330px;
+        height: 465px;
+    }
+
+    .introduction-content {
+        width: 555px;
+        height: fit-content;
+        margin-left: 60px;
+    }
+
+    .background {
+        width: 970px;
+        height: 600px;
+        padding-top: 80px;
+    }
+
+    .background-picture {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .introduction {
+        width: 750px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 70px;
+    }
+
+    .introduction-picture {
+        float: none;
+        width: 650px;
+        height: auto;
+    }
+
+    .introduction-content {
+        width: 650px;
+        margin-left: 0px;
+    }
+
+    .background {
+        width: 750px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 50px;
+    }
+
+    .background-content {
+        float: none;
+        width: 650px;
+    }
+
+    .background-picture {
+        width: 650px;
+        height: auto;
+        float: none;
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 760px) {
+    .introduction {
+        width: 100%;
+    }
+
+    .introduction-picture {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .introduction-content {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .background {
+        width: 100%;
+    }
+
+    .background-content {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .timeline {
+        height: auto;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .background-picture {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 </style>

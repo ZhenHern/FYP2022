@@ -4,47 +4,88 @@
         <div class="back-button">
             <i class="fa fa-chevron-circle-left" aria-hidden="true" @click="$emit('checkDetails', {showDetails: false, slideDirection: 'slide-left'})"></i>
         </div>
-        <div class="information">
-            <div class="top-information">
-                <div class="name">
-                    {{productName}}
+        <div class="top-container">
+            <div class="information">
+                <div class="top-information">
+                    <div class="name">
+                        {{productName}}
+                    </div>
+                    <div class="price">
+                        RM {{productPrice}}
+                    </div>
                 </div>
-                <div class="price">
-                    RM {{productPrice}}
+                <hr>
+                <div>
+                    <p>{{productDesc}}</p>
+                </div>
+                <div class="ingredients">
+                    Ingredients:
+                    <div class="ingredients-list">
+                        <ul>
+                            <li v-for="(item, index) in productIngredients" :key="index">{{item.ingredient_name}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <div>
-                <p>{{productDesc}}</p>
-            </div>
-            <div class="ingredients">
-                Ingredients:
-                <div class="ingredients-list">
-                    <ul>
-                        <li v-for="(item, index) in productIngredients" :key="index">{{item.ingredient_name}}</li>
-                    </ul>
+            <div class="carousel">
+                <div class="slide">
+                    <div class="prev-button" @click="prevSlide">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="images" v-for="(slide, index) in image" :key="index">
+                        <Transition :name="slideDirection">
+                            <img v-show="index === currentSlide" :src="getImgUrl(index)" alt="">                        
+                        </Transition>
+                    </div>
+                    <div class="next-button" @click="nextSlide">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+                    <div class="slider">
+                        <div :class="[index === currentSlide ? 'slider-button-active' : 'slider-button']" v-for="(item, index) in 3" :key="index" @click="goSlide(index)">
+                            <div :class="{active: index === currentSlide}"></div>
+                            <div class="hover"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="carousel">
-            <div class="slide">
-                <div class="prev-button" @click="prevSlide">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <div class="order-top-container">
+            <div class="order-title">Order Now</div>
+        </div>
+        <div class="order-bottom-container">
+            <div class="order-container">
+                <div class="order-image" v-for="(slide, index) in image.slice(0,1)" :key="index">
+                    <img v-if="index === 0" :src="getImgUrl(index)" alt=""> 
                 </div>
-                <div class="images" v-for="(slide, index) in image" :key="index">
-                    <Transition :name="slideDirection">
-                        <img v-show="index === currentSlide" :src="getImgUrl(index)" alt="">                        
-                    </Transition>
-                </div>
-                <div class="next-button" @click="nextSlide">
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </div>
-                <div class="slider">
-                    <div :class="[index === currentSlide ? 'slider-button-active' : 'slider-button']" v-for="(item, index) in 3" :key="index" @click="goSlide(index)">
-                        <div :class="{active: index === currentSlide}"></div>
-                        <div class="hover"></div>
+                <div class="order-right-container">
+                    <div class="order-name-price">
+                        <div class="order-name">
+                            {{productName}}
+                        </div>
+                        <div class="order-price">
+                            RM {{productPrice}}
+                        </div>
+                    </div>
+                    <div class="quantity-container">
+                        <div></div>
+                        <div class="change-quantity">
+                            <div class="minus-quantity">
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+                            <div class="quantity">
+                                {{quantity}}
+                            </div>
+                            <div class="add-quantity">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="order-button-container">
+            <div class="order-button">
+                Place Order
             </div>
         </div>
     </div>
@@ -78,7 +119,8 @@ export default {
             productName: null,
             productPrice: null,
             productDesc: null,
-            productIngredients: null
+            productIngredients: null,
+            quantity: 1
         }
     },
     methods: {
@@ -121,7 +163,7 @@ export default {
 
 .container {
     width: 100%;
-    height: 1500px;
+    height: fit-content;
 }
 
 .back-button {
@@ -144,20 +186,174 @@ export default {
     color: #fdb822;
 }
 
+.top-container {
+    width: auto;
+    height: 700px;
+}
+
+.order-top-container {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.order-title {
+    width: 100%;
+    color: rgb(82, 62, 50);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.order-bottom-container {
+    margin-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.order-container {
+    width: 100%;
+    height: 82px;
+    border: 1px solid #e1e1e1;
+    padding: 12px;
+}
+
+.order-image {
+    float: left;
+    width: 58px;
+    height: 58px;
+}
+
+.order-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.order-right-container {
+    float: left;
+    margin-left: 20px;
+    width: 995px;
+    height: 58px;
+}
+
+.order-name-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-price {
+    color: rgb(233, 165, 18);
+}
+
+.quantity-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.change-quantity {
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+    right: 0px;
+}
+
+.minus-quantity {
+    width: 22px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 10px;
+    color: #333333;
+    cursor: pointer;
+    border: 1px solid #e1e1e1;
+    background-color: #f1f1f1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 38px;
+    height: 24px;
+    line-height: 22px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333333;
+    padding: 0 2px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.add-quantity {
+    width: 22px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 10px;
+    color: #333333;
+    cursor: pointer;
+    border: 1px solid #e1e1e1;
+    background-color: #f1f1f1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-button-container {
+    margin-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: end;
+}
+
+.order-button {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 38px;
+    color: #684f40;
+    font-weight: bold;
+    border: 2px solid #684f40;
+    word-spacing: 1px;
+    transition: 0.3s ease color, 0.3s ease background-color;
+}
+
+.order-button:hover {
+    cursor: pointer;
+    background: #684f40;
+    color: white; 
+}
+
 .details {
     position: relative;
     width: 1200px;
-    height: 700px;
+    height: fit-content;
     margin-top: 80px;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 100px;
 }
 
 .information {
     float: left;
     padding: 50px;
     width: 600px;
-    height: auto
+    height: 700px;
 }
 
 .top-information {
@@ -236,7 +432,7 @@ li {
     justify-content: space-between;
 }
 
-img {
+.images img {
     position: absolute;
 }
 
@@ -294,7 +490,7 @@ img {
     position: absolute;
 }
 
-img {
+.images img {
     height: 100%;
     width: 100%;
 }
@@ -394,7 +590,7 @@ img {
         justify-content: space-between;
     }
 
-    img {
+    .images img {
         height: 100%;
         width: 100%;
     }
@@ -468,7 +664,7 @@ img {
         top: 45%;
     }
 
-    img {
+    .images img {
         height: 100%;
         width: 100%;
     }

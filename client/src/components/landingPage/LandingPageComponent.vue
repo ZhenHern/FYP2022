@@ -448,9 +448,14 @@ img {
   }
 }
 
-@media (max-width: 400px) {
-  .voucher-button {
-    padding-top: 10px;
+@media (max-width: 430px) {
+  .voucher-text-1 {
+    font-size: 35px;
+  }
+
+  .voucher-text-2 {
+    padding-top: 5px;
+    font-size: 25px;
   }
 }
 </style>

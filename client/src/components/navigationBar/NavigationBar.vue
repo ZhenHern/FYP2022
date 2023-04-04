@@ -115,7 +115,7 @@
                 </li>
             </ul>
         </li>
-        <li class="responsive-selection">About Us</li>
+        <li class="responsive-selection" @click="goToAboutUs()">About Us</li>
         <li class="responsive-selection" v-if="currentUserID === undefined" @click="login()">Login</li>
         <li v-else>
             <div class="responsive-selection" @click="toggleUserDropdown()">

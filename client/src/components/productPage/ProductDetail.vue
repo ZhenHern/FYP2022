@@ -67,7 +67,9 @@
                         </div>
                     </div>
                     <div class="quantity-container">
-                        <div></div>
+                        <div class="order-price-2">
+                            RM {{productPrice}}
+                        </div>
                         <div class="change-quantity">
                             <div class="minus-quantity">
                                 <i class="fa-solid fa-minus"></i>
@@ -219,10 +221,10 @@ export default {
     height: 82px;
     border: 1px solid #e1e1e1;
     padding: 12px;
+    display: flex;
 }
 
 .order-image {
-    float: left;
     width: 58px;
     height: 58px;
 }
@@ -235,8 +237,8 @@ export default {
 .order-right-container {
     float: left;
     margin-left: 20px;
-    width: 995px;
     height: 58px;
+    flex-grow: 1;
 }
 
 .order-name-price {
@@ -248,9 +250,14 @@ export default {
     color: rgb(233, 165, 18);
 }
 
+.order-price-2 {
+    display: none;
+    color: rgb(233, 165, 18);
+}
+
 .quantity-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .change-quantity {
@@ -626,6 +633,11 @@ li {
     .details {
         width: 80%;
     }
+
+    .top-container {
+        height: fit-content;
+        overflow: auto;
+    }
     
     .information {
         width: 100%;
@@ -672,12 +684,29 @@ li {
     .top-information {
         font-size: 17px;
     }
+
+    .order-top-container {
+        padding: 0px;
+        margin-top: 50px;
+    }
+
+    .order-bottom-container {
+        padding: 0px;
+    }
+
+    .order-button-container {
+        padding: 0px;
+    }
 }
 
 @media (max-width: 900px) {
-
     .information {
         margin-top: 50px;
+    }
+
+    .top-container {
+        height: fit-content;
+        overflow: auto;
     }
 
     .back-button {
@@ -687,7 +716,7 @@ li {
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 585px) {
     .prev-button {
         width: 32px;
         height: 32px;
@@ -700,6 +729,29 @@ li {
 
     .fa {
         font-size: 15px;
+    }
+
+    .order-container {
+        font-size: 15px;
+    }
+
+    .quantity-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .order-price {
+        display: none;
+    }
+
+    .order-price-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .change-quantity {
+        margin-top: 0px;
     }
 }
 

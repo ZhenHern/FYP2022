@@ -95,11 +95,11 @@ export default {
       }
       else {
         if(this.quantity[index] != 0) {
-            await ItemCartService.addToCart({
+          await ItemCartService.addToCart({
             userID: this.currentUserID,
             productID: id,
             quantity: this.quantity[index]
-          })
+          })  
         }
       }
       this.quantity[index] = 0

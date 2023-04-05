@@ -75,7 +75,6 @@ export default {
     async mounted() {
         var products = await ProductService.showLatestProducts()
         this.products = products.slice(0,8)
-        console.log(this.products)
     },
     data() {
         return {

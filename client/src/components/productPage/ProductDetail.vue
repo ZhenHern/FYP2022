@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <DisplayOverlay ref="overlay"/>
     <div class="details">
         <div class="back-button">
             <i class="fa fa-chevron-circle-left" aria-hidden="true" @click="$emit('checkDetails', {showDetails: false, slideDirection: 'slide-left'})"></i>
@@ -71,13 +72,13 @@
                             RM {{productPrice}}
                         </div>
                         <div class="change-quantity">
-                            <div class="minus-quantity">
+                            <div class="minus-quantity" @click="minusQuantity()">
                                 <i class="fa-solid fa-minus"></i>
                             </div>
                             <div class="quantity">
                                 {{quantity}}
                             </div>
-                            <div class="add-quantity">
+                            <div class="add-quantity" @click="addQuantity()">
                                 <i class="fa-solid fa-plus"></i>
                             </div>
                         </div>
@@ -86,7 +87,7 @@
             </div>
         </div>
         <div class="order-button-container">
-            <div class="order-button">
+            <div class="order-button" @click="addCart()">
                 Place Order
             </div>
         </div>
@@ -96,13 +97,19 @@
 
 <script>
 import ProductService from "../../services/ProductService"
+import DisplayOverlay from '../userProfilePage/DisplayOverlay.vue'
+import ItemCartService from '../../services/ItemCartService'
 export default {
     props: {
         productID: Number
     },
+    components: {
+        DisplayOverlay
+    },
     async mounted() {
         var productDetails = null
         var productIngredients = null
+        this.currentUserID = this.$storage.getStorageSync("loginID")
 
         productDetails = await ProductService.showDetails(this.productID)
         productIngredients = await ProductService.showIngredients(this.productID)
@@ -122,7 +129,8 @@ export default {
             productPrice: null,
             productDesc: null,
             productIngredients: null,
-            quantity: 1
+            quantity: 1,
+            currentUserID: null
         }
     },
     methods: {
@@ -152,6 +160,28 @@ export default {
         goSlide(index) {
             this.currentSlide = index
             this.slideDirection = "fade"
+        },
+        minusQuantity() {
+            if (this.quantity != 1) {
+                this.quantity -= 1
+            }
+        },
+        addQuantity() {
+            this.quantity += 1
+        },
+        async addCart() {
+            if (this.$storage.getStorageSync("loginID") == undefined) {
+                this.$refs.overlay.openErrorOverlay("Please login first")
+            }
+            else {
+                await ItemCartService.addToCart({
+                    userID: this.currentUserID,
+                    productID: this.productID,
+                    quantity: this.quantity
+                })
+            }
+            this.quantity = 1
+            this.$refs.overlay.openOverlay("Added into cart")
         }
     },
 }

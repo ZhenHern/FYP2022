@@ -66,7 +66,7 @@
     </div>
     <ItemCart ref="itemCart"/>
   </div>
-  <div class="responsive-menu" ref="menu">
+  <div class="responsive-menu" ref="menu" >
     <div class="top-container">
         <div class="close-button" @click="closeMenuOverlay()">
             <i class="fa-solid fa-xmark"></i>
@@ -161,7 +161,8 @@ export default {
             productsToggle: false,
             userToggle: false,
             categories: [],
-            owner: null
+            owner: null,
+            hihi: 1
         }
     },
     methods: {
@@ -181,6 +182,7 @@ export default {
         },
         toggleProductDropdown() {
             this.productsToggle = !this.productsToggle
+            this.hihi += 1
             if (this.productsToggle) {
                 this.$refs.productDropdown.style.display = "block"
                 this.$refs.arrowUp.style.display = "block"

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import AccountService from '@/services/AccountService'
+import AccountService from '../../services/AccountService'
 export default {
     props: {
         email: String,

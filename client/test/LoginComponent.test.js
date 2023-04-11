@@ -8,8 +8,6 @@ describe("Login Component Method Tests", () => {
         var activeComponent = "LoginForm"
         const email = "test@outlook.com"
         const password = "test123"
-        console.log("hihi")
-        console.log(loginWrapper.vm.activeComponent)
         expect(loginWrapper.vm.activeComponent).toBe("LoginForm")
 
         loginWrapper.vm.changeComponent({component: activeComponent, email: email, password: password})

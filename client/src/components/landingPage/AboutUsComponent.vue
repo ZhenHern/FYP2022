@@ -83,8 +83,6 @@ export default {
         NavigationBar,
         WebsiteFooter
     },
-    methods: {
-    }
 }
 </script>
 

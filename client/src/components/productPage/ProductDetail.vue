@@ -287,7 +287,7 @@ export default {
 
 .quantity-container {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .change-quantity {
@@ -353,7 +353,7 @@ export default {
     padding-left: 50px;
     padding-right: 50px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .order-button {

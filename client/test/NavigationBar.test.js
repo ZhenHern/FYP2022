@@ -20,7 +20,7 @@ describe("Navigation Bar Method Tests", () => {
   })
 
   test("Toggle responsive product dropdowns", () => {
-    var navigationBarWrapper = mount(NavigationBar)
+    const navigationBarWrapper = mount(NavigationBar)
 
     expect(navigationBarWrapper.vm.productsToggle).toBe(false)
     navigationBarWrapper.vm.toggleProductDropdown()

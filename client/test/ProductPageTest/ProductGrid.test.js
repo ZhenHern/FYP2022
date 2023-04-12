@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import ProductGrid from "../src/components/productPage/ProductGrid.vue"
+import ProductGrid from "../../src/components/productPage/ProductGrid.vue"
 
 describe("Product Grid Method Tests", () => {
     test("Decrease the product quantity", () => {

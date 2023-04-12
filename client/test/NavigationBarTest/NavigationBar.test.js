@@ -1,7 +1,7 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import NavigationBar from '../src/components/navigationBar/NavigationBar.vue'
-import ItemCart from "../src/components/productPage/ItemCart.vue"
+import NavigationBar from '../../src/components/navigationBar/NavigationBar.vue'
+import ItemCart from "../../src/components/productPage/ItemCart.vue"
 
 // const jsdom = require("jsdom");
 // const { JSDOM } = jsdom;

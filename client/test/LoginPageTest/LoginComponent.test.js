@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import LoginComponent from "../src/components/loginPage/LoginComponent.vue"
+import LoginComponent from "../../src/components/loginPage/LoginComponent.vue"
 
 describe("Login Component Method Tests", () => {
     test("Change component", () => {

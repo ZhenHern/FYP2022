@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import ProductDetail from "../src/components/productPage/ProductDetail.vue"
+import ProductDetail from "../../src/components/productPage/ProductDetail.vue"
 
 describe("Product Detail Method Tests", () => {
     test("Move carousel to previous slide", () => {

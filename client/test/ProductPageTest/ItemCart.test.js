@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import ItemCart from "../src/components/productPage/ItemCart.vue"
+import ItemCart from "../../src/components/productPage/ItemCart.vue"
 
 describe("Item Cart Method Tests", () => {
     test("Go to paypal page", () => {

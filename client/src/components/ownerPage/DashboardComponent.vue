@@ -249,13 +249,6 @@ export default {
         getImgUrl(picture) {
             return require("../../assets/productImages/" + picture)
         },
-        calculateRevenueProgression(allOrders) {
-            var totalRevenue = 0
-            for (let i = 0; i < allOrders.length; i++) {
-                console.log(totalRevenue)
-            }
-            console.log(totalRevenue)
-        },
         getCurrentMonth() {
             const monthNames = ["January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December"

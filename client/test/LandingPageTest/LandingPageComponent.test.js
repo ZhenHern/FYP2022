@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import LandingPageComponent from "../src/components/landingPage/LandingPageComponent.vue"
+import LandingPageComponent from "../../src/components/landingPage/LandingPageComponent.vue"
 
 describe("Landing Page Method Tests", () => {
     test("Go into product detail page", () => {

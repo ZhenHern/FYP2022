@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import LoginForm from "../src/components/loginPage/LoginForm.vue"
+import LoginForm from "../../src/components/loginPage/LoginForm.vue"
 
 describe("Login Form Method Tests", () => {
     test("Change input type between text and password", () => {

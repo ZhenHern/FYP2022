@@ -1,6 +1,6 @@
 import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
-import ResetPasswordForm from "../src/components/loginPage/ResetPasswordForm.vue"
+import ResetPasswordForm from "../../src/components/loginPage/ResetPasswordForm.vue"
 
 describe("Reset Password Form Method Tests", () => {
     test("Check email validity", () => {

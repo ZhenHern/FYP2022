@@ -2,7 +2,7 @@ import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
 import ProductGrid from "../src/components/productPage/ProductGrid.vue"
 
-describe("Reset Product Grid Method Tests", () => {
+describe("Product Grid Method Tests", () => {
     test("Decrease the product quantity", () => {
         const productGridWrapper = mount(ProductGrid)
         productGridWrapper.vm.quantity = [1, 2, 3]

@@ -72,7 +72,6 @@ export default {
 
       var currentDateTime = [year, month, day].join('-') + " " + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
       this.currentDateTime = currentDateTime
-      console.log(this.currentDateTime)
     },
     async completeOrder() {
       this.formatDateTime()

@@ -2,7 +2,7 @@ import { describe, expect, test} from 'vitest'
 import { mount } from '@vue/test-utils'
 import ProductDetail from "../src/components/productPage/ProductDetail.vue"
 
-describe("Reset Product Detail Method Tests", () => {
+describe("Product Detail Method Tests", () => {
     test("Move carousel to previous slide", () => {
         const productDetailWrapper = mount(ProductDetail)
         productDetailWrapper.vm.image = ["image1", "image2", "image3"]

@@ -16,7 +16,7 @@ app.use("/api/users", accountRouter)
 app.use("/api/products", productRouter)
 app.use("/api/itemCarts", itemCartRouter)
 
-app.listen(PORT, () => console.log(`Running express server on Port ${PORT}!`))
+app.listen(process.env.PORT || PORT, () => console.log(`Running express server on Port ${PORT}!`))
 
 
 

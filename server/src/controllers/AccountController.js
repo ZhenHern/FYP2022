@@ -78,8 +78,8 @@ const sendVerificationLink = async (email, token) => {
         port: 465,
         secure: true, // use SSL
         auth: {
-          user: "bakeryshopfyp@gmail.com", // generated ethereal account
-          pass: "vmayyyabirjgkwwf", // generated ethereal password
+          user: "bakeryzh@gmail.com", // generated ethereal account
+          pass: "bhnmbkdksghcrjuc", // generated ethereal password
         },
       });
 
@@ -87,7 +87,7 @@ const sendVerificationLink = async (email, token) => {
         from: '"ZH Bakery Shop" <foo@example.com>', // sender address
         to: `${email}`, // list of receivers
         subject: "Verify your email!", // Subject line
-        html: `Click <a href=https://13.211.124.167/api/users/verify/${token}> here </a> to verify your email.`
+        html: `Click <a href=https://54.253.165.56/api/users/verify/${token}> here </a> to verify your email.`
       }
     
       // send mail with defined transport object
@@ -112,8 +112,8 @@ const resendVerificationLink = async (req, res) => {
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: "bakeryshopfyp@gmail.com", // generated ethereal account
-            pass: "vmayyyabirjgkwwf", // generated ethereal password
+            user: "bakeryzh@gmail.com", // generated ethereal account
+            pass: "bhnmbkdksghcrjuc", // generated ethereal password
         },
     });
 
@@ -121,7 +121,7 @@ const resendVerificationLink = async (req, res) => {
         from: '"ZH Bakery Shop" <foo@example.com>', // sender address
         to: `${email}`, // list of receivers
         subject: "Verify your email!", // Subject line
-        html: `Click <a href=https://13.211.124.167/api/users/verify/${account.token}> here </a> to verify your email.`
+        html: `Click <a href=https://54.253.165.56/api/users/verify/${account.token}> here </a> to verify your email.`
     }
     
     // send mail with defined transport object

@@ -107,7 +107,7 @@ export default {
     },
     methods: {
         getImgUrl(picture) {
-            return "https://13.211.124.167/images/" + picture
+            return "https://54.253.165.56/images/" + picture
         },
         async getAllItems(itemCartID) {
             var items = await ItemCartService.showAllItems(itemCartID)

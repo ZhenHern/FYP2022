@@ -247,7 +247,7 @@ export default {
             this.loading = false
         },
         getImgUrl(picture) {
-            return "https://13.211.124.167/images/" + picture
+            return "https://54.253.165.56/images/" + picture
         },
         getCurrentMonth() {
             const monthNames = ["January", "February", "March", "April", "May", "June",

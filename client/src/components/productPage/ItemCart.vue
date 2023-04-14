@@ -106,7 +106,7 @@ export default {
             document.body.style.overflow = "auto"
         },
         getImgUrl(picture) {
-            return "https://52.63.170.37/images/" + picture
+            return "https://13.211.124.167/images/" + picture
         },
         getProduct(productID) { 
             setTimeout(() => {

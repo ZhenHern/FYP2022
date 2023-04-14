@@ -139,7 +139,7 @@ export default {
     },
     methods: {
         getImgUrl(picture) {
-            return "https://52.63.170.37/images/" + picture
+            return "https://13.211.124.167/images/" + picture
         },
         openConfirmOverlay() {
             this.$refs.confirmOverlay.style.display = "block"

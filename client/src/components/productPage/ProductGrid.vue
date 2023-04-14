@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     getImgUrl(picture) {
-      return require("../../assets/productImages/" + picture)
+      return require("https://52.63.170.37/images/" + picture)
     },
     minusQuantity(index) {
       if (this.quantity[index] !== 0) {

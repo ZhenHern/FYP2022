@@ -87,7 +87,7 @@ const sendVerificationLink = async (email, token) => {
         from: '"ZH Bakery Shop" <foo@example.com>', // sender address
         to: `${email}`, // list of receivers
         subject: "Verify your email!", // Subject line
-        html: `Click <a href=https://52.63.170.37/api/users/verify/${token}> here </a> to verify your email.`
+        html: `Click <a href=https://13.211.124.167/api/users/verify/${token}> here </a> to verify your email.`
       }
     
       // send mail with defined transport object
@@ -121,7 +121,7 @@ const resendVerificationLink = async (req, res) => {
         from: '"ZH Bakery Shop" <foo@example.com>', // sender address
         to: `${email}`, // list of receivers
         subject: "Verify your email!", // Subject line
-        html: `Click <a href=https://52.63.170.37/api/users/verify/${account.token}> here </a> to verify your email.`
+        html: `Click <a href=https://13.211.124.167/api/users/verify/${account.token}> here </a> to verify your email.`
     }
     
     // send mail with defined transport object

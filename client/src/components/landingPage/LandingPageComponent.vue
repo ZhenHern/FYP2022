@@ -86,7 +86,7 @@ export default {
     },
     methods: {
         getImgUrl(picture) {
-            return require("https://52.63.170.37/images/" + picture)
+            return "https://52.63.170.37/images/" + picture
         },
         goToDetails(productID, slideDirection) {
             this.productID = productID, 

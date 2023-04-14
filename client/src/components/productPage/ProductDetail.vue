@@ -135,7 +135,7 @@ export default {
     },
     methods: {
         getImgUrl(index) {
-            return require('https://52.63.170.37/images/'+ this.image[index])
+            return "https://52.63.170.37/images/" + this.image[index]
         },
         prevSlide() {
             if (this.currentSlide != 0) {

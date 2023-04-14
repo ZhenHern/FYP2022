@@ -208,7 +208,7 @@ export default {
             }
         },
         goToHome() {
-            window.location.href = "home"
+            window.location.href = "index"
         },
         goToProduct(categoryID) {
             this.$storage.setStorageSync("categoryID", categoryID)

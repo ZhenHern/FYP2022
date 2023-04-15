@@ -179,9 +179,9 @@ export default {
                     productID: this.productID,
                     quantity: this.quantity
                 })
+                this.quantity = 1
+                this.$refs.overlay.openOverlay("Added into cart")
             }
-            this.quantity = 1
-            this.$refs.overlay.openOverlay("Added into cart")
         }
     },
 }

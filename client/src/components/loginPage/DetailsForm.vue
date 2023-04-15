@@ -27,7 +27,7 @@
                 <label for="birthday">Date of Birth</label>
             </div>
             <div class="birthday-input">
-                <input type="date" :class="`birthday-date${birthdayValidity}`" v-model="birthday">
+                <input type="date" max="9999-12-31" :class="`birthday-date${birthdayValidity}`" v-model="birthday">
             </div>
         </div>
     </form>

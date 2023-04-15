@@ -99,7 +99,8 @@ export default {
             userID: this.currentUserID,
             productID: id,
             quantity: this.quantity[index]
-          })  
+          })
+          this.$refs.overlay.openOverlay("Added into cart")  
         }
       }
       this.quantity[index] = 0

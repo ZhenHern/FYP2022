@@ -37,7 +37,7 @@
           Date of birth
         </div>
         <div :class="birthdayValidity ? 'name-input' : 'error'">
-          <input type="date" v-model="birthday">
+          <input type="date" max="9999-12-31" v-model="birthday">
         </div>
       </div>
       <div class="error-text" v-show="!birthdayValidity">Date of birth cannot be empty.</div>

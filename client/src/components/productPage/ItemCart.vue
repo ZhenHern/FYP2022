@@ -34,7 +34,7 @@
                             </div>
                         </td>
                         <td>
-                            RM {{item.quantity * products[index].product_price}}
+                            RM {{(item.quantity * products[index].product_price).toFixed(2)}}
                             <div class="cancel-item">
                                 <i class="fa fa-times" aria-hidden="true" @click="removeItem(item.item_id)"></i>
                             </div>

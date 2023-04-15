@@ -218,6 +218,7 @@ img {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
   width: 100%;
+  height: 176.8px
 }
 
 .grid-item:hover img {

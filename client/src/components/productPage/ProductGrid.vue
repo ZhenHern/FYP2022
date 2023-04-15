@@ -87,7 +87,7 @@ export default {
     },
     changePage(page) {
       this.currentPage = page
-      window.scrollTo({ top: 0, behavior: 'smooth'})
+      window.scrollTo({top: 295, behavior: 'smooth'});
     },
     async addCart(id, index) {
       if (this.$storage.getStorageSync("loginID") == undefined) {

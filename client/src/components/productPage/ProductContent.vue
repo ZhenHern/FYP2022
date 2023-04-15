@@ -40,7 +40,7 @@ export default {
       productID: null,
       productCategoryID: null,
       productCategory: null,
-      categoryID: null
+      categoryID: 1
     }
   },
   methods: {

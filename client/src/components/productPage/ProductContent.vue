@@ -61,6 +61,7 @@ export default {
 }
 
 .background-image {
+  position: relative;
   width: 100%;
   border-top: 3px solid rgb(104,79,64);
   border-bottom: 3px solid rgb(104,79,64);
@@ -86,7 +87,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll;
   filter: brightness(50%);
   opacity: 0.9;
 }

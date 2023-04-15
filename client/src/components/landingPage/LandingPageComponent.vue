@@ -142,7 +142,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll;
   filter: brightness(50%);
   opacity: 0.9;
 }
@@ -323,7 +323,7 @@ img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll;
   opacity: 0.3;
 }
 

@@ -727,6 +727,11 @@ li {
     .order-button-container {
         padding: 0px;
     }
+
+    ul {
+        column-count: 1;
+        list-style-position: inside;
+    }
 }
 
 @media (max-width: 900px) {
@@ -743,6 +748,11 @@ li {
         height: auto;
         left: 0px;
         top: -40px;
+    }
+
+    ul {
+        column-count: 1;
+        list-style-position: inside;
     }
 }
 
@@ -782,6 +792,11 @@ li {
 
     .change-quantity {
         margin-top: 0px;
+    }
+
+    ul {
+        column-count: 1;
+        list-style-position: inside;
     }
 }
 

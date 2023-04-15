@@ -132,7 +132,7 @@ export default {
   align-items: center;
 }
 
-/* .content::after {
+.content::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -140,11 +140,11 @@ export default {
   background-image: url("../../assets/product1.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-attachment: fixed;
   filter: brightness(50%);
   opacity: 0.9;
-} */
+}
 
 .text {
   font-size: 70px;

@@ -61,16 +61,16 @@
           </div>
         </div>
         <div class="social-media-container">
-          <div class="button" @click="window.location.href = 'https://www.facebook.com/BLACKPINKOFFICIAL'">
+          <div class="button" @click="goToFacebook()">
             <i class="fab fa-facebook-f"></i>
           </div>
-          <div class="button" @click="window.location.href = 'https://twitter.com/BLACKPINK'">
+          <div class="button" @click="goToTwitter()">
             <i class="fa-brands fa-twitter"></i>
           </div>
-          <div class="button" @click="window.location.href = 'https://www.instagram.com/blackpinkofficial/?hl=en'">
+          <div class="button" @click="goToInstagram()">
             <i class="fa-brands fa-instagram"></i>
           </div>
-          <div class="button" @click="window.location.href = 'https://www.youtube.com/watch?v=YudHcBIxlYw&ab_channel=BLACKPINK'">
+          <div class="button" @click="goToYoutube()">
             <i class="fa-brands fa-youtube"></i>
           </div>
         </div>
@@ -122,6 +122,20 @@ export default {
   data() {
     return {
       currentDay: 0
+    }
+  },
+  methods: {
+    goToFacebook() {
+      window.location.href = "https://www.facebook.com/BLACKPINKOFFICIAL"
+    },
+    goToTwitter() {
+      window.location.href = "https://twitter.com/BLACKPINK"
+    },
+    goToInstagram() {
+      window.location.href = "https://www.instagram.com/blackpinkofficial/?hl=en"
+    },
+    goToYoutube() {
+      window.location.href = "https://www.youtube.com/watch?v=YudHcBIxlYw&ab_channel=BLACKPINK"
     }
   }
 }

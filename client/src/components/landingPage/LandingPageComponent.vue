@@ -142,7 +142,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: scroll;
+  background-attachment: fixed;
   filter: brightness(50%);
   opacity: 0.9;
 }
@@ -323,8 +323,18 @@ img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: scroll;
+  background-attachment: fixed;
   opacity: 0.3;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .content::after {
+    background-attachment: scroll;
+  }
+
+  .voucher-content::after {
+    background-attachment: scroll;
+  }
 }
 
 .voucher-text-1 {

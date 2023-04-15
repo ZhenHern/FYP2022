@@ -397,7 +397,7 @@ export default {
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -443,7 +443,7 @@ p {
 }
 
 ul {
-    column-count: 3;
+    column-count: 2;
     list-style-position: inside;
 }
 

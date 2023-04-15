@@ -4,7 +4,7 @@
       <div class="top-container">
         <div class="about-container">
           <div class="about-title">About</div>
-          <div class="about-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem commodi doloribus quis veniam nesciunt ipsam impedit iste! Consequatur nihil amet recusandae maxime eveniet! Ipsam ad quidem aut!</div>
+          <div class="about-content">Welcome to our bakery! We are a family-owned business dedicated to creating delicious treats and providing our customers with an exceptional experience.</div>
         </div>
         <div class="logo-image">
           <img src="../../assets/logo.png" alt="">
@@ -39,7 +39,7 @@
                 <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
               </div>
               <div class="address-content">
-                10, Jalan Setia Villa 1, Setia Eco Glades, 63000 Cyberjaya
+                 4, Jalan PJS 9/4 Bandar Sunway, 46500 Petaling Jaya
               </div>
             </div>
             <div class="email">
@@ -47,7 +47,7 @@
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </div>
               <div class="email-content">
-                bakeryshopfyp@gmail.com
+                bakeryzh@gmail.com
               </div>
             </div>
             <div class="link">
@@ -55,22 +55,22 @@
                 <i class="fa-solid fa-earth-americas"></i>
               </div>
               <div class="link-content">
-                www.bakeryshopfyp.com
+                zhenhern.github.io/FYP2022/index
               </div>
             </div>
           </div>
         </div>
         <div class="social-media-container">
-          <div class="button">
+          <div class="button" @click="window.location.href = 'https://www.facebook.com/BLACKPINKOFFICIAL'">
             <i class="fab fa-facebook-f"></i>
           </div>
-          <div class="button">
+          <div class="button" @click="window.location.href = 'https://twitter.com/BLACKPINK'">
             <i class="fa-brands fa-twitter"></i>
           </div>
-          <div class="button">
+          <div class="button" @click="window.location.href = 'https://www.instagram.com/blackpinkofficial/?hl=en'">
             <i class="fa-brands fa-instagram"></i>
           </div>
-          <div class="button">
+          <div class="button" @click="window.location.href = 'https://www.youtube.com/watch?v=YudHcBIxlYw&ab_channel=BLACKPINK'">
             <i class="fa-brands fa-youtube"></i>
           </div>
         </div>

@@ -141,7 +141,6 @@ export default {
             await this.updateCart()
         },
         async updateCart() {
-            this.checkoutEnabled = true
             this.items = await ItemCartService.showAllItems(this.currentItemCartID)
             this.products = []
             for(let i=0; i < this.items.length; i++) {
@@ -153,6 +152,9 @@ export default {
             }
             if (this.items.length == 0) {
                 this.checkoutEnabled = false
+            }
+            else {
+                this.checkoutEnabled = true
             }
             this.calculateSubtotal()
         },

@@ -71,12 +71,12 @@ export default {
     async mounted() {
         this.currentUserID = this.$storage.getStorageSync("loginID")
 
-        var currentItemCart = await ItemCartService.getCurrentCart(this.currentUserID)
-        this.currentItemCartID = currentItemCart.item_cart_id
-
         this.allProducts = await ProductService.showAllProducts()
-
-        this.updateCart()
+        if (this.currentUserID != undefined) {
+            var currentItemCart = await ItemCartService.getCurrentCart(this.currentUserID)
+            this.currentItemCartID = currentItemCart.item_cart_id
+            this.updateCart()
+        }
     },
     data() {
         return {

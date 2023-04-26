@@ -28,7 +28,7 @@ export default {
   },
   beforeCreate() {
     if (this.$storage.getStorageSync("loginID") == undefined) {
-      window.location.href = "products"
+      window.location.href = "index"
     }
   },
   beforeMount() {

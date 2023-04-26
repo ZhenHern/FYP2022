@@ -8,16 +8,16 @@
         <div class="product-content">
           {{product.product_name}} <br> <span>RM {{product.product_price}}</span>
         </div>
-        <div class="product-hover">
+        <div class="product-hover" data-test="product-hover">
           <i class="fa fa-search" aria-hidden="true" @click="$emit('checkDetails', {productID: product.product_id, showDetails: true, slideDirection: 'slide-right'})"></i>
           <br>
           <span>Quantity: {{quantity[index]}}</span>
-          <div class="edit-quantity">
-            <i class="fa-solid fa-circle-minus" @click="minusQuantity(index)"></i>
-            <i class="fa-solid fa-circle-plus" @click="addQuantity(index)"></i>
+          <div class="edit-quantity" data-test="edit-quantity">
+            <i class="fa-solid fa-circle-minus" @click="minusQuantity(index)" data-test="minus-quantity"></i>
+            <i class="fa-solid fa-circle-plus" @click="addQuantity(index)" data-test="add-quantity"></i>
           </div>
           <div class="add-to-cart">
-            <div class="add-button" @click="addCart(product.product_id, index)">Add to Cart</div>
+            <div class="add-button" @click="addCart(product.product_id, index)" data-test="add-product">Add to Cart</div>
           </div>
         </div>
       </div>

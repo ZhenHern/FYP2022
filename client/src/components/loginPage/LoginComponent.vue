@@ -3,7 +3,7 @@
         <Transition name="slide-fade" mode="out-in">
             <component @changeComponent="changeComponent" :is="activeComponent" :email="email" :password="password"></component>           
         </Transition>
-        <a href="index"><i class="fa fa-times fa-2xl" aria-hidden="true"></i></a>
+        <a href="index"><i class="fa fa-times fa-2xl" aria-hidden="true" data-test="return-icon"></i></a>
     </div>
 </template>
 

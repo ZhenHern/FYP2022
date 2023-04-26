@@ -20,17 +20,17 @@
                     <li @click="goToEdit('DeleteProduct')">Delete Product</li>
                 </ul>
             </div>
-            <div class="links" @click="goToOrders()">Orders</div>
+            <div class="links" @click="goToOrders()" data-test="order-button">Orders</div>
         </div>
         <div class="mid-container" v-else-if="owner == 0">
             <div class="links" @click="goToHome()">Home</div>
             <div class="products">
-                <div class="product-title">
+                <div class="product-title" data-test="product-title">
                     Products
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
-                <ul class="products-dropdown">
-                    <li v-for="(category, index) in categories" :key="index" @click="goToProduct(category.category_id)">
+                <ul class="products-dropdown" data-test="product-dropdown">
+                    <li v-for="(category, index) in categories" :key="index" @click="goToProduct(category.category_id)" data-test="product-category">
                         {{category.category_name}}
                     </li>
                 </ul>
@@ -40,10 +40,10 @@
         <div class="right-container">
             <div class="item-cart-logo" v-if="owner">
             </div>
-            <div class="item-cart-logo" @click="openItemCart()" v-else-if="owner == 0">
+            <div class="item-cart-logo" @click="openItemCart()" v-else-if="owner == 0" data-test="item-cart-button">
                 <i class="fa-sharp fa-solid fa-cart-shopping"></i>
             </div>
-            <div class="login" v-if="currentUserID === undefined" @click="login()">
+            <div class="login" v-if="currentUserID === undefined" @click="login()" data-test="login-button">
                 LOGIN
             </div>
             <div class="user" v-else>
@@ -53,9 +53,9 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <ul class="user-dropdown" v-if="owner == 0">
-                    <li @click="goToAccount()">My Profile</li>
-                    <li @click="goToPurchase()">My Purchases</li>
-                    <li @click="logout()">Logout</li>
+                    <li @click="goToAccount()" data-test="my-profile">My Profile</li>
+                    <li @click="goToPurchase()" data-test="my-purchases">My Purchases</li>
+                    <li @click="logout()" data-test="logout-button">Logout</li>
                 </ul>
                 <ul class="user-dropdown" v-else-if="owner">
                     <li @click="logout()">Logout</li>

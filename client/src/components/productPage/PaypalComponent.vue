@@ -21,7 +21,7 @@
       <div class="button" @click="back()">Back</div>
     </div>
   </div>
-  <div class="main-container" v-else>
+  <div class="main-container" data-test="paypal-container" v-else>
     <div class="back-button" @click="this.$emit('showPaypal')">
       <i class="fa-solid fa-circle-chevron-left"></i>
     </div>

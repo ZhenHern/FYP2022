@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="email-input">
-                <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email">
+                <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email" data-test="email-input">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="emailValidity === '-invalid' || emailValidity === '-empty'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-else-if="emailValidity === '-valid'"></i>
             </div>
@@ -33,7 +33,7 @@
                 </span>
             </div>
             <div class="password-input">
-                <input :type="input" :class="`password-placeholder${passwordValidity}`" v-model="password">
+                <input :type="input" :class="`password-placeholder${passwordValidity}`" v-model="password" data-test="password-input">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="passwordValidity === '-invalid'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-show="passwordValidity === '-valid'"></i>
             </div>
@@ -53,7 +53,7 @@
                 </span>
             </div>
             <div class="confirm-password-input">
-                <input :type="input" :class="`confirm-password-placeholder${confirmPasswordValidity}`" v-model="confirmPassword">
+                <input :type="input" :class="`confirm-password-placeholder${confirmPasswordValidity}`" v-model="confirmPassword" data-test="confirm-input">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-show="confirmPasswordValidity === '-invalid'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-show="confirmPasswordValidity === '-valid'"></i>
             </div>
@@ -72,7 +72,7 @@
             {{error}}
         </div>      
     <div class="bottom-box">
-        <div class="button">
+        <div class="button" data-test="signup-button">
             <button @click="checkValidity() + signUp() + nextPage()">Sign up</button>
         </div> 
     </div>

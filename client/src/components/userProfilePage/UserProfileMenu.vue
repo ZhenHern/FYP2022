@@ -13,7 +13,7 @@
                 Profile
             </div>
             <i :class="component === 'MyProfile' ? 'a fa-regular fa-edit' : 'fa-regular fa-edit'" @click="changeComponent('MyProfile')"></i>
-            <div :class="component === 'ChangePassword' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('ChangePassword')">
+            <div :class="component === 'ChangePassword' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('ChangePassword')" data-test="change-password">
                 Change Password
             </div>
             <i :class="component === 'ChangePassword' ? 'a fa-solid fa-key' : 'fa-solid fa-key'" @click="changeComponent('ChangePassword')"></i>

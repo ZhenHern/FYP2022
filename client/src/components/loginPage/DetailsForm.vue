@@ -7,7 +7,7 @@
                 <label for="first-name">First Name</label>
             </div>
             <div class="first-name-input">
-                <input type="text" :class="`first-name-placeholder${firstNameValidity}`" placeholder="Enter your first name" v-model="firstName">
+                <input type="text" :class="`first-name-placeholder${firstNameValidity}`" placeholder="Enter your first name" v-model="firstName" data-test="first-name-input">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="firstNameValidity === '-invalid'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-else-if="firstNameValidity === '-valid'"></i>
             </div>
@@ -17,7 +17,7 @@
                 <label for="last-name">Last Name</label>
             </div>
             <div class="last-name-input">
-                <input type="text" :class="`last-name-placeholder${lastNameValidity}`" placeholder="Enter your last name" v-model="lastName">
+                <input type="text" :class="`last-name-placeholder${lastNameValidity}`" placeholder="Enter your last name" v-model="lastName" data-test="last-name-input">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="lastNameValidity === '-invalid'"></i>
                 <i class="fa fa-check " aria-hidden="true" v-else-if="lastNameValidity === '-valid'"></i>
             </div>
@@ -27,13 +27,13 @@
                 <label for="birthday">Date of Birth</label>
             </div>
             <div class="birthday-input">
-                <input type="date" max="9999-12-31" :class="`birthday-date${birthdayValidity}`" v-model="birthday">
+                <input type="date" max="9999-12-31" :class="`birthday-date${birthdayValidity}`" v-model="birthday" data-test="birthday-input">
             </div>
         </div>
     </form>
     <div class="bottom-box">
         <div class="button">
-            <button @click="checkValidity()">Confirm</button>
+            <button @click="checkValidity()" data-test="confirm-button">Confirm</button>
         </div>
     </div>
   </div>

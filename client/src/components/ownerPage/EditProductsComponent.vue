@@ -4,7 +4,7 @@
     <div class="background-image">
       <div class="content">
         <Transition>
-        <div class="text">
+        <div class="text" data-test="product-action">
             {{title}}
         </div>
         </Transition>

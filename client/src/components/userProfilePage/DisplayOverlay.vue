@@ -1,7 +1,7 @@
 <template>
   <div class="overlay" @click="closeOverlay()" ref="overlay">
     <div class="popup">
-      <div class="popup-text">
+      <div class="popup-text" data-test="overlay-message">
         <i class="fa-regular fa-circle-check" v-if="!error"></i>
         <i class="fa-regular fa-circle-xmark" v-else></i>
         {{text}}

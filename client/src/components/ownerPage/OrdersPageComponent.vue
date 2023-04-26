@@ -18,7 +18,7 @@
                 </div>
                 <div class="status-input">
                     <select v-model="status">
-                        <option value="Preparing">Preparing</option>
+                        <option value="Preparing" data-test="preparing-button">Preparing</option>
                         <option value="Collect">To Collect</option>
                         <option value="Completed">Completed</option>
                         <option value="Cancelled">Cancelled</option>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="order-input">
                     <select v-model="orderID">
-                        <option :value="order.item_cart_id" v-for="(order, index) in allOrders" :key="index">{{order.item_cart_id}} - {{user.first_name}}</option>
+                        <option :value="order.item_cart_id" v-for="(order, index) in allOrders" :key="index" data-test="order-selection">{{order.item_cart_id}} - {{user.first_name}}</option>
                     </select>
                 </div>
             </div>

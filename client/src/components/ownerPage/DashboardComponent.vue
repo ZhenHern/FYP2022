@@ -123,11 +123,11 @@
                         </div>
                     </div>
                     <div class="edit-container">
-                        <div class="edit-products" @click="goToProduct('CreateProduct')">
+                        <div class="edit-products" @click="goToProduct('CreateProduct')" data-test="create-product-button">
                             Create Products
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
-                        <div class="edit-products" @click="goToProduct('DeleteProduct')">
+                        <div class="edit-products" @click="goToProduct('DeleteProduct')" data-test="delete-product-button">
                             Delete Products
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>

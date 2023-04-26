@@ -11,7 +11,7 @@
           Current Password
         </div>
         <div :class="currentPasswordValidity ? 'input' : 'error'">
-            <input :type="hideCurrentPassword ? 'password' : 'placeholder'" v-model="currentPassword">
+            <input :type="hideCurrentPassword ? 'password' : 'placeholder'" v-model="currentPassword" data-test="current-password">
             <div class="toggle-hide">
               <i class="fa-solid fa-eye" v-if="hideCurrentPassword" @click="toggleHideCurrentPassword()"></i>
               <i class="fa-solid fa-eye-slash" v-else @click="toggleHideCurrentPassword()"></i>
@@ -24,7 +24,7 @@
           New Password
         </div>
         <div :class="newPasswordValidity ? 'input' : 'error'">
-            <input :type="hideNewPassword ? 'password' : 'placeholder'" v-model="newPassword">
+            <input :type="hideNewPassword ? 'password' : 'placeholder'" v-model="newPassword" data-test="new-password">
             <div class="toggle-hide">
               <i class="fa-solid fa-eye" v-if="hideNewPassword" @click="toggleHideNewPassword()"></i>
               <i class="fa-solid fa-eye-slash" v-else @click="toggleHideNewPassword()"></i>
@@ -37,7 +37,7 @@
           Confirm Password
         </div>
         <div :class="confirmPasswordValidity ? 'input' : 'error'">
-            <input :type="hideConfirmPassword ? 'password' : 'placeholder'" v-model="confirmPassword">
+            <input :type="hideConfirmPassword ? 'password' : 'placeholder'" v-model="confirmPassword" data-test="confirm-password">
             <div class="toggle-hide">
               <i class="fa-solid fa-eye" v-if="hideConfirmPassword" @click="toggleHideConfirmPassword()"></i>
               <i class="fa-solid fa-eye-slash" v-else @click="toggleHideConfirmPassword()"></i>
@@ -47,7 +47,7 @@
       <div class="error-text" v-show="!confirmPasswordValidity">Password entered is different.</div>
     </div>
     <div class="confirm-button-container">
-        <div class="confirm-button" @click="checkValidity()">Confirm</div>
+        <div class="confirm-button" @click="checkValidity()" data-test="confirm-button">Confirm</div>
     </div>
   </div>
 </template>

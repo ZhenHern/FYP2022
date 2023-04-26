@@ -19,7 +19,7 @@
           First Name
         </div>
         <div :class="firstNameValidity ? 'name-input' : 'error'">
-          <input type="placeholder" v-model="firstName">
+          <input type="placeholder" v-model="firstName" data-test="first-name-input">
         </div>
       </div>
       <div class="error-text" v-show="!firstNameValidity">First name cannot be empty.</div>
@@ -28,7 +28,7 @@
           Last Name
         </div>
         <div :class="lastNameValidity ? 'name-input' : 'error'">
-          <input type="placeholder" v-model="lastName">
+          <input type="placeholder" v-model="lastName" data-test="last-name-input">
         </div>
       </div>
       <div class="error-text" v-show="!lastNameValidity">Last name cannot be empty.</div>
@@ -37,13 +37,13 @@
           Date of birth
         </div>
         <div :class="birthdayValidity ? 'name-input' : 'error'">
-          <input type="date" max="9999-12-31" v-model="birthday">
+          <input type="date" max="9999-12-31" v-model="birthday" data-test="birthday-input">
         </div>
       </div>
       <div class="error-text" v-show="!birthdayValidity">Date of birth cannot be empty.</div>
     </div>
     <div class="save-button-container">
-        <div class="save-button" @click="checkValidity()">Save</div>
+        <div class="save-button" @click="checkValidity()" data-test="save-button">Save</div>
     </div>
   </div>
 </template>

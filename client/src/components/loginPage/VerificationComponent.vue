@@ -16,7 +16,7 @@
     </Transition>
     <div class="bottom-box">
         <div class="button">
-            <button class="submit" @click="changeComponent('LoginForm')">I have clicked the link</button>
+            <button class="submit" @click="changeComponent('LoginForm')" data-test="clicked-button">I have clicked the link</button>
         </div>
         <div class="resend-email">
             <button class="resend-button" @click="resendVerification" :disabled="resend">Resend verification email</button>

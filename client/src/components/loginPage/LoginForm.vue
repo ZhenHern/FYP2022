@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-            <h1>Log in</h1>
+            <h1 data-test="login-header">Log in</h1>
             <form action="" class="login-form">
                 <div class="email">
                     <div class="email-label">
                         <label for="email">Email</label>
                         <span>
                             Need an account?
-                            <span @click="changeComponent('SignupForm')">Sign up</span>
+                            <span @click="changeComponent('SignupForm')" data-test="sign-up-button">Sign up</span>
                         </span>
                     </div>
                     <div class="email-input">
-                        <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email" @keyup.enter="checkValidity">
+                        <input type="text" :class="`email-placeholder${emailValidity}`" v-model="email" @keyup.enter="checkValidity" data-test="email-input">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true" v-if="emailValidity === '-invalid' || emailValidity === '-empty'"></i>
                         <i class="fa fa-check " aria-hidden="true" v-else-if="emailValidity === '-valid'"></i>
                     </div>
@@ -33,7 +33,7 @@
                         </span>
                     </div>
                     <div class="password-input">
-                        <input :type="input" class="password-placeholder" v-model="password" @keyup.enter="checkValidity">
+                        <input :type="input" class="password-placeholder" v-model="password" @keyup.enter="checkValidity" data-test="password-input">
                     </div>
                 </div>
             </form>
@@ -45,7 +45,7 @@
             </Transition>
             <div class="bottom-box">
                 <div class="button">
-                    <button @click="checkValidity">Log in</button>
+                    <button @click="checkValidity" data-test="login-button">Log in</button>
                 </div>
                 <div class="forgot-password">
                     <div class="link" @click="changeComponent('ResetPasswordForm')">

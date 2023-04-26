@@ -47,7 +47,7 @@
             <div class="left-checkout">
                 <div class="subtotal">Subtotal <span>RM {{subtotal.toFixed(2)}}</span></div>
             </div>
-            <div :class="checkoutEnabled ? 'checkout-button' : 'disabled-checkout-button'" @click="goToPaypal()" ref="checkout">Checkout</div>
+            <div :class="checkoutEnabled ? 'checkout-button' : 'disabled-checkout-button'" @click="goToPaypal()" ref="checkout" data-test="checkout-button">Checkout</div>
             <div class="close-button" @click="closeCart">Close Cart</div>
         </div>
     </div>

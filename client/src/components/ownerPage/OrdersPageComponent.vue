@@ -10,7 +10,7 @@
         </Transition>
       </div>
     </div>
-    <div>
+    <div class="main-container">
         <div class="top-container">
             <div class="status-dropdown">
                 <div class="status-title">
@@ -499,7 +499,6 @@ img {
     background: #3f4547;
 }
 
-
 .no-button  {
     height: 40px;
     width: 80px;
@@ -512,5 +511,9 @@ img {
     justify-content: center;
     align-items: center;
     margin-right: 100px;
+}
+
+.main-container {
+    margin-bottom: 100px;
 }
 </style>

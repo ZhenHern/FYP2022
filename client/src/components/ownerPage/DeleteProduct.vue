@@ -220,7 +220,7 @@ export default {
 }
 
 .product-information {
-    width: 800px;
+    width: 650px;
     height: 400px;
 }
 

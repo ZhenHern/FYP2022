@@ -10,8 +10,10 @@
         </Transition>
       </div>
     </div>
-    <DeleteProduct v-if="component == 'DeleteProduct'"/>
-    <CreateProduct v-else/>
+    <div class="main-container">
+      <DeleteProduct v-if="component == 'DeleteProduct'"/>
+      <CreateProduct v-else/>
+    </div>
     <WebsiteFooter/>
   </div>
 </template>
@@ -91,5 +93,9 @@ export default {
   letter-spacing: 2px;
   color: white;
   text-transform: uppercase;
+}
+
+.main-container {
+  margin-bottom: 100px;
 }
 </style>

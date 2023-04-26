@@ -18,7 +18,6 @@
                 <ul class="owner-products-dropdown">
                     <li @click="goToEdit('CreateProduct')">Create Product</li>
                     <li @click="goToEdit('DeleteProduct')">Delete Product</li>
-                    <li>Edit Voucher</li>
                 </ul>
             </div>
             <div class="links" @click="goToOrders()">Orders</div>

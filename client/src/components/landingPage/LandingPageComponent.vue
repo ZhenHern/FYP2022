@@ -48,8 +48,8 @@
                 The perfect gift for any dessert lover!
             </div>
             <div class="voucher-button">
-              <div class="more-products-button">
-                View Vouchers
+              <div class="more-products-button" @click="goToSignup()">
+                Sign Up Now
               </div>
             </div>
         </div>
@@ -102,6 +102,9 @@ export default {
         },
         goToProduct() {
             window.location.href = "products"
+        },
+        goToSignup() {
+          window.location.href = "login"
         }
     },
 }

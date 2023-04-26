@@ -121,12 +121,6 @@
                                 <div class="order-progression" :style="{width: orderProgression + '%'}"></div>
                             </div>
                         </div>
-                        <div class="edit-goals">
-                            <div class="edit-goals-button">
-                                <i class="fa-solid fa-pencil"></i>
-                                Edit Goals
-                            </div>
-                        </div>
                     </div>
                     <div class="edit-container">
                         <div class="edit-products" @click="goToProduct('CreateProduct')">
@@ -135,10 +129,6 @@
                         </div>
                         <div class="edit-products" @click="goToProduct('DeleteProduct')">
                             Delete Products
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                        <div class="edit-vouchers">
-                            Edit Vouchers
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
                     </div>
@@ -618,7 +608,7 @@ img {
 .goals {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 250px;
     background: white;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
     border-radius: 0.125rem;
@@ -771,7 +761,7 @@ ul::-webkit-scrollbar {
 .edit-container {
     position: relative;
     width: 100%;
-    height: 220px;
+    height: 150px;
     background: white;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 17%);
     border-radius: 0.125rem;

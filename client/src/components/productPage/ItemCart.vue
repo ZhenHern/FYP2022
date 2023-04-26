@@ -45,11 +45,7 @@
         </div>
         <div class="checkout">
             <div class="left-checkout">
-                <div class="subtotal">Subtotal <span>{{subtotal.toFixed(2)}}</span></div>
-                <div class="tnc">
-                    <input type="checkbox">
-                    I agree to <span>Terms & Condition</span>
-                </div>
+                <div class="subtotal">Subtotal <span>RM {{subtotal.toFixed(2)}}</span></div>
             </div>
             <div :class="checkoutEnabled ? 'checkout-button' : 'disabled-checkout-button'" @click="goToPaypal()" ref="checkout">Checkout</div>
             <div class="close-button" @click="closeCart">Close Cart</div>

@@ -13,10 +13,6 @@
                 Profile
             </div>
             <i :class="component === 'MyProfile' ? 'a fa-regular fa-edit' : 'fa-regular fa-edit'" @click="changeComponent('MyProfile')"></i>
-            <div :class="component === 'MyPayment' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('MyPayment')">
-                Payment Methods
-            </div>
-            <i :class="component === 'MyPayment' ? 'a fa-regular fa-credit-card' : 'fa-regular fa-credit-card'" @click="changeComponent('MyPayment')"></i>
             <div :class="component === 'ChangePassword' ? 'account-dropdown-content-active' : 'account-dropdown-content'" @click="changeComponent('ChangePassword')">
                 Change Password
             </div>
@@ -26,18 +22,6 @@
             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             <div class="buttons-title">
                 My Purchases
-            </div>
-        </div>
-        <div :class="component == 'MyNotifications' ? 'button-active' : 'button'" @click="changeComponent('MyNotifications')">
-            <i class="fa-solid fa-bell"></i>
-            <div class="buttons-title">
-                My Notifications
-            </div>
-        </div>
-        <div :class="component == 'MyVouchers' ? 'button-active' : 'button'" @click="changeComponent('MyVouchers')">
-            <i class="fa-solid fa-barcode"></i>
-            <div class="buttons-title">
-                My Vouchers
             </div>
         </div>
     </div>

@@ -56,15 +56,15 @@ const createProduct = async(req, res) => {
             image_name1: req.files[0].filename,
             image_name2: req.files[1].filename,
             image_name3: req.files[2].filename,
-            image1: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[0].filename)
-            ),
-            image2: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[1].filename)
-            ),
-            image3: fs.readFileSync(
-                path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[2].filename)
-            ),
+            // image1: fs.readFileSync(
+            //     path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[0].filename)
+            // ),
+            // image2: fs.readFileSync(
+            //     path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[1].filename)
+            // ),
+            // image3: fs.readFileSync(
+            //     path.resolve(__dirname, "../../../client/src/assets/productImages/" + req.files[2].filename)
+            // ),
         })
         res.send(product)
 }

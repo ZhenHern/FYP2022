@@ -107,7 +107,10 @@ export default {
     },
     methods: {
         getImgUrl(picture) {
+          if (process.env.NODE_ENV === 'production') {
             return "https://54.253.165.56/images/" + picture
+          }
+            return require("../../assets/productImages/" + picture)
         },
         async getAllItems(itemCartID) {
             var items = await ItemCartService.showAllItems(itemCartID)

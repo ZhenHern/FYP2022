@@ -66,6 +66,7 @@ import NavigationBar from "../navigationBar/NavigationBar.vue"
 import ProductDetail from '../productPage/ProductDetail.vue'
 import WebsiteFooter from "../footer/WebsiteFooter.vue"
 import ProductService from '../../services/ProductService'
+
 export default {
     components: {
         NavigationBar,
@@ -86,7 +87,10 @@ export default {
     },
     methods: {
         getImgUrl(picture) {
+          if (process.env.NODE_ENV === 'production') {
             return "https://54.253.165.56/images/" + picture
+          }
+            return require("../../assets/productImages/" + picture)
         },
         goToDetails(productID, slideDirection) {
             this.productID = productID, 

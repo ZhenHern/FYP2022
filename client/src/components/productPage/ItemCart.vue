@@ -102,7 +102,10 @@ export default {
             document.body.style.overflow = "auto"
         },
         getImgUrl(picture) {
+          if (process.env.NODE_ENV === 'production') {
             return "https://54.253.165.56/images/" + picture
+          }
+            return require("../../assets/productImages/" + picture)
         },
         getProduct(productID) { 
             setTimeout(() => {

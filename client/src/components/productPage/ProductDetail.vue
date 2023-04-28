@@ -134,8 +134,11 @@ export default {
         }
     },
     methods: {
-        getImgUrl(index) {
-            return "https://54.253.165.56/images/" + this.image[index]
+        getImgUrl(picture) {
+          if (process.env.NODE_ENV === 'production') {
+            return "https://54.253.165.56/images/" + picture
+          }
+            return require("../../assets/productImages/" + picture)
         },
         prevSlide() {
             if (this.currentSlide != 0) {

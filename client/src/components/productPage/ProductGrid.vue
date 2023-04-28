@@ -75,8 +75,11 @@ export default {
   },
   methods: {
     getImgUrl(picture) {
-      return "https://54.253.165.56/images/" + picture
-    },
+          if (process.env.NODE_ENV === 'production') {
+            return "https://54.253.165.56/images/" + picture
+          }
+            return require("../../assets/productImages/" + picture)
+        },
     minusQuantity(index) {
       if (this.quantity[index] !== 0) {
         this.quantity[index] -= 1

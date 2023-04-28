@@ -8,7 +8,7 @@ Download the following:
 
 ## Project setup
 
-# Client
+### Client
 
 Make sure you are in the 'client' directory
 ```

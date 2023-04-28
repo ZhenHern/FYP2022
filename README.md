@@ -1,6 +1,16 @@
-# first-project
+# Final year project (Bakery e-commerce website)
+
+## Prerequisite
+Download the following:
+
+1. Node.js https://nodejs.org/en
+2. MySQL https://dev.mysql.com/downloads/mysql/
 
 ## Project setup
+
+# Client
+
+Make sure you are in the 'client' directory
 ```
 npm install
 ```

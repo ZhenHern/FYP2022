@@ -134,11 +134,11 @@ export default {
         }
     },
     methods: {
-        getImgUrl(picture) {
+        getImgUrl(index) {
           if (process.env.NODE_ENV === 'production') {
-            return "https://54.253.165.56/images/" + picture
+            return "https://54.253.165.56/images/" + this.image[index]
           }
-            return require("../../assets/productImages/" + picture)
+            return require("../../assets/productImages/" + this.image[index])
         },
         prevSlide() {
             if (this.currentSlide != 0) {
